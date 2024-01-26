@@ -10,6 +10,11 @@
       "StackName": "amplify-proyectoreactnative-dev-122322",
       "StackId": "arn:aws:cloudformation:us-east-1:336722522156:stack/amplify-proyectoreactnative-dev-122322/526dab50-bc3d-11ee-9e6f-0ee9883d9425",
       "AmplifyAppId": "d1a7vmg24d3fzs"
+    },
+    "categories": {
+      "auth": {
+        "proyectoreactnative5aae38e4": {}
+      }
     }
   }
 }
