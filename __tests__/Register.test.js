@@ -22,11 +22,11 @@ describe('Register Component', () => {
 
     fireEvent.changeText(usuarioInput, 'usuario123');
     fireEvent.changeText(passwordInput, 'contraseña456');
-    fireEvent.changeText(passwordInput, 'contraseña456');
+    fireEvent.changeText(password2Input, 'contraseña456');
 
     // Verifica que el estado se actualice correctamente
     expect(usuarioInput.props.value).toBe('usuario123');
     expect(passwordInput.props.value).toBe('contraseña456');
-    expect(passwordInput.props.value).toBe('contraseña456');
+    expect(password2Input.props.value).toBe('contraseña456');
   });
 });

@@ -1,9 +1,13 @@
 import { useState } from 'react';
-import { Text, TextInput, View, Button, Alert } from 'react-native';
+import { Text, TextInput, View, Button, Alert, Image, navigation } from 'react-native';
+import ModalDropdown from 'react-native-modal-dropdown';
 import styles from '../estilos/estilos'
 
 
 function Register() {
+    const [selectedLanguage, setSelectedLanguage] = useState('Español');
+    const languages = ['Español', 'English', 'Français', 'Deusth', 'Chinese', 'Italian'];
+
     const [user, setUser] = useState("")
     const [password, setPassword] = useState("")
     const [password2, setPassword2] = useState("")
@@ -12,20 +16,45 @@ function Register() {
     const [mensajePasswordInvalida, setMensajePasswordInvalida] = useState("")
     const [mensajePasswordDiferentes, setMensajePasswordDiferentes] = useState("")
 
+    const handleLanguageChange = (value) => {
+        setSelectedLanguage(value);
+
+        // Navegar al componente correspondiente al idioma seleccionado
+        switch (value) {
+            case 'Español':
+                navigation.navigate('Register');
+                break;
+            case 'English':
+                navigation.navigate('englishRegister');
+                break;
+            case 'Français':
+                navigation.navigate('frenchRegister')
+            default:
+                navigation.navigate('Register'); // Por defecto, regresa a Español
+        }
+    };
 
     return (
         <View style={styles.estructure}>
-            {/* LOGO AQUI */}
+
+        <ModalDropdown
+            options={languages}
+            defaultValue={selectedLanguage}
+            onSelect={handleLanguageChange}
+        />
+
+            <Image
+                source={require('../assets/Logo-FDP.jpg')}
+                style={styles.image}
+            />
 
             <TextInput style={styles.inputs} onChangeText={setUser} value={user} placeholder="Usuario"/>
 
-            {/* Boton para ocultar */}
             <TextInput style={styles.inputs} onChangeText={setPassword} value={password} secureTextEntry={true} placeholder="Contraseña"/>
-            <Text style={styles.errors}>{mensajePasswordInvalida}</Text>
+            {mensajePasswordInvalida !== "" && <Text style={styles.errors}>{mensajePasswordInvalida}</Text>}
 
-            {/* Boton para ocultar */}
             <TextInput style={styles.inputs} onChangeText={setPassword2} value={password2} secureTextEntry={true} placeholder="Confirmar contraseña"/>
-            <Text style={styles.errors}>{mensajePasswordDiferentes}</Text>
+            {mensajePasswordDiferentes != "" && <Text style={styles.errors}>{mensajePasswordDiferentes}</Text>}
 
             <Button
                 onPress={() => {
@@ -52,7 +81,13 @@ function Register() {
                 accessibilityLabel='Registrarse'
                 color={styles.buttons.color}
             />
-            <Text style={styles.errors}>{"\n"+mensajeCamposVacios}</Text>
+            {mensajeCamposVacios != "" && <Text style={styles.errors}>{"\n"+mensajeCamposVacios}</Text>}
+
+            {/* <ModalDropdown
+              options={languages}
+              defaultValue="Seleccionar Idioma"
+              onSelect={handleLanguageChange}
+            /> */}
         </View>
     );
 }
