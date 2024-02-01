@@ -1,10 +1,20 @@
-import React from "react";
+import React,{useState} from "react";
 import { SafeAreaView, Text, Button, TextInput, Alert, Image } from "react-native";
 import styles from '../estilos/estilos'
+import { Authenticator } from "@aws-amplify/ui-react-native";
+
 
 function Login({ navigation }) {
-    const [Usu, onChangeUsu] = React.useState('');
-    const [pwd, onChangePwd] = React.useState('');
+    const [Usu, onChangeUsu] = useState('');
+    const [pwd, onChangePwd] = useState('');
+    const [var1, setVar1] = useState('');
+
+    const onSignInPressed = async (data) => {
+        const response = await Authenticator.SignIn(data.Usu, data.pwd);
+        Alert.alert("entro")
+        console.log(response);
+        setVar1(response);
+    }
 
     return (
         <SafeAreaView style={styles.estructure}>
@@ -16,15 +26,15 @@ function Login({ navigation }) {
 
             <TextInput
                 style={styles.inputs}
-                onChangeText={onChangeUsu}
-                value={Usu}
+                onChangeText={nextUsu => onChangeUsu(nextUsu)}
+                defaultValue={Usu}
                 placeholder="Correo electrónico"
             />
 
             <TextInput
                 style={styles.inputs}
-                onChangeText={onChangePwd}
-                value={pwd}
+                onChangeText={nextPwd => onChangePwd(nextPwd)}
+                defaultValue={pwd}
                 placeholder="Contraseña"
 
             />
@@ -40,7 +50,7 @@ function Login({ navigation }) {
             <Button
                 color={styles.buttons.color}
                 title="iniciar sesión"
-                onPress={() => Alert.alert('Navegación --> Pagina de inicio')} />
+                onPress={onSignInPressed(Usu,pwd)} />
 
             <Text style={styles.text}>¿Necesitas una cuenta?</Text>
 

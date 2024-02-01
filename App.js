@@ -6,7 +6,6 @@ import Register from './Ventanas/Register';
 import RecuperarContrasena from "./Ventanas/recuperarContrasena";
 import { Amplify } from 'aws-amplify';
 import amplifyconfig from './src/amplifyconfiguration.json';
-import with
 Amplify.configure(amplifyconfig);
 
 
