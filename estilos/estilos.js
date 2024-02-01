@@ -12,10 +12,10 @@ const styles = {
     },
 
     image: {
-        width: 200, // Ajusta el ancho según tus necesidades
-        height: 200, // Ajusta la altura según tus necesidades
-        resizeMode: 'contain', // Ajusta el modo de redimensionamiento según tus necesidades
-        margin: 20, // Ajusta el margen inferior según tus necesidades
+        width: 200, 
+        height: 200,
+        resizeMode: 'contain', 
+        margin: 20,
         alignSelf: "center"
     },
 
@@ -51,8 +51,13 @@ const styles = {
     },
 
     errors: {
-        color: 'red',
-        textAlign: "center"
+        color: 'white',
+        textAlign: "center",
+        padding: 20,
+        margin: 20, 
+        backgroundColor: "red",
+        borderRadius: 10,
+        fontWeight: "bold"
     }
 
     // container: {

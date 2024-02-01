@@ -1,9 +1,10 @@
-import React from "react";
-import { Button, View, TextInput, Image, Alert, Text, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { Button, View, TextInput, Image, Alert, Text } from "react-native";
 import styles from '../estilos/estilos'
 
 const RecuperarContrasena = () => {
     const [text, onChangeText] = React.useState('');
+    const [mensajeEmailInvalido, setMensajeEmailInvalido] = useState("")
 
     return (
 
@@ -29,11 +30,20 @@ const RecuperarContrasena = () => {
                 placeholder="Correo electrónico"
             />
 
+            {mensajeEmailInvalido != "" && <Text style={styles.errors}>{mensajeEmailInvalido}</Text>}
+
             <Button
                 color={styles.buttons.color}
                 title="Recuperar contraseña"
                 onPress={() => {
-                    Alert.alert('Se ha enviado un correo a la siguiente dirección:', `${text}`);
+                    if (text.length > 0 && !text.includes("@")) {
+                        setMensajeEmailInvalido("El email debe contener un '@'")
+                    } else if (text.length == 0){
+                        setMensajeEmailInvalido("El campo no debe estar vacío.")
+                    } else {
+                        Alert.alert('Se ha enviado un correo a la siguiente dirección:', `${text}`);
+                        setMensajeEmailInvalido("")
+                    }
                 }}
             />
 

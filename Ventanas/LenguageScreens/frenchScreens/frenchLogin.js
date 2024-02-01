@@ -1,6 +1,6 @@
 import React from "react";
 import { SafeAreaView, Text, Button, TextInput, Alert, Image } from "react-native";
-import styles from '../estilos/estilos'
+import styles from '.../estilos/estilos'
 
 function FrenchLogin({ navigation }) {
     const [Usu, onChangeUsu] = React.useState('');
@@ -32,7 +32,8 @@ function FrenchLogin({ navigation }) {
             <Text style={styles.text}>
                 J'ai oublié mon{" "}
                 <Text style={styles.linkableText} onPress={() => navigation.navigate('Recuperar Contrasena', { name: 'Recuperar Contrasena' })}>
-                    mot de passe
+                mot de passe
+
                 </Text>
             </Text>
 
