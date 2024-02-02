@@ -2,7 +2,7 @@ import React from 'react';
 import {render,fireEvent} from '@testing-library/react-native';
 import Register from '../Ventanas/Register';
 
-describe('Register Component', () => {
+describe('Register Component - Unit Test', () => {
   it('renders correctly', () => {
     const { getByPlaceholderText, getByText } = render(<Register />);
 
@@ -68,4 +68,10 @@ describe('Register Component', () => {
   });
 
   // Test para los cambios de idioma
+});
+
+describe('Register Component - Integration Test', () => {
+  it('renders correctly', () => {
+    // CUANDO HAGAMOS MERGE DEL CODIGO DE MIGUEL HACER ESTOS TEST :D
+  });
 });

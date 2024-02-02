@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, View, TextInput, Image, Alert, Text, TouchableOpacity } from "react-native";
-import styles from '../estilos/estilos'
+import styles from '../../../estilos/estilos'
 
 const FrenchRecuperarContrasena = () => {
     const [text, onChangeText] = React.useState('');
