@@ -38,7 +38,7 @@ function App() {
 
 
         {/* FRENCH SCREENS */}
-        <Stack.Screen name ='Login'component={FrenchLogin}/>
+        <Stack.Screen name ='Connecter'component={FrenchLogin}/>
         <Stack.Screen name ='Registre' component={FrenchRegister} />
         <Stack.Screen name ='Récupérer mot de passe' component={FrenchRecuperarContrasena} />
 

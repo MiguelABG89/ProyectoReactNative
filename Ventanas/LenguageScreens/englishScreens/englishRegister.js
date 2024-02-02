@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Text, TextInput, View, Button, Alert } from 'react-native';
-import styles from '../estilos/estilos'
+import styles from '../../../estilos/estilos'
 
 
 function EnglishRegister() {
@@ -49,7 +49,7 @@ function EnglishRegister() {
             />
 
             <Image
-                source={require('../assets/Logo-FDP.jpg')}
+                source={require('../../../assets/Logo-FDP.jpg')}
                 style={styles.image}
             />
 

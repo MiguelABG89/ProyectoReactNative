@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Text, TextInput, View, Button, Alert } from 'react-native';
-import styles from '.../estilos/estilos.js'
+import styles from '../../../estilos/estilos'
 
 
 function FrenchRegister() {
@@ -15,7 +15,11 @@ function FrenchRegister() {
 
     return (
         <View style={styles.estructure}>
-            {/* LOGO AQUI */}
+           
+           <Image
+                source={require('../../../assets/Logo-FDP.jpg')}
+                style={styles.image}
+            />
 
             <TextInput style={styles.inputs} onChangeText={setUser} value={user} placeholder="Courrier électronique"/>
 
