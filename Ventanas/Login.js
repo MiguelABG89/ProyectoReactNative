@@ -1,14 +1,14 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { SafeAreaView, Text, Button, TextInput, Alert, Image } from "react-native";
 import styles from '../estilos/estilos'
-import {Auth} from 'aws-amplify'
-import {signIn,signOut} from 'aws-amplify/auth'
+import { Auth } from 'aws-amplify'
+import { signIn, signOut } from 'aws-amplify/auth'
 
 
 function Login({ navigation }) {
     const [Usu, onChangeUsu] = useState('');
     const [pwd, onChangePwd] = useState('');
-    
+
 
     // const onSignInPressed = async (data) => {
     //     const response = await Authenticator.SignIn(data.Usu, data.pwd);
@@ -17,25 +17,27 @@ function Login({ navigation }) {
     //     setVar1(response);
     // }
 
-    async function handleSingIn(){
+    async function handleSingIn() {
         const username = Usu;
         const password = pwd;
-        try{
-            const { isSignedIn, nextStep } = await signIn({ username , password ,
-            options:{authFlowType:"USER_PASSWORD_AUTH"}})
+        try {
+            const { isSignedIn, nextStep } = await signIn({
+                username, password,
+                options: { authFlowType: "USER_PASSWORD_AUTH" }
+            })
             console.log('success')
-        }catch(e){
+        } catch (e) {
             console.log('error singing in', e)
         }
     }
 
     async function handleSignOut() {
         try {
-          await signOut();
+            await signOut();
         } catch (error) {
-          console.log('error signing out: ', error);
+            console.log('error signing out: ', error);
         }
-      }
+    }
     return (
         <SafeAreaView style={styles.estructure}>
 
@@ -69,11 +71,13 @@ function Login({ navigation }) {
 
             <Button
                 color={styles.buttons.color}
+                style={{ margin: styles.buttons.margin }} 
                 title="iniciar sesión"
                 onPress={handleSingIn} />
 
             <Button
                 color={styles.buttons.color}
+                style={{ margin: styles.buttons.margin }}
                 title="Cerrar sesión"
                 onPress={handleSignOut} />
 
