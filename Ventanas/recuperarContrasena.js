@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, View, TextInput, Image, Alert, Text } from "react-native";
+import { Button, View, TextInput, Image, Alert, Text, TouchableOpacity } from "react-native";
 import styles from '../estilos/estilos'
 
 const RecuperarContrasena = () => {
@@ -29,6 +29,8 @@ const RecuperarContrasena = () => {
                 value={text}
                 placeholder="Correo electrónico"
             />
+
+            {mensajeEmailInvalido != "" && <Text style={styles.errors}>{mensajeEmailInvalido}</Text>}
 
             {mensajeEmailInvalido != "" && <Text style={styles.errors}>{mensajeEmailInvalido}</Text>}
 

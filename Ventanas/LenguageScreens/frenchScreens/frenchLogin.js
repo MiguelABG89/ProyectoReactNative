@@ -1,6 +1,7 @@
 import React from "react";
 import { SafeAreaView, Text, Button, TextInput, Alert, Image } from "react-native";
 import styles from '../../../estilos/estilos'
+import styles from '../../../estilos/estilos'
 
 function FrenchLogin({ navigation }) {
     const [Usu, onChangeUsu] = React.useState('');
