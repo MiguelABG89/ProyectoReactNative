@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Text, TextInput, View, Button, Alert, Image, navigation } from 'react-native';
-import ModalDropdown from 'react-native-modal-dropdown';
+// import ModalDropdown from 'react-native-modal-dropdown';
 import styles from '../estilos/estilos'
 
 
@@ -10,8 +10,8 @@ function Register() {
         'Español',
         'English',
         'Français',
-        'Deusth',
-        'Chinese'];
+        'deutsch',
+        '中国人'];
 
     const [user, setUser] = useState("")
     const [password, setPassword] = useState("")
@@ -42,12 +42,12 @@ function Register() {
     return (
         <View style={styles.estructure}>
 
-        <ModalDropdown
+        {/* <ModalDropdown
             // El valor inicial no es considerado una opcion de la lista y salta un mini error
             options={languages}
             defaultValue={selectedLanguage}
             onSelect={handleLanguageSelect}
-        />
+        /> */}
 
             <Image
                 source={require('../assets/Logo-FDP.jpg')}

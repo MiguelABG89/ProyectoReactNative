@@ -15,7 +15,10 @@ function FrenchRegister() {
 
     return (
         <View style={styles.estructure}>
-            {/* LOGO AQUI */}
+            <Image
+                source={require('../assets/Logo-FDP.jpg')}
+                style={styles.image}
+            />
 
             <TextInput style={styles.inputs} onChangeText={setUser} value={user} placeholder="Courrier électronique"/>
 

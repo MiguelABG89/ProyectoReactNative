@@ -66,4 +66,6 @@ describe('Register Component', () => {
     expect(() => getByText('')).toBeTruthy();
     expect(() => getByText('')).toBeTruthy();
   });
+
+  // Test para los cambios de idioma
 });

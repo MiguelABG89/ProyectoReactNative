@@ -14,7 +14,7 @@ const EnglishPassword = () => {
             </Text>
 
             <Image
-                source={require('../assets/candado.png')}
+                source={require('../../../assets/candado.png')}
                 style={styles.image}
             />
 
