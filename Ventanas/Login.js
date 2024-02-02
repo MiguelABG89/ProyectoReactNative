@@ -1,21 +1,41 @@
 import React,{useState} from "react";
 import { SafeAreaView, Text, Button, TextInput, Alert, Image } from "react-native";
 import styles from '../estilos/estilos'
-import { Authenticator } from "@aws-amplify/ui-react-native";
+import {Auth} from 'aws-amplify'
+import {signIn,signOut} from 'aws-amplify/auth'
 
 
 function Login({ navigation }) {
     const [Usu, onChangeUsu] = useState('');
     const [pwd, onChangePwd] = useState('');
-    const [var1, setVar1] = useState('');
+    
 
-    const onSignInPressed = async (data) => {
-        const response = await Authenticator.SignIn(data.Usu, data.pwd);
-        Alert.alert("entro")
-        console.log(response);
-        setVar1(response);
+    // const onSignInPressed = async (data) => {
+    //     const response = await Authenticator.SignIn(data.Usu, data.pwd);
+    //     Alert.alert("entro")
+    //     console.log(response);
+    //     setVar1(response);
+    // }
+
+    async function handleSingIn(){
+        const username = Usu;
+        const password = pwd;
+        try{
+            const { isSignedIn, nextStep } = await signIn({ username , password ,
+            options:{authFlowType:"USER_PASSWORD_AUTH"}})
+            console.log('success')
+        }catch(e){
+            console.log('error singing in', e)
+        }
     }
 
+    async function handleSignOut() {
+        try {
+          await signOut();
+        } catch (error) {
+          console.log('error signing out: ', error);
+        }
+      }
     return (
         <SafeAreaView style={styles.estructure}>
 
@@ -50,7 +70,12 @@ function Login({ navigation }) {
             <Button
                 color={styles.buttons.color}
                 title="iniciar sesión"
-                onPress={onSignInPressed(Usu,pwd)} />
+                onPress={handleSingIn} />
+
+            <Button
+                color={styles.buttons.color}
+                title="Cerrar sesión"
+                onPress={handleSignOut} />
 
             <Text style={styles.text}>¿Necesitas una cuenta?</Text>
 
