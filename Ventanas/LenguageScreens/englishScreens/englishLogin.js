@@ -1,6 +1,6 @@
 import React from "react";
 import { SafeAreaView, Text, Button, TextInput, Alert, Image } from "react-native";
-import styles from '../estilos/estilos'
+import styles from '../../../estilos/estilos'
 
 function EnglishLogin({ navigation }) {
     const [Usu, onChangeUsu] = React.useState('');
@@ -10,7 +10,7 @@ function EnglishLogin({ navigation }) {
         <SafeAreaView style={styles.estructure}>
 
             <Image
-                source={require('../assets/Logo-FDP.jpg')} // Ajusta la ruta según la ubicación de tu imagen
+                source={require('../../../assets/Logo-FDP.jpg')} // Ajusta la ruta según la ubicación de tu imagen
                 style={styles.image}
             />
 
@@ -32,7 +32,7 @@ function EnglishLogin({ navigation }) {
             <Text style={styles.text}>
                 I forgot my{" "}
                 {/**cambiar navegación a la nueva ventana en inglés */}
-                <Text style={styles.linkableText} onPress={() => navigation.navigate('Recuperar Contrasena', { name: 'Recuperar Contrasena' })}>
+                <Text style={styles.linkableText} onPress={() => navigation.navigate('Recover password', { name: 'Recover Password' })}>
                     password
                 </Text>
             </Text>
@@ -46,7 +46,7 @@ function EnglishLogin({ navigation }) {
             <Text style={styles.text}>Do you need an account?</Text>
 
             {/**cambiar navegación a la nueva ventana en inglés */}
-            <Text style={styles.linkableText} onPress={() => navigation.navigate('Registrar', { name: 'Registrar' })}>Register</Text>
+            <Text style={styles.linkableText} onPress={() => navigation.navigate('Register', { name: 'Register' })}>Register</Text>
 
         </SafeAreaView>
     );
