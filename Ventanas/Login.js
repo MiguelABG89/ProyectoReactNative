@@ -1,11 +1,41 @@
-import React from "react";
+import React,{useState} from "react";
 import { SafeAreaView, Text, Button, TextInput, Alert, Image } from "react-native";
 import styles from '../estilos/estilos'
+import {Auth} from 'aws-amplify'
+import {signIn,signOut} from 'aws-amplify/auth'
+
 
 function Login({ navigation }) {
-    const [Usu, onChangeUsu] = React.useState('');
-    const [pwd, onChangePwd] = React.useState('');
+    const [Usu, onChangeUsu] = useState('');
+    const [pwd, onChangePwd] = useState('');
+    
 
+    // const onSignInPressed = async (data) => {
+    //     const response = await Authenticator.SignIn(data.Usu, data.pwd);
+    //     Alert.alert("entro")
+    //     console.log(response);
+    //     setVar1(response);
+    // }
+
+    async function handleSingIn(){
+        const username = Usu;
+        const password = pwd;
+        try{
+            const { isSignedIn, nextStep } = await signIn({ username , password ,
+            options:{authFlowType:"USER_PASSWORD_AUTH"}})
+            console.log('success')
+        }catch(e){
+            console.log('error singing in', e)
+        }
+    }
+
+    async function handleSignOut() {
+        try {
+          await signOut();
+        } catch (error) {
+          console.log('error signing out: ', error);
+        }
+      }
     return (
         <SafeAreaView style={styles.estructure}>
 
@@ -16,15 +46,15 @@ function Login({ navigation }) {
 
             <TextInput
                 style={styles.inputs}
-                onChangeText={onChangeUsu}
-                value={Usu}
+                onChangeText={nextUsu => onChangeUsu(nextUsu)}
+                defaultValue={Usu}
                 placeholder="Correo electrónico"
             />
 
             <TextInput
                 style={styles.inputs}
-                onChangeText={onChangePwd}
-                value={pwd}
+                onChangeText={nextPwd => onChangePwd(nextPwd)}
+                defaultValue={pwd}
                 placeholder="Contraseña"
 
             />
@@ -40,7 +70,12 @@ function Login({ navigation }) {
             <Button
                 color={styles.buttons.color}
                 title="iniciar sesión"
-                onPress={() => Alert.alert('Navegación --> Pagina de inicio')} />
+                onPress={handleSingIn} />
+
+            <Button
+                color={styles.buttons.color}
+                title="Cerrar sesión"
+                onPress={handleSignOut} />
 
             <Text style={styles.text}>¿Necesitas una cuenta?</Text>
 
