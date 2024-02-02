@@ -9,14 +9,6 @@ function Login({ navigation }) {
     const [Usu, onChangeUsu] = useState('');
     const [pwd, onChangePwd] = useState('');
 
-
-    // const onSignInPressed = async (data) => {
-    //     const response = await Authenticator.SignIn(data.Usu, data.pwd);
-    //     Alert.alert("entro")
-    //     console.log(response);
-    //     setVar1(response);
-    // }
-
     async function handleSingIn() {
         const username = Usu;
         const password = pwd;
