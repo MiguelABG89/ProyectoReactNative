@@ -10,7 +10,7 @@ function EnglishLogin({ navigation }) {
         <SafeAreaView style={styles.estructure}>
 
             <Image
-                source={require('../assets/Logo-FDP.jpg')} // Ajusta la ruta según la ubicación de tu imagen
+                source={require('../../../assets/Logo-FDP.jpg')} // Ajusta la ruta según la ubicación de tu imagen
                 style={styles.image}
             />
 
