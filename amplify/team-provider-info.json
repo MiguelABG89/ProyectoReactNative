@@ -9,11 +9,21 @@
       "UnauthRoleName": "amplify-proyectoreactnative-dev-122322-unauthRole",
       "StackName": "amplify-proyectoreactnative-dev-122322",
       "StackId": "arn:aws:cloudformation:us-east-1:336722522156:stack/amplify-proyectoreactnative-dev-122322/526dab50-bc3d-11ee-9e6f-0ee9883d9425",
-      "AmplifyAppId": "d1a7vmg24d3fzs"
+      "AmplifyAppId": "d1a7vmg24d3fzs",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-proyectoreactnative-dev-122322-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
         "proyectoreactnative5aae38e4": {}
+      },
+      "function": {
+        "lambdaProyectoReactNative": {
+          "deploymentBucketName": "amplify-proyectoreactnative-dev-122322-deployment",
+          "s3Key": "amplify-builds/lambdaProyectoReactNative-6e7767726834326b4373-build.zip"
+        }
+      },
+      "api": {
+        "ProyectoReactNative": {}
       }
     }
   }
