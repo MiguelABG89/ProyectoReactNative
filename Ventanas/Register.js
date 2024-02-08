@@ -4,9 +4,14 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import styles from '../estilos/estilos'
 
 
-function Register() {
-    const [selectedLanguage, setSelectedLanguage] = useState('Español');
-    const languages = ['Español', 'English', 'Français', 'Deusth', 'Chinese', 'Italian'];
+function Register({navigation}) {
+    const [selectedLanguage, setSelectedLanguage] = useState("Español");
+    const languages = [
+        'Español',
+        'English',
+        'Français',
+        'deutsch',
+        '中国人'];
 
     const [user, setUser] = useState("")
     const [password, setPassword] = useState("")
@@ -16,21 +21,22 @@ function Register() {
     const [mensajePasswordInvalida, setMensajePasswordInvalida] = useState("")
     const [mensajePasswordDiferentes, setMensajePasswordDiferentes] = useState("")
 
-    const handleLanguageChange = (value) => {
+    const handleLanguageSelect = (index, value) => {
         setSelectedLanguage(value);
 
         // Navegar al componente correspondiente al idioma seleccionado
         switch (value) {
             case 'Español':
-                navigation.navigate('Register');
+                navigation.navigate('Registrar', { name: 'Registrar' })
                 break;
             case 'English':
-                navigation.navigate('englishRegister');
+                navigation.navigate('Register', { name: 'Register' })                
                 break;
             case 'Français':
-                navigation.navigate('frenchRegister')
+                navigation.navigate('Registre', { name: 'Registre' })
+                break;
             default:
-                navigation.navigate('Register'); // Por defecto, regresa a Español
+                navigation.navigate('Registrar', { name: 'Registrar' }); // Por defecto, regresa a Españolnavigation.navigate('Registrar', { name: 'Registrar' })
         }
     };
 
@@ -38,9 +44,10 @@ function Register() {
         <View style={styles.estructure}>
 
         <ModalDropdown
+            // El valor inicial no es considerado una opcion de la lista y salta un mini error
             options={languages}
             defaultValue={selectedLanguage}
-            onSelect={handleLanguageChange}
+            onSelect={handleLanguageSelect}
         />
 
             <Image
@@ -66,10 +73,10 @@ function Register() {
                     //Comprobaciones
                     if (user.trim() === '' || password.trim() === '' || password2.trim() === '') {
                         // Ningun campo vacio
-                        setMensajeCamposVacios('Uno o más campos estan vacios')
+                        setMensajeCamposVacios('Uno o más campos están vacíos')
                     } else if (password.length < 6) {
                         // Contraseña valida
-                        setMensajePasswordInvalida('Longitud minima de la contraseña: 6 caracteres')
+                        setMensajePasswordInvalida('Longitud mínima de la contraseña: 6 caracteres')
                     } else if (password !== password2) {
                         // Confirmar contraseña correcto
                         setMensajePasswordDiferentes('Las contraseñas no son iguales');
@@ -82,12 +89,6 @@ function Register() {
                 color={styles.buttons.color}
             />
             {mensajeCamposVacios != "" && <Text style={styles.errors}>{"\n"+mensajeCamposVacios}</Text>}
-
-            {/* <ModalDropdown
-              options={languages}
-              defaultValue="Seleccionar Idioma"
-              onSelect={handleLanguageChange}
-            /> */}
         </View>
     );
 }

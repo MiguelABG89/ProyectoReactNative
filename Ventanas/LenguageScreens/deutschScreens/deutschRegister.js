@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import { Text, TextInput, View, Button, Alert } from 'react-native';
-import styles from '../../../estilos/estilos'
+import { Text, TextInput, View, Button, Alert, Image, navigation } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
+import styles from '../estilos/estilos'
 
 
-function EnglishRegister() {
-    const [selectedLanguage, setSelectedLanguage] = useState("Select a lenguage");
+function DeutschRegister({navigation}) {
+    const [selectedLanguage, setSelectedLanguage] = useState("Español");
     const languages = [
         'Español',
         'English',
         'Français',
-        'Deutsch',
+        'deutsch',
         '中国人'];
 
     const [user, setUser] = useState("")
@@ -20,6 +20,7 @@ function EnglishRegister() {
     const [mensajeCamposVacios, setMensajeCamposVacios] = useState("")
     const [mensajePasswordInvalida, setMensajePasswordInvalida] = useState("")
     const [mensajePasswordDiferentes, setMensajePasswordDiferentes] = useState("")
+
     const handleLanguageSelect = (index, value) => {
         setSelectedLanguage(value);
 
@@ -29,40 +30,41 @@ function EnglishRegister() {
                 navigation.navigate('Registrar', { name: 'Registrar' })
                 break;
             case 'English':
-                navigation.navigate('Register', { name: 'Register' })
+                navigation.navigate('Register', { name: 'Register' })                
                 break;
             case 'Français':
                 navigation.navigate('Registre', { name: 'Registre' })
                 break;
+
+            case 'Deutsch':
+                navigation.navigate('')
             default:
-                navigation.navigate('Register', { name: 'Register' })        
-            }
+                navigation.navigate('Registrar', { name: 'Registrar' }); // Por defecto, regresa a Españolnavigation.navigate('Registrar', { name: 'Registrar' })
+        }
     };
 
     return (
         <View style={styles.estructure}>
 
-            <ModalDropdown
-                // El valor inicial no es considerado una opción de la lista y salta un mini error
-                options={languages}
-                defaultValue={selectedLanguage}
-                onSelect={handleLanguageSelect}
-            />
+        <ModalDropdown
+            // El valor inicial no es considerado una opcion de la lista y salta un mini error
+            options={languages}
+            defaultValue={selectedLanguage}
+            onSelect={handleLanguageSelect}
+        />
 
             <Image
-                source={require('../../../assets/Logo-FDP.jpg')}
+                source={require('../assets/Logo-FDP.jpg')}
                 style={styles.image}
             />
 
-            <TextInput style={styles.inputs} onChangeText={setUser} value={user} placeholder="E-mail" />
+            <TextInput style={styles.inputs} onChangeText={setUser} value={user} placeholder="Usuario"/>
 
-            {/* Boton para ocultar */}
-            <TextInput style={styles.inputs} onChangeText={setPassword} value={password} secureTextEntry={true} placeholder="Password" />
-            <Text style={styles.errors}>{mensajePasswordInvalida}</Text>
+            <TextInput style={styles.inputs} onChangeText={setPassword} value={password} secureTextEntry={true} placeholder="Contraseña"/>
+            {mensajePasswordInvalida !== "" && <Text style={styles.errors}>{mensajePasswordInvalida}</Text>}
 
-            {/* Boton para ocultar */}
-            <TextInput style={styles.inputs} onChangeText={setPassword2} value={password2} secureTextEntry={true} placeholder="Confirm password" />
-            <Text style={styles.errors}>{mensajePasswordDiferentes}</Text>
+            <TextInput style={styles.inputs} onChangeText={setPassword2} value={password2} secureTextEntry={true} placeholder="Confirmar contraseña"/>
+            {mensajePasswordDiferentes != "" && <Text style={styles.errors}>{mensajePasswordDiferentes}</Text>}
 
             <Button
                 onPress={() => {
@@ -74,24 +76,24 @@ function EnglishRegister() {
                     //Comprobaciones
                     if (user.trim() === '' || password.trim() === '' || password2.trim() === '') {
                         // Ningun campo vacio
-                        setMensajeCamposVacios('One or more fields are empty')
+                        setMensajeCamposVacios('Uno o más campos están vacíos')
                     } else if (password.length < 6) {
                         // Contraseña valida
-                        setMensajePasswordInvalida('Minimum password length: 6 characters')
+                        setMensajePasswordInvalida('Longitud mínima de la contraseña: 6 caracteres')
                     } else if (password !== password2) {
                         // Confirmar contraseña correcto
-                        setMensajePasswordDiferentes('Passwords do not match');
+                        setMensajePasswordDiferentes('Las contraseñas no son iguales');
                     } else {
-                        Alert.alert('Successful registration', 'User registration was successful')
+                        Alert.alert('Registro correcto', 'El registro de usuario se ha realizado correctamente')
                     }
                 }}
                 title='Registrarse'
                 accessibilityLabel='Registrarse'
                 color={styles.buttons.color}
             />
-            <Text style={styles.errors}>{"\n" + mensajeCamposVacios}</Text>
+            {mensajeCamposVacios != "" && <Text style={styles.errors}>{"\n"+mensajeCamposVacios}</Text>}
         </View>
     );
 }
 
-export default EnglishRegister
+export default DeutschRegister

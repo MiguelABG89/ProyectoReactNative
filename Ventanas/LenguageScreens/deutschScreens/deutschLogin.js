@@ -7,7 +7,7 @@ import ModalDropdown from 'react-native-modal-dropdown';
 
 
 
-function Login({ navigation }) {
+function DeutschLogin({ navigation }) {
     const [Usu, onChangeUsu] = useState('');
     const [pwd, onChangePwd] = useState('');
 
@@ -33,12 +33,12 @@ function Login({ navigation }) {
         }
     }
 
-    const [selectedLanguage, setSelectedLanguage] = useState("Selecciona un idioma");
+    const [selectedLanguage, setSelectedLanguage] = useState("Wähle eine Sprache");
     const languages = [
         'Español',
         'English',
         'Français',
-        'deutsch',
+        'Deutsch',
         '中国人'];
 
 
@@ -54,6 +54,12 @@ function Login({ navigation }) {
                 navigation.navigate('Login', { name: 'Login' })
                 break;
             case 'Français':
+                navigation.navigate('Connecter', { name: 'Connecter' })
+                break;
+            case 'Deutsch':
+                navigation.navigate('Anmeldung', { name: 'Anmeldung' })
+
+            case '中国人':
                 navigation.navigate('Connecter', { name: 'Connecter' })
                 break;
             default:
@@ -81,21 +87,21 @@ function Login({ navigation }) {
                 style={styles.inputs}
                 onChangeText={nextUsu => onChangeUsu(nextUsu)}
                 defaultValue={Usu}
-                placeholder="Correo electrónico"
+                placeholder="Email"
             />
 
             <TextInput
                 style={styles.inputs}
                 onChangeText={nextPwd => onChangePwd(nextPwd)}
                 defaultValue={pwd}
-                placeholder="Contraseña"
+                placeholder="Passwort"
 
             />
 
             <Text style={styles.text}>
-                He olvidado mi{" "}
+                Ich habe mein {" "}
                 <Text style={styles.linkableText} onPress={() => navigation.navigate('Recuperar Contrasena', { name: 'Recuperar Contrasena' })}>
-                    contraseña
+                    Passwort vergessen
                 </Text>
             </Text>
 
@@ -120,4 +126,4 @@ function Login({ navigation }) {
     );
 }
 
-export default Login;
+export default DeutschLogin;
