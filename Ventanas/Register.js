@@ -23,8 +23,8 @@ function Register({ navigation }) {
     const [mensajePasswordInvalida, setMensajePasswordInvalida] = useState("");
     const [mensajePasswordDiferentes, setMensajePasswordDiferentes] = useState("");
 
-    // const handleLanguageSelect = (index, value) => {
-    //     setSelectedLanguage(value);
+    const handleLanguageSelect = (index, value) => {
+        setSelectedLanguage(value);
 
         // Navegar al componente correspondiente al idioma seleccionado
         switch (value) {
@@ -43,7 +43,8 @@ function Register({ navigation }) {
             default:
                 navigation.navigate('Registrar', { name: 'Registrar' }); // Por defecto, regresa a Español
         }
-
+    }
+    
     async function handleSignUp() {
         const username = user;
         const password = pwd;

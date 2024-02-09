@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Text, TextInput, View, Button, Alert, Image } from 'react-native';
+import ModalDropdown from 'react-native-modal-dropdown';
 import styles from '../../../estilos/estilos'
 
 
