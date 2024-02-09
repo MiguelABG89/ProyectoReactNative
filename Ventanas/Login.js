@@ -2,7 +2,7 @@ import React,{useState} from "react";
 import { SafeAreaView, Text, Button, TextInput, Alert, Image } from "react-native";
 import styles from '../estilos/estilos'
 
-import {signIn,signOut} from 'aws-amplify/auth'
+import {signIn,signOut,} from 'aws-amplify/auth'
 
 
 
