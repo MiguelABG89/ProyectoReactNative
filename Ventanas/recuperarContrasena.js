@@ -20,7 +20,7 @@ function RecuperarContrasena({ navigation }) {
     async function handlePassword() {
         try {
             console.log(username);
-            await resetPassword( {username} );
+            await resetPassword({ username });
             console.log('Correo de restablecimiento de contraseña enviado con éxito.');
             navigation.navigate('New Password', { username });
         } catch (err) {
@@ -52,42 +52,54 @@ function RecuperarContrasena({ navigation }) {
     };
 
     return (
-        <View style={styles.estructure}>
-            <Text style={styles.titles}>
-                Restablecer la contraseña
-            </Text>
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+            <ScrollView contentContainerStyle={styles.scrollViewContainer}>
 
-            <Image
-                source={require('../assets/candado.png')}
-                style={styles.image}
-            />
+                <View style={styles.estructure}>
+                <ModalDropdown
+                        options={languages}
+                        defaultValue={selectedLanguage}
+                        onSelect={handleLanguageSelect}
+                    />
 
-            <Text style={styles.email}>
-                Por favor, introduzca su dirección de correo. Le enviaremos las instrucciones para restablecer su contraseña.
-            </Text>
+                    <Text style={styles.titles}>
+                        Restablecer la contraseña
+                    </Text>
 
-            <TextInput
-                style={styles.inputs}
-                onChangeText={onChangeUsername}
-                value={username}
-                placeholder="Usuario"
-            />
+                    <Image
+                        source={require('../assets/candado.png')}
+                        style={styles.image}
+                    />
 
-{mensajeUsernameInvalido !== "" && <Text style={styles.errors}>{mensajeUsernameInvalido}</Text>}
+                    <Text style={styles.email}>
+                        Por favor, introduzca su dirección de correo. Le enviaremos las instrucciones para restablecer su contraseña.
+                    </Text>
 
-            <Button
-                color={styles.buttons.color}
-                title="Recuperar contraseña"
-                onPress={ () => {
-                    setMensajeUsernameInvalido("");
-                    if (username.length === 0) {
-                        setMensajeUsernameInvalido("El campo no debe estar vacío.");
-                    } else {
-                        handlePassword(username);
-                    }
-                }}
-            />
-        </View>
+                    <TextInput
+                        style={styles.inputs}
+                        onChangeText={onChangeUsername}
+                        value={username}
+                        placeholder="Usuario"
+                    />
+
+                    {mensajeUsernameInvalido !== "" && <Text style={styles.errors}>{mensajeUsernameInvalido}</Text>}
+
+                    <Button
+                        color={styles.buttons.color}
+                        title="Recuperar contraseña"
+                        onPress={() => {
+                            setMensajeUsernameInvalido("");
+                            if (username.length === 0) {
+                                setMensajeUsernameInvalido("El campo no debe estar vacío.");
+                            } else {
+                                handlePassword(username);
+                            }
+                        }}
+                    />
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
+
     );
 }
 
