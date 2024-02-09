@@ -1,28 +1,18 @@
 import React, { useState } from "react";
 import { Button, View, TextInput, Image, Alert, Text } from "react-native";
-import { Auth } from 'aws-amplify';
+import { resetPassword } from 'aws-amplify/auth';
 import styles from '../estilos/estilos'
 
 function RecuperarContrasena({ navigation }) {
-    const [email, onChangeEmail] = useState('');
-    const [mensajeEmailInvalido, setMensajeEmailInvalido] = useState("")
+    const [username, onChangeUsername] = useState('');
+    const [mensajeUsernameInvalido, setMensajeUsernameInvalido] = useState("")
 
-
-
-
-
-    function handlePassword() {
-        const username = "miguel";
-        
-
-
+    async function handlePassword() {
         try {
-            console.log(email);
-            //await Auth.forgotPassword(username);
-            const data = Auth.forgotPassword(email);
-            console.log(data);
+            console.log(username);
+            await resetPassword( {username} );
             console.log('Correo de restablecimiento de contraseña enviado con éxito.');
-            navigation.navigate('New Password', { email });
+            navigation.navigate('New Password', { username });
         } catch (err) {
             console.log(err);
             Alert.alert('Oops', err.message);
@@ -46,27 +36,24 @@ function RecuperarContrasena({ navigation }) {
 
             <TextInput
                 style={styles.inputs}
-                onChangeText={onChangeEmail}
-                value={email}
-                placeholder="Correo electrónico"
+                onChangeText={onChangeUsername}
+                value={username}
+                placeholder="Usuario"
             />
 
-            {mensajeEmailInvalido !== "" && <Text style={styles.errors}>{mensajeEmailInvalido}</Text>}
+            {mensajeUsernameInvalido !== "" && <Text style={styles.errors}>{mensajeUsernameInvalido}</Text>}
 
             <Button
                 color={styles.buttons.color}
                 title="Recuperar contraseña"
-                onPress={handlePassword}
-                    // () => {
-                    // setMensajeEmailInvalido("");
-                    // if (email.length === 0) {
-                    //     setMensajeEmailInvalido("El campo no debe estar vacío.");
-                    // } else if (!email.includes("@")) {
-                    //     setMensajeEmailInvalido("El email debe contener un '@'");
-                    // } else {
-                    //     handlePassword(email);
-                    // }
-                // }}
+                onPress={ () => {
+                    setMensajeUsernameInvalido("");
+                    if (username.length === 0) {
+                        setMensajeUsernameInvalido("El campo no debe estar vacío.");
+                    } else {
+                        handlePassword(username);
+                    }
+                }}
             />
         </View>
     );
