@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState}from "react";
 import { SafeAreaView, Text, Button, TextInput, Alert, Image } from "react-native";
 import styles from '../../../estilos/estilos'
 import ModalDropdown from 'react-native-modal-dropdown';

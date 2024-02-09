@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import { Button, View, TextInput, Image, Alert, Text, TouchableOpacity } from "react-native";
-import styles from '../../../estilos/estilos'
+import styles from '../../../estilos/estilos';
+import ModalDropdown from 'react-native-modal-dropdown';
 
 const FrenchRecuperarContrasena = () => {
     const [text, onChangeText] = React.useState('');

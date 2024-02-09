@@ -17,9 +17,9 @@ function EnglishRegister() {
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
 
-    // const [mensajeCamposVacios, setMensajeCamposVacios] = useState("")
-    const [mensajePasswordInvalida, setMensajePasswordInvalida] = useState("")
-    const [mensajePasswordDiferentes, setMensajePasswordDiferentes] = useState("")
+    const [mensajeCamposVacios, setMensajeCamposVacios] = useState("");
+    const [mensajePasswordInvalida, setMensajePasswordInvalida] = useState("");
+    const [mensajePasswordDiferentes, setMensajePasswordDiferentes] = useState("");
 
     const handleLanguageSelect = (index, value) => {
         setSelectedLanguage(value);
@@ -49,14 +49,14 @@ function EnglishRegister() {
                     <Button
                         onPress={() => {
                             // Se vacian los campos de mensajes 
-                            // setMensajeCamposVacios('')
+                            setMensajeCamposVacios('')
                             setMensajePasswordInvalida('')
                             setMensajePasswordDiferentes('')
 
                             //Comprobaciones
                             if (user.trim() === '' || password.trim() === '' || password2.trim() === '') {
                                 // Ningun campo vacio
-                                // setMensajeCamposVacios('One or more fields are empty')
+                                setMensajeCamposVacios('One or more fields are empty')
                             } else if (password.length < 6) {
                                 // Contraseña valida
                                 setMensajePasswordInvalida('Minimum password length: 6 characters')
@@ -71,9 +71,9 @@ function EnglishRegister() {
                         accessibilityLabel='Registrarse'
                         color={styles.buttons.color}
                     />
-                    {/* <Text style={styles.errors}>{"\n" + mensajeCamposVacios}</Text> */}
+                    <Text style={styles.errors}>{"\n" + mensajeCamposVacios}</Text>
                 </View>
-            </ScrollView >
+            </ScrollView>
         </KeyboardAvoidingView>
     );
 }
