@@ -47,7 +47,8 @@ const styles = {
 
     buttons: {
         color: "#ec5f28",
-        borderRadius: 10
+        borderRadius: 10,
+        margin: 20
     },
 
     errors: {
