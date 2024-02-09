@@ -9,6 +9,7 @@ import Register from './Ventanas/Register';
 import RecuperarContrasena from "./Ventanas/recuperarContrasena";
 import ConfirmarCorreo from './Ventanas/ConfirmarCorreo';
 import HomeScreen from './Ventanas/HomeScreen';
+import NewPassword from './Ventanas/NewPassword';
 {/* ENGLISH SCREENS */}
 import EnglishLogin from './Ventanas/LenguageScreens/englishScreens/englishLogin';
 import EnglishRegister from './Ventanas/LenguageScreens/englishScreens/englishLogin';
@@ -35,6 +36,7 @@ function App() {
         <Stack.Screen name ='Recuperar Contrasena' component={RecuperarContrasena} />
         <Stack.Screen name ='Home' component={HomeScreen} />
 
+        <Stack.Screen name ='New Password' component={NewPassword} />
       
         {/* ENGLISH SCREENS */}
         <Stack.Screen name ='Login'component={EnglishLogin}/>

@@ -72,12 +72,11 @@ function Register({ navigation }) {
     return (
         <View style={styles.estructure}>
 
-        {/* <ModalDropdown
-            // El valor inicial no es considerado una opcion de la lista y salta un mini error
+          <ModalDropdown
             options={languages}
-            defaultValue={selectedLanguage}
+            defaultValue={languages[0]}
             onSelect={handleLanguageSelect}
-        /> */}
+        />
 
             <Image
                 source={require('../assets/Logo-FDP.jpg')}
