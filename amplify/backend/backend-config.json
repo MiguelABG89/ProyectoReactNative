@@ -1,4 +1,20 @@
 {
+  "api": {
+    "ProyectoReactNative": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "lambdaProyectoReactNative"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
   "auth": {
     "proyectoreactnative5aae38e4": {
       "customAuth": false,
@@ -23,6 +39,31 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    }
+  },
+  "function": {
+    "lambdaProyectoReactNative": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_lambdaProyectoReactNative_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lambdaProyectoReactNative"
+        }
+      ]
+    },
+    "AMPLIFY_function_lambdaProyectoReactNative_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "lambdaProyectoReactNative"
+        }
+      ]
     }
   }
 }

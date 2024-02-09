@@ -7,6 +7,9 @@ import amplifyconfig from './src/amplifyconfiguration.json';
 import Login from "./Ventanas/Login";
 import Register from './Ventanas/Register';
 import RecuperarContrasena from "./Ventanas/recuperarContrasena";
+import ConfirmarCorreo from './Ventanas/ConfirmarCorreo';
+import HomeScreen from './Ventanas/HomeScreen';
+import NewPassword from './Ventanas/NewPassword';
 {/* ENGLISH SCREENS */}
 import EnglishLogin from './Ventanas/LenguageScreens/englishScreens/englishLogin';
 import EnglishRegister from './Ventanas/LenguageScreens/englishScreens/englishRegister';
@@ -33,7 +36,11 @@ function App() {
         {/* SPANISH SCREENS */}
         <Stack.Screen name ='Inicio'component={Login}/>
         <Stack.Screen name ='Registrar' component={Register} />
+        <Stack.Screen name ='Confirmar Correo' component={ConfirmarCorreo} />
         <Stack.Screen name ='Recuperar Contrasena' component={RecuperarContrasena} />
+        <Stack.Screen name ='Home' component={HomeScreen} />
+
+        <Stack.Screen name ='New Password' component={NewPassword} />
       
         {/* ENGLISH SCREENS */}
         <Stack.Screen name ='Login'component={EnglishLogin}/>

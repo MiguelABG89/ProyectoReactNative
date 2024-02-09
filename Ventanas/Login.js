@@ -12,22 +12,20 @@ function Login({ navigation }) {
     async function handleSingIn() {
         const username = Usu;
         const password = pwd;
-        try {
-            const { isSignedIn, nextStep } = await signIn({
-                username, password,
-                options: { authFlowType: "USER_PASSWORD_AUTH" }
-            })
+        try{
+            const { isSignedIn, nextStep } = await signIn({ username , password ,
+            options:{authFlowType:"USER_PASSWORD_AUTH"}})
             console.log('success')
-        } catch (e) {
-            console.log('error singing in', e)
+            navigation.navigate("Home")
+        }catch(e){
+            console.log('error singing in')
         }
     }
-
     async function handleSignOut() {
         try {
-            await signOut();
+          await signOut();
         } catch (error) {
-            console.log('error signing out: ', error);
+          console.log('error signing out: ', error);
         }
     }
 

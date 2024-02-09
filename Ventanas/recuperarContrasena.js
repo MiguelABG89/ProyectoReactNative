@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Button, View, TextInput, Image, Alert, Text, KeyboardAvoidingView, ScrollView } from "react-native";
+import { Button, View, TextInput, Image, Alert, Text } from "react-native";
+import { Auth } from 'aws-amplify';
 import styles from '../estilos/estilos';
 import ModalDropdown from 'react-native-modal-dropdown';
 
@@ -37,6 +38,28 @@ const RecuperarContrasena = () => {
                 navigation.navigate('Recuperar contrasena', { name: 'Recuperar Contrasena' });
         }
     };
+
+
+
+
+
+    function handlePassword() {
+        const username = "miguel";
+        
+
+
+        try {
+            console.log(email);
+            //await Auth.forgotPassword(username);
+            const data = Auth.forgotPassword(email);
+            console.log(data);
+            console.log('Correo de restablecimiento de contraseña enviado con éxito.');
+            navigation.navigate('New Password', { email });
+        } catch (err) {
+            console.log(err);
+            Alert.alert('Oops', err.message);
+        }
+    }
 
     return (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
@@ -82,6 +105,6 @@ const RecuperarContrasena = () => {
             </ScrollView>
         </KeyboardAvoidingView>
     );
-};
+}
 
 export default RecuperarContrasena;
