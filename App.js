@@ -15,8 +15,10 @@ import EnglishPassword from './Ventanas/LenguageScreens/englishScreens/englishPa
 import FrenchRecuperarContrasena  from './Ventanas/LenguageScreens/frenchScreens/frenchPassword';
 import FrenchLogin from './Ventanas/LenguageScreens/frenchScreens/frenchLogin';
 import FrenchRegister from './Ventanas/LenguageScreens/frenchScreens/frenchRegister';
+{/* DEUTSCH SCREENS */}
 import DeutschLogin from './Ventanas/LenguageScreens/deutschScreens/deutschLogin';
 import DeutschRegister from './Ventanas/LenguageScreens/deutschScreens/deutschRegister';
+import DeutschPassword from './Ventanas/LenguageScreens/deutschScreens/deutschPassword';
 
 Amplify.configure(amplifyconfig);
 
@@ -47,7 +49,7 @@ function App() {
         {/* DEUTSCH SCREENS */}
         <Stack.Screen name ='Anmeldung'component={DeutschLogin}/>
         <Stack.Screen name ='Registrieren' component={DeutschRegister} />
-        <Stack.Screen name ='Récupérer mot de passe' component={FrenchRecuperarContrasena} />
+        <Stack.Screen name ='Passwort wiederherstellen' component={DeutschPassword} />
 
       </Stack.Navigator>
     </NavigationContainer>

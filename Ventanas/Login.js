@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { SafeAreaView, Text, Button, TextInput, Alert, Image } from "react-native";
-import styles from '../estilos/estilos'
-import { Auth } from 'aws-amplify'
-import { signIn, signOut } from 'aws-amplify/auth'
+import { SafeAreaView, Text, Button, TextInput, Alert, Image, KeyboardAvoidingView, ScrollView } from "react-native";
+import styles from '../estilos/estilos';
+import { Auth } from 'aws-amplify';
+import { signIn, signOut } from 'aws-amplify/auth';
 import ModalDropdown from 'react-native-modal-dropdown';
-
-
 
 function Login({ navigation }) {
     const [Usu, onChangeUsu] = useState('');
@@ -38,9 +36,9 @@ function Login({ navigation }) {
         'Español',
         'English',
         'Français',
-        'deutsch',
-        '中国人'];
-
+        'Deutsch',
+        '中国人'
+    ];
 
     const handleLanguageSelect = (index, value) => {
         setSelectedLanguage(value);
@@ -56,67 +54,61 @@ function Login({ navigation }) {
             case 'Français':
                 navigation.navigate('Connecter', { name: 'Connecter' })
                 break;
+            case 'Deutsch':
+                navigation.navigate('Anmeldung', { name: 'Anmeldung' })
+                break;
             default:
                 navigation.navigate('Inicio', { name: 'Inicio' })
         }
     };
 
     return (
-
-        <SafeAreaView style={styles.estructure}>
-
-            <ModalDropdown
-                // El valor inicial no es considerado una opcion de la lista y salta un mini error
-                options={languages}
-                defaultValue={selectedLanguage}
-                onSelect={handleLanguageSelect}
-            />
-
-            <Image
-                source={require('../assets/Logo-FDP.jpg')} // Ajusta la ruta según la ubicación de tu imagen
-                style={styles.image}
-            />
-
-            <TextInput
-                style={styles.inputs}
-                onChangeText={nextUsu => onChangeUsu(nextUsu)}
-                defaultValue={Usu}
-                placeholder="Correo electrónico"
-            />
-
-            <TextInput
-                style={styles.inputs}
-                onChangeText={nextPwd => onChangePwd(nextPwd)}
-                defaultValue={pwd}
-                placeholder="Contraseña"
-
-            />
-
-            <Text style={styles.text}>
-                He olvidado mi{" "}
-                <Text style={styles.linkableText} onPress={() => navigation.navigate('Recuperar Contrasena', { name: 'Recuperar Contrasena' })}>
-                    contraseña
-                </Text>
-            </Text>
-
-
-            <Button
-                color={styles.buttons.color}
-                style={{ margin: styles.buttons.margin }}
-                title="iniciar sesión"
-                onPress={handleSingIn} />
-
-            <Button
-                color={styles.buttons.color}
-                style={{ margin: styles.buttons.margin }}
-                title="Cerrar sesión"
-                onPress={handleSignOut} />
-
-            <Text style={styles.text}>¿Necesitas una cuenta?</Text>
-
-            <Text style={styles.linkableText} onPress={() => navigation.navigate('Registrar', { name: 'Registrar' })}>Registrar</Text>
-
-        </SafeAreaView>
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+            <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+                <SafeAreaView style={styles.estructure}>
+                    <ModalDropdown
+                        options={languages}
+                        defaultValue={selectedLanguage}
+                        onSelect={handleLanguageSelect}
+                    />
+                    <Image
+                        source={require('../assets/Logo-FDP.jpg')}
+                        style={styles.image}
+                    />
+                    <TextInput
+                        style={styles.inputs}
+                        onChangeText={nextUsu => onChangeUsu(nextUsu)}
+                        defaultValue={Usu}
+                        placeholder="Correo electrónico"
+                    />
+                    <TextInput
+                        style={styles.inputs}
+                        onChangeText={nextPwd => onChangePwd(nextPwd)}
+                        defaultValue={pwd}
+                        placeholder="Contraseña"
+                        secureTextEntry={true}
+                    />
+                    <Text style={styles.text}>
+                        He olvidado mi{" "}
+                        <Text style={styles.linkableText} onPress={() => navigation.navigate('Recuperar Contrasena', { name: 'Recuperar Contrasena' })}>
+                            contraseña
+                        </Text>
+                    </Text>
+                    <Button
+                        color={styles.buttons.color}
+                        style={{ margin: styles.buttons.margin }}
+                        title="Iniciar sesión"
+                        onPress={handleSingIn} />
+                    <Button
+                        color={styles.buttons.color}
+                        style={{ margin: styles.buttons.margin }}
+                        title="Cerrar sesión"
+                        onPress={handleSignOut} />
+                    <Text style={styles.text}>¿Necesitas una cuenta?</Text>
+                    <Text style={styles.linkableText} onPress={() => navigation.navigate('Registrar', { name: 'Registrar' })}>Registrar</Text>
+                </SafeAreaView>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 }
 

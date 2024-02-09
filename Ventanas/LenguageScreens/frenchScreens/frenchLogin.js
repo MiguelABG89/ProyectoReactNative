@@ -68,7 +68,7 @@ function FrenchLogin({ navigation }) {
 
             <Text style={styles.text}>
                 J'ai oublié mon{" "}
-                <Text style={styles.linkableText} onPress={() => navigation.navigate('Recuperar Contrasena', { name: 'Recuperar Contrasena' })}>
+                <Text style={styles.linkableText} onPress={() => navigation.navigate('Récupérer mot de passe', { name: 'Récupérer mot de passe' })}>
                     mot de passe
 
                 </Text>
@@ -82,7 +82,7 @@ function FrenchLogin({ navigation }) {
 
             <Text style={styles.text}>Avez-vous besoin d'un compte?</Text>
 
-            <Text style={styles.linkableText} onPress={() => navigation.navigate('Registrar', { name: 'Registrar' })}>Registre</Text>
+            <Text style={styles.linkableText} onPress={() => navigation.navigate('Registre', { name: 'Registre' })}>Registre</Text>
 
         </SafeAreaView >
     );
