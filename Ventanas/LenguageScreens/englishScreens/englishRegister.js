@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Text, TextInput, View, Button, Alert, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Text, TextInput, View, Button, Alert, KeyboardAvoidingView, ScrollView, Image } from 'react-native';
 import styles from '../../../estilos/estilos';
 import ModalDropdown from 'react-native-modal-dropdown';
 
-function EnglishRegister() {
+function EnglishRegister({ navigation }) {
     const [selectedLanguage, setSelectedLanguage] = useState("Select a language");
     const languages = [
         'Español',
@@ -14,6 +14,7 @@ function EnglishRegister() {
     ];
 
     const [user, setUser] = useState("");
+    const [mail, setMail] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
 
@@ -22,9 +23,25 @@ function EnglishRegister() {
     const [mensajePasswordDiferentes, setMensajePasswordDiferentes] = useState("");
 
     const handleLanguageSelect = (index, value) => {
-        setSelectedLanguage(value);
+        setSelectedLanguage("English");
 
-        // Aquí deberías definir cómo se navega a la página correspondiente al idioma seleccionado
+        // Navegar al componente correspondiente al idioma seleccionado
+        switch (value) {
+            case 'Español':
+                navigation.navigate('Registrar', { name: 'Registrar' });
+                break;
+            case 'English':
+                navigation.navigate('Register', { name: 'Register' });
+                break;
+            case 'Français':
+                navigation.navigate('Registre', { name: 'Registre' });
+                break;
+            case 'Deutsch':
+                navigation.navigate('Registrieren', { name: 'Registrieren' });
+                break;
+            default:
+                navigation.navigate('Register', { name: 'Register' });
+        }
     };
 
     return (
@@ -35,16 +52,23 @@ function EnglishRegister() {
                     defaultValue={selectedLanguage}
                     onSelect={handleLanguageSelect}
                 />
+
+                <Image
+                    source={require('../../../assets/Logo-FDP.jpg')}
+                    style={styles.image}
+                />
+
                 <View style={styles.estructure}>
-                    <TextInput style={styles.inputs} onChangeText={setUser} value={user} placeholder="E-mail" />
+                    <TextInput style={styles.inputs} onChangeText={setUser} value={user} placeholder="User" />
+                    <TextInput style={styles.inputs} onChangeText={setMail} value={mail} placeholder="E-mail" />
 
                     {/* Boton para ocultar */}
                     <TextInput style={styles.inputs} onChangeText={setPassword} value={password} secureTextEntry={true} placeholder="Password" />
-                    <Text style={styles.errors}>{mensajePasswordInvalida}</Text>
+                    {mensajePasswordInvalida !== "" && <Text style={styles.errors}>{mensajePasswordInvalida}</Text>}
 
                     {/* Boton para ocultar */}
                     <TextInput style={styles.inputs} onChangeText={setPassword2} value={password2} secureTextEntry={true} placeholder="Confirm password" />
-                    <Text style={styles.errors}>{mensajePasswordDiferentes}</Text>
+                    {mensajePasswordDiferentes != "" && <Text style={styles.errors}>{mensajePasswordDiferentes}</Text>}
 
                     <Button
                         onPress={() => {
@@ -67,11 +91,11 @@ function EnglishRegister() {
                                 Alert.alert('Successful registration', 'User registration was successful')
                             }
                         }}
-                        title='Registrarse'
-                        accessibilityLabel='Registrarse'
+                        title='Registre'
+                        accessibilityLabel='Registre'
                         color={styles.buttons.color}
                     />
-                    <Text style={styles.errors}>{"\n" + mensajeCamposVacios}</Text>
+                    {mensajeCamposVacios != "" && <Text style={styles.errors}>{"\n" + mensajeCamposVacios}</Text>}
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>

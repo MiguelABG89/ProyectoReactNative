@@ -4,12 +4,13 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import styles from '../../../estilos/estilos'
 
 
-function FrenchRegister() {
+function FrenchRegister({ navigation }) {
     const [user, setUser] = useState("")
+    const [mail, setMail] = useState("")
     const [password, setPassword] = useState("")
     const [password2, setPassword2] = useState("")
 
-    // const [mensajeCamposVacios, setMensajeCamposVacios] = useState("")
+    const [mensajeCamposVacios, setMensajeCamposVacios] = useState("")
     const [mensajePasswordInvalida, setMensajePasswordInvalida] = useState("")
     const [mensajePasswordDiferentes, setMensajePasswordDiferentes] = useState("")
 
@@ -20,12 +21,12 @@ function FrenchRegister() {
         'Español',
         'English',
         'Français',
-        'deutsch',
+        'Deutsch',
         '中国人'];
 
 
     const handleLanguageSelect = (index, value) => {
-        setSelectedLanguage(value);
+        setSelectedLanguage("Français");
 
         // Navegar al componente correspondiente al idioma seleccionado
         switch (value) {
@@ -37,6 +38,9 @@ function FrenchRegister() {
                 break;
             case 'Français':
                 navigation.navigate('Registre', { name: 'Registre' })
+                break;
+            case 'Deutsch':
+                navigation.navigate('Registrieren', { name: 'Registrieren' });
                 break;
             default:
                 navigation.navigate('Registre', { name: 'Registre' })
@@ -59,15 +63,17 @@ function FrenchRegister() {
                 style={styles.image}
             />
 
-            <TextInput style={styles.inputs} onChangeText={setUser} value={user} placeholder="Courrier électronique" />
+            <TextInput style={styles.inputs} onChangeText={setUser} value={user} placeholder="Utilisateur" />
+
+            <TextInput style={styles.inputs} onChangeText={setMail} value={mail} placeholder="Courrier électronique" />
 
             {/* Boton para ocultar */}
             <TextInput style={styles.inputs} onChangeText={setPassword} value={password} secureTextEntry={true} placeholder="Mot de passe" />
-            <Text style={styles.errors}>{mensajePasswordInvalida}</Text>
+            {mensajePasswordInvalida !== "" && <Text style={styles.errors}>{mensajePasswordInvalida}</Text>}
 
             {/* Boton para ocultar */}
             <TextInput style={styles.inputs} onChangeText={setPassword2} value={password2} secureTextEntry={true} placeholder="Confirmer mot de passe" />
-            <Text style={styles.errors}>{mensajePasswordDiferentes}</Text>
+            {mensajePasswordDiferentes != "" && <Text style={styles.errors}>{mensajePasswordDiferentes}</Text>}
 
             <Button
                 onPress={() => {
@@ -94,7 +100,7 @@ function FrenchRegister() {
                 accessibilityLabel='Enregistrement'
                 color={styles.buttons.color}
             />
-            <Text style={styles.errors}>{"\n" + mensajeCamposVacios}</Text>
+            {mensajeCamposVacios != "" && <Text style={styles.errors}>{"\n" + mensajeCamposVacios}</Text>}
         </View>
     );
 }

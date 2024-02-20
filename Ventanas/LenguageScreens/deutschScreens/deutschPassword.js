@@ -3,7 +3,7 @@ import { Button, View, TextInput, Image, Alert, Text, KeyboardAvoidingView, Scro
 import styles from '../../../estilos/estilos'
 import ModalDropdown from 'react-native-modal-dropdown';
 
-const DeutschPassword = () => {
+const DeutschPassword = ({navigation}) => {
     const [text, onChangeText] = React.useState('');
     const [selectedLanguage, setSelectedLanguage] = useState("Wähle eine Sprache");
     const languages = [
@@ -15,7 +15,7 @@ const DeutschPassword = () => {
     ];
 
     const handleLanguageSelect = (index, value) => {
-        setSelectedLanguage(value);
+        setSelectedLanguage("Deutsch");
         // Navegar al componente correspondiente al idioma seleccionado
         switch (value) {
             case 'Español':
@@ -52,13 +52,13 @@ const DeutschPassword = () => {
                         style={styles.image}
                     />
                     <Text style={styles.text}>
-                        Bitte geben Sie ihre E-Mail-Adresse ein. Wir senden Ihnen Anweisungen zum Zurücksetzen Ihres Passworts.
+                        Bitte geben Sie ihre benutzer ein. Wir senden Ihnen Anweisungen zum Zurücksetzen Ihres Passworts.
                     </Text>
                     <TextInput
                         style={styles.inputs}
                         onChangeText={onChangeText}
                         value={text}
-                        placeholder="Email"
+                        placeholder="Benutzer"
                     />
                     <Button
                         color={styles.buttons.color}

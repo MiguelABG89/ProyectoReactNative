@@ -1,4 +1,4 @@
-import React,{useState}from "react";
+import React, { useState } from "react";
 import { SafeAreaView, Text, Button, TextInput, Alert, Image } from "react-native";
 import styles from '../../../estilos/estilos'
 import ModalDropdown from 'react-native-modal-dropdown';
@@ -7,18 +7,18 @@ import ModalDropdown from 'react-native-modal-dropdown';
 function FrenchLogin({ navigation }) {
     const [Usu, onChangeUsu] = React.useState('');
     const [pwd, onChangePwd] = React.useState('');
-    
+
     const [selectedLanguage, setSelectedLanguage] = useState("Sélectionnez une langue");
     const languages = [
         'Español',
         'English',
         'Français',
-        'deutsch',
+        'Deutsch',
         '中国人'];
 
 
     const handleLanguageSelect = (index, value) => {
-        setSelectedLanguage(value);
+        setSelectedLanguage("Français");
 
         // Navegar al componente correspondiente al idioma seleccionado
         switch (value) {
@@ -30,6 +30,9 @@ function FrenchLogin({ navigation }) {
                 break;
             case 'Français':
                 navigation.navigate('Connecter', { name: 'Connecter' })
+                break;
+            case 'Deutsch':
+                navigation.navigate('Registrieren', { name: 'Registrieren' });
                 break;
             default:
                 navigation.navigate('Connecter', { name: 'Connecter' })

@@ -15,8 +15,25 @@ const EnglishPassword = () => {
     ];
 
     const handleLanguageSelect = (index, value) => {
-        setSelectedLanguage(value);
-        // Aquí deberías definir cómo se navega a la página correspondiente al idioma seleccionado
+        setSelectedLanguage("English");
+
+        // Navegar al componente correspondiente al idioma seleccionado
+        switch (value) {
+            case 'Español':
+                navigation.navigate('Registrar', { name: 'Registrar' });
+                break;
+            case 'English':
+                navigation.navigate('Register', { name: 'Register' });
+                break;
+            case 'Français':
+                navigation.navigate('Registre', { name: 'Registre' });
+                break;
+            case 'Deutsch':
+                navigation.navigate('Registrieren', { name: 'Registrieren' });
+                break;
+            default:
+                navigation.navigate('Registrar', { name: 'Registrar' }); // Por defecto, regresa a Español
+        }
     };
 
     return (
@@ -28,20 +45,21 @@ const EnglishPassword = () => {
                     onSelect={handleLanguageSelect}
                 />
                 <Text style={styles.titles}>
-                    Restablecer la contraseña
+                    Recover your password
                 </Text>
+
                 <Image
                     source={require('../../../assets/candado.png')}
                     style={styles.image}
                 />
                 <Text style={styles.text}>
-                    Please enter your e-mail. We will send you instructions to reset your password.
+                    Please enter your username. We will send you instructions to reset your password.
                 </Text>
                 <TextInput
                     style={styles.inputs}
                     onChangeText={onChangeText}
                     value={text}
-                    placeholder="E-mail"
+                    placeholder="Username"
                 />
                 <Button
                     color={styles.buttons.color}

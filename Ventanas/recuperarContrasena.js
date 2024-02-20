@@ -87,7 +87,7 @@ function RecuperarContrasena({ navigation }) {
                         style={styles.image}
                     />
 
-                    <Text style={styles.email}>
+                    <Text style={styles.text}>
                         Por favor, introduzca su dirección de correo. Le enviaremos las instrucciones para restablecer su contraseña.
                     </Text>
 

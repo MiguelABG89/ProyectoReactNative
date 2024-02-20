@@ -13,6 +13,7 @@ function DeutschRegister({ navigation }) {
         '中国人'];
 
     const [user, setUser] = useState("");
+    const [mail, setMail] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
 
@@ -60,6 +61,7 @@ function DeutschRegister({ navigation }) {
                     value={user}
                     placeholder="Benutzer"
                 />
+                <TextInput style={styles.inputs} onChangeText={setMail} value={mail} placeholder="Email"/>
                 <TextInput
                     style={styles.inputs}
                     onChangeText={setPassword}

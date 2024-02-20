@@ -41,7 +41,7 @@ function DeutschLogin({ navigation }) {
     ];
 
     const handleLanguageSelect = (index, value) => {
-        setSelectedLanguage(value);
+        setSelectedLanguage("Deutsch");
 
         // Navegar al componente correspondiente al idioma seleccionado
         switch (value) {

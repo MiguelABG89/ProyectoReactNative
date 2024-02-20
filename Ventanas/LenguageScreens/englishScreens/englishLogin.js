@@ -17,7 +17,7 @@ function EnglishLogin({ navigation }) {
     ];
 
     const handleLanguageSelect = (index, value) => {
-        setSelectedLanguage(value);
+        setSelectedLanguage("English");
 
         // Navegar al componente correspondiente al idioma seleccionado
         switch (value) {

@@ -5,7 +5,7 @@ import styles from '../estilos/estilos'
 import {signUp} from 'aws-amplify/auth'
 
 function Register({ navigation }) {
-    const [selectedLanguage, setSelectedLanguage] = useState("Español");
+    const [selectedLanguage, setSelectedLanguage] = useState("Selecciona un idioma");
     const languages = [
         'Español',
         'English',
@@ -15,7 +15,8 @@ function Register({ navigation }) {
     ];
 
     const [user, setUser] = useState("");
-    const [password, setPassword] = useState("");
+    const [mail, setMail] = useState("");
+    const [pwd, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
 
     const [mensajeCamposVacios, setMensajeCamposVacios] = useState("");
@@ -23,7 +24,7 @@ function Register({ navigation }) {
     const [mensajePasswordDiferentes, setMensajePasswordDiferentes] = useState("");
 
     const handleLanguageSelect = (index, value) => {
-        setSelectedLanguage(value);
+        setSelectedLanguage("Español");
 
         // Navegar al componente correspondiente al idioma seleccionado
         switch (value) {
