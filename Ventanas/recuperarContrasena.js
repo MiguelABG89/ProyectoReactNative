@@ -23,7 +23,7 @@ function RecuperarContrasena({ navigation }) {
             console.log(username);
             await resetPassword({ username });
             console.log('Correo de restablecimiento de contraseña enviado con éxito.');
-            navigation.navigate('New Password', { username });
+            navigation.navigate('New Password', { name: [username] });
         } catch (err) {
             console.log(err);
             Alert.alert('Oops', err.message);

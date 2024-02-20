@@ -3,7 +3,7 @@ import { Button, View, TextInput, Image, Alert, Text, TouchableOpacity } from "r
 import styles from '../estilos/estilos'
 import { confirmResetPassword } from "@aws-amplify/auth";
 
-function NewPassword({ navigation , username }) {
+function NewPassword({ navigation , route }) {
     const [code, setCode] = React.useState('');
     const [psw, setNewPassword] = React.useState('');
     const [confirmarPassword, setConfirmarPassword] = React.useState('');
@@ -15,13 +15,13 @@ function NewPassword({ navigation , username }) {
     const [mensajePasswordsDiferentes, setMensajePasswordsDiferentes] = useState("")
 
     async function handleConfirmResetPassword() {
-        const user = username;
+        const username = route.params.name;
         const confirmationCode = code;
         const newPassword = psw;
 
         try {
-            console.log(user)
-            await confirmResetPassword({ user, confirmationCode, newPassword });
+            console.log(username)
+            await confirmResetPassword({ username, confirmationCode, newPassword });
             navigation.navigate("Inicio")
         } catch (error) {
             console.log(error)
@@ -52,6 +52,7 @@ function NewPassword({ navigation , username }) {
                 onChangeText={setNewPassword}
                 value={psw}
                 placeholder="Nueva contraseña"
+                secureTextEntry={true}
             />
 
             <TextInput
@@ -59,6 +60,7 @@ function NewPassword({ navigation , username }) {
                 onChangeText={setConfirmarPassword}
                 value={confirmarPassword}
                 placeholder="Confirmar contraseña"
+                secureTextEntry={true}
             />
 
             {/* Se muestran los mensajes de error si hace falta */}
