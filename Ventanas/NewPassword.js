@@ -1,25 +1,30 @@
 import React, { useState } from "react";
 import { Button, View, TextInput, Image, Alert, Text, TouchableOpacity } from "react-native";
-import { Auth } from 'aws-amplify'
 import styles from '../estilos/estilos'
+import { confirmResetPassword } from "@aws-amplify/auth";
 
-function NewPassword({ navigation }) {
+function NewPassword({ navigation , username }) {
     const [code, setCode] = React.useState('');
-    const [newPassword, setNewPassword] = React.useState('');
+    const [psw, setNewPassword] = React.useState('');
     const [confirmarPassword, setConfirmarPassword] = React.useState('');
+
 
     // TODO MOSTRAR LOS MENSAJES DE ERROR
     const [mensajeCodeInvalido, setMensajeCodeInvalido] = useState("")
     const [mensajePasswordInvalido, setMensajePasswordInvalido] = useState("")
     const [mensajePasswordsDiferentes, setMensajePasswordsDiferentes] = useState("")
 
-    // Collect confirmation code and new password
-    async function forgotPasswordSubmit(username, code, newPassword) {
+    async function handleConfirmResetPassword() {
+        const user = username;
+        const confirmationCode = code;
+        const newPassword = psw;
+
         try {
-            const data = await Auth.forgotPasswordSubmit(username, code, newPassword);
-            console.log(data);
-        } catch (err) {
-            console.log(err);
+            console.log(user)
+            await confirmResetPassword({ user, confirmationCode, newPassword });
+            navigation.navigate("Inicio")
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -45,7 +50,7 @@ function NewPassword({ navigation }) {
             <TextInput
                 style={styles.inputs}
                 onChangeText={setNewPassword}
-                value={newPassword}
+                value={psw}
                 placeholder="Nueva contraseña"
             />
 
@@ -71,14 +76,12 @@ function NewPassword({ navigation }) {
                     setMensajePasswordsDiferentes('')
 
                     // Se comprueba si los valores introducidos en los campos son validos
-                    if (code !== "codigo") { // CAMBIAR PARA QUE COMPRUEBE QUE ES IGUAL AL CODIGO ENVIADO
-                        setMensajeCodeInvalido("El codigo introducido es incorrecto")
-                    } else if (newPassword.length < 6) {
+                    if (psw.length < 6) {
                         setMensajePasswordInvalido('Longitud mínima de la contraseña: 6 caracteres')
-                    } else if (newPassword !== confirmarPassword) {
+                    } else if (psw !== confirmarPassword) {
                         setMensajePasswordsDiferentes('Las contraseñas no son iguales')
                     } else {
-                        Alert.alert('CAMBIAR CONTRASEÑA');
+                        handleConfirmResetPassword(code,psw)
                     }
                 }}
             />

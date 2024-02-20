@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, View, TextInput, Image, Alert, Text, KeyboardAvoidingView, ScrollView } from "react-native";
 import styles from '../estilos/estilos';
 import ModalDropdown from 'react-native-modal-dropdown';
+import { NavigationAction } from "@react-navigation/native";
 import { resetPassword } from 'aws-amplify/auth';
 
 function RecuperarContrasena({ navigation }) {
@@ -17,7 +18,7 @@ function RecuperarContrasena({ navigation }) {
         '中国人'
     ];
 
-    async function handlePassword() {
+    async function handleResetPassword() {
         try {
             console.log(username);
             await resetPassword({ username });
@@ -92,7 +93,7 @@ function RecuperarContrasena({ navigation }) {
                             if (username.length === 0) {
                                 setMensajeUsernameInvalido("El campo no debe estar vacío.");
                             } else {
-                                handlePassword(username);
+                                handleResetPassword(username);
                             }
                         }}
                     />
