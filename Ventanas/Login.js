@@ -12,20 +12,22 @@ function Login({ navigation }) {
     async function handleSingIn() {
         const username = Usu;
         const password = pwd;
-        try{
-            const { isSignedIn, nextStep } = await signIn({ username , password ,
-            options:{authFlowType:"USER_PASSWORD_AUTH"}})
+        try {
+            const { isSignedIn, nextStep } = await signIn({
+                username, password,
+                options: { authFlowType: "USER_PASSWORD_AUTH" }
+            })
             console.log('success')
             navigation.navigate("Home")
-        }catch(e){
+        } catch (e) {
             console.log('error singing in')
         }
     }
     async function handleSignOut() {
         try {
-          await signOut();
+            await signOut();
         } catch (error) {
-          console.log('error signing out: ', error);
+            console.log('error signing out: ', error);
         }
     }
 
@@ -64,21 +66,29 @@ function Login({ navigation }) {
         <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
             <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <SafeAreaView style={styles.estructure}>
+
+                    {/* Menú desplegable de idiomas */}
                     <ModalDropdown
                         options={languages}
                         defaultValue={selectedLanguage}
                         onSelect={handleLanguageSelect}
                     />
+
+                    {/* Imagen logo FP2 */}
                     <Image
                         source={require('../assets/Logo-FDP.jpg')}
                         style={styles.image}
                     />
+
+                    {/* Campo USUARIO */}
                     <TextInput
                         style={styles.inputs}
                         onChangeText={nextUsu => onChangeUsu(nextUsu)}
                         defaultValue={Usu}
-                        placeholder="Correo electrónico"
+                        placeholder="Usuario"
                     />
+
+                    {/* Campo CONTRASEÑA */}
                     <TextInput
                         style={styles.inputs}
                         onChangeText={nextPwd => onChangePwd(nextPwd)}
@@ -86,22 +96,31 @@ function Login({ navigation }) {
                         placeholder="Contraseña"
                         secureTextEntry={true}
                     />
+
+                    {/* RECUPERAR CONTRASEÑA */}
                     <Text style={styles.text}>
                         He olvidado mi{" "}
+
                         <Text style={styles.linkableText} onPress={() => navigation.navigate('Recuperar Contrasena', { name: 'Recuperar Contrasena' })}>
                             contraseña
                         </Text>
                     </Text>
+
+                    {/* Botón para iniciar sesión */}
                     <Button
                         color={styles.buttons.color}
                         style={{ margin: styles.buttons.margin }}
                         title="Iniciar sesión"
                         onPress={handleSingIn} />
+
+                    {/* Botón para cerrar sesión */}
                     <Button
                         color={styles.buttons.color}
                         style={{ margin: styles.buttons.margin }}
                         title="Cerrar sesión"
                         onPress={handleSignOut} />
+
+                    {/* Crear nueva cuenta */}
                     <Text style={styles.text}>¿Necesitas una cuenta?</Text>
                     <Text style={styles.linkableText} onPress={() => navigation.navigate('Registrar', { name: 'Registrar' })}>Registrar</Text>
                 </SafeAreaView>

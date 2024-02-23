@@ -9,6 +9,7 @@ function DeutschLogin({ navigation }) {
     const [Usu, onChangeUsu] = useState('');
     const [pwd, onChangePwd] = useState('');
 
+    // Estructura para el registro en Amplify
     async function handleSingIn() {
         const username = Usu;
         const password = pwd;
@@ -66,21 +67,29 @@ function DeutschLogin({ navigation }) {
         <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
             <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <SafeAreaView style={styles.estructure}>
+
+                    {/* Menú desplegable de idiomas */}
                     <ModalDropdown
                         options={languages}
                         defaultValue={selectedLanguage}
                         onSelect={handleLanguageSelect}
                     />
+
+                    {/* Imagen logo FP2 */}
                     <Image
                         source={require('../../../assets/Logo-FDP.jpg')}
                         style={styles.image}
                     />
+
+                    {/* Campo USUARIO */}
                     <TextInput
                         style={styles.inputs}
                         onChangeText={nextUsu => onChangeUsu(nextUsu)}
                         defaultValue={Usu}
-                        placeholder="Email"
+                        placeholder="Benutzer"
                     />
+
+                    {/* Campo CONTRASEÑA */}
                     <TextInput
                         style={styles.inputs}
                         onChangeText={nextPwd => onChangePwd(nextPwd)}
@@ -88,17 +97,30 @@ function DeutschLogin({ navigation }) {
                         placeholder="Passwort"
                         secureTextEntry={true}
                     />
+
+                    {/* RECUPERAR CONTRASEÑA */}
                     <Text style={styles.text}>
                         Ich habe mein {" "}
                         <Text style={styles.linkableText} onPress={() => navigation.navigate('Passwort wiederherstellen', { name: 'Passwort wiederherstellen' })}>
                             Passwort vergessen
                         </Text>
                     </Text>
+
+                    {/* Botón para iniciar sesión */}
                     <Button
                         color={styles.buttons.color}
                         style={{ margin: styles.buttons.margin }}
                         title="Anmeldung"
                         onPress={handleSingIn} />
+
+                    {/* Botón para cerrar sesión */}
+                    <Button
+                        color={styles.buttons.color}
+                        style={{ margin: styles.buttons.margin }}
+                        title="Abmelden"
+                        onPress={handleSignOut} />
+
+                    {/* Crear nueva cuenta */}
                     <Text style={styles.text}>Benötigen Sie ein Konto?</Text>
                     <Text style={styles.linkableText} onPress={() => navigation.navigate('Registrieren', { name: 'Registrieren' })}>Registrieren</Text>
                 </SafeAreaView>
