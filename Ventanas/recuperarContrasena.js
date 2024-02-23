@@ -3,6 +3,7 @@ import { Button, View, TextInput, Image, Alert, Text, KeyboardAvoidingView, Scro
 import { Auth } from 'aws-amplify';
 import styles from '../estilos/estilos';
 import ModalDropdown from 'react-native-modal-dropdown';
+import { NavigationAction } from "@react-navigation/native";
 import { resetPassword } from 'aws-amplify/auth';
 
 function RecuperarContrasena({ navigation }) {
@@ -18,12 +19,12 @@ function RecuperarContrasena({ navigation }) {
         '中国人'
     ];
 
-    async function handlePassword() {
+    async function handleResetPassword() {
         try {
             console.log(username);
             await resetPassword({ username });
             console.log('Correo de restablecimiento de contraseña enviado con éxito.');
-            navigation.navigate('New Password', { username });
+            navigation.navigate('New Password', { name: [username] });
         } catch (err) {
             console.log(err);
             Alert.alert('Oops', err.message);
@@ -108,7 +109,7 @@ function RecuperarContrasena({ navigation }) {
                             if (username.length === 0) {
                                 setMensajeUsernameInvalido("El campo no debe estar vacío.");
                             } else {
-                                handlePassword(username);
+                                handleResetPassword(username);
                             }
                         }}
                     />
