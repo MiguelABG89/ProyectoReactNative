@@ -3,7 +3,7 @@ import { Button, View, TextInput, Image, Alert, Text, TouchableOpacity } from "r
 import styles from '../estilos/estilos'
 import { confirmResetPassword } from "@aws-amplify/auth";
 
-function NewPassword({ navigation , route }) {
+function NewPassword({ navigation, route }) {
     const [code, setCode] = React.useState('');
     const [psw, setNewPassword] = React.useState('');
     const [confirmarPassword, setConfirmarPassword] = React.useState('');
@@ -52,27 +52,38 @@ function NewPassword({ navigation , route }) {
                 placeholder="Código"
             />
 
-            <View>
+            <View style={styles.viewOjo}>
                 <TextInput
-                    style={styles.inputs}
+                    style={styles.inputPwd}
                     onChangeText={setNewPassword}
                     value={psw}
                     placeholder="Nueva contraseña"
                     secureTextEntry={showPwd1}
-
                 />
-                <TouchableOpacity onPress={toggleShowPassword1}>
-                    <Image source={showPwd1 ? require('../assets/ojoOff.png') : require('../assets/ojoOn.png')} style={{ width: 25, height: 25, alignSelf: 'center', marginLeft: 5 }} />
+                <TouchableOpacity onPress={toggleShowPassword1} style={styles.touchableOjo}>
+                    <Image
+                        source={showPwd1 ? require('../assets/ojoOff.png') : require('../assets/ojoOn.png')}
+                        style={styles.imageOjo}
+                    />
                 </TouchableOpacity>
             </View>
 
-            <TextInput
-                style={styles.inputs}
-                onChangeText={setConfirmarPassword}
-                value={confirmarPassword}
-                placeholder="Confirmar contraseña"
-                secureTextEntry={showPwd2}
-            />
+            <View style={styles.viewOjo}>
+                <TextInput
+                    style={styles.inputPwd}
+                    onChangeText={setConfirmarPassword}
+                    value={confirmarPassword}
+                    placeholder="Confirmar contraseña"
+                    secureTextEntry={showPwd2}
+                />
+
+                <TouchableOpacity onPress={toggleShowPassword2} style={styles.touchableOjo}>
+                    <Image
+                        source={showPwd2 ? require('../assets/ojoOff.png') : require('../assets/ojoOn.png')}
+                        style={styles.imageOjo}
+                    />
+                </TouchableOpacity>
+            </View>
 
             {/* Se muestran los mensajes de error si hace falta */}
             {mensajeCodeInvalido != "" && <Text style={styles.errors}>{mensajeCodeInvalido}</Text>}
@@ -94,7 +105,7 @@ function NewPassword({ navigation , route }) {
                     } else if (psw !== confirmarPassword) {
                         setMensajePasswordsDiferentes('Las contraseñas no son iguales')
                     } else {
-                        handleConfirmResetPassword(code,psw)
+                        handleConfirmResetPassword(code, psw)
                     }
                 }}
             />
