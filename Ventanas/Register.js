@@ -61,7 +61,7 @@ function Register({ navigation }) {
             }
           });
 
-          Alert.alert("Registro correcto","El registro de usuario se ha realizado correctamente")
+        
           console.log('Register succesfull');
           navigation.navigate("Confirmar Correo")
 
@@ -103,18 +103,18 @@ function Register({ navigation }) {
                     setMensajePasswordDiferentes('')
 
                         //Comprobaciones
-                        if (user.trim() === '' || password.trim() === '' || password2.trim() === '') {
+                        if (user.trim() === '' || pwd.trim() === '' || password2.trim() === '') {
                             // Ningun campo vacio
                             setMensajeCamposVacios('Uno o más campos están vacíos')
-                        } else if (password.length < 6) {
+                        } else if (pwd.length < 6) {
                             // Contraseña valida
                             setMensajePasswordInvalida('Longitud mínima de la contraseña: 6 caracteres')
-                        } else if (password !== password2) {
+                        } else if (pwd !== password2) {
                             // Confirmar contraseña correcto
                             setMensajePasswordDiferentes('Las contraseñas no son iguales');
                         } else {
                             Alert.alert('Registro correcto', 'El registro de usuario se ha realizado correctamente')
-                            handleSignUp
+                            handleSignUp()
 
                         }
                     }}
