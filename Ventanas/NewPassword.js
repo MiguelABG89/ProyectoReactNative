@@ -42,7 +42,7 @@ function NewPassword({ navigation, route }) {
             </Text>
 
             <Text style={styles.text}>
-                Por favor, introduzca el codigo recivido y su nueva contraseña
+                Por favor, introduzca el código recibido y su nueva contraseña.
             </Text>
 
             <TextInput

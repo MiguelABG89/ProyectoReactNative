@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Text, TextInput, View, Button, Alert, Image, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Text, TextInput, View, Button, Alert, Image, KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
 import styles from '../estilos/estilos'
-import {signUp} from 'aws-amplify/auth'
+import { signUp } from 'aws-amplify/auth'
 
 function Register({ navigation }) {
     const [selectedLanguage, setSelectedLanguage] = useState("Selecciona un idioma");
@@ -22,6 +22,13 @@ function Register({ navigation }) {
     const [mensajeCamposVacios, setMensajeCamposVacios] = useState("");
     const [mensajePasswordInvalida, setMensajePasswordInvalida] = useState("");
     const [mensajePasswordDiferentes, setMensajePasswordDiferentes] = useState("");
+
+    const [showPwd1, setShowPwd1] = React.useState(true);
+    const [showPwd2, setShowPwd2] = React.useState(true);
+
+    // Función para cambiar la visibilidad de la contraseña
+    const toggleShowPassword1 = () => setShowPwd1(!showPwd1);
+    const toggleShowPassword2 = () => setShowPwd2(!showPwd2);
 
     const handleLanguageSelect = (index, value) => {
         setSelectedLanguage("Español");
@@ -44,31 +51,31 @@ function Register({ navigation }) {
                 navigation.navigate('Registrar', { name: 'Registrar' }); // Por defecto, regresa a Español
         }
     }
-    
+
     async function handleSignUp() {
         const username = user;
         const password = pwd;
         const email = mail;
 
         try {
-          const { isSignUpComplete, userId, nextStep } = await signUp({
-            username: username,
-            password: password ,
-            options: {
-              userAttributes: {
-                email: email
-              },
-            }
-          });
+            const { isSignUpComplete, userId, nextStep } = await signUp({
+                username: username,
+                password: password,
+                options: {
+                    userAttributes: {
+                        email: email
+                    },
+                }
+            });
 
-        
-          console.log('Register succesfull');
-          navigation.navigate("Confirmar Correo")
+
+            console.log('Register succesfull');
+            navigation.navigate("Confirmar Correo")
 
         } catch (error) {
-          console.log('error signing up:', error);
+            console.log('error signing up:', error);
         }
-        
+
     }
 
 
@@ -86,21 +93,37 @@ function Register({ navigation }) {
                     style={styles.image}
                 />
 
-            <TextInput style={styles.inputs} onChangeText={setUser} value={user} placeholder="Usuario"/>
-            <TextInput style={styles.inputs} onChangeText={setMail} value={mail} placeholder="Correo"/>
+                <TextInput style={styles.inputs} onChangeText={setUser} value={user} placeholder="Usuario" />
+                <TextInput style={styles.inputs} onChangeText={setMail} value={mail} placeholder="Correo" />
 
-            <TextInput style={styles.inputs} onChangeText={setPassword} value={pwd} secureTextEntry={true} placeholder="Contraseña"/>
-            {mensajePasswordInvalida !== "" && <Text style={styles.errors}>{mensajePasswordInvalida}</Text>}
+                <View style={styles.viewOjo}>
+                    <TextInput style={styles.inputPwd} onChangeText={setPassword} value={pwd} secureTextEntry={showPwd1} placeholder="Contraseña" />
+                    <TouchableOpacity onPress={toggleShowPassword1} style={styles.touchableOjo}>
+                        <Image
+                            source={showPwd1 ? require('../assets/ojoOff.png') : require('../assets/ojoOn.png')}
+                            style={styles.imageOjo}
+                        />
+                    </TouchableOpacity>
+                </View>
+                {mensajePasswordInvalida !== "" && <Text style={styles.errors}>{mensajePasswordInvalida}</Text>}
 
-            <TextInput style={styles.inputs} onChangeText={setPassword2} value={password2} secureTextEntry={true} placeholder="Confirmar contraseña"/>
-            {mensajePasswordDiferentes != "" && <Text style={styles.errors}>{mensajePasswordDiferentes}</Text>}
+                <View style={styles.viewOjo}>
+                    <TextInput style={styles.inputPwd} onChangeText={setPassword2} value={password2} secureTextEntry={showPwd2} placeholder="Confirmar contraseña" />
+                    <TouchableOpacity onPress={toggleShowPassword2} style={styles.touchableOjo}>
+                        <Image
+                            source={showPwd2 ? require('../assets/ojoOff.png') : require('../assets/ojoOn.png')}
+                            style={styles.imageOjo}
+                        />
+                    </TouchableOpacity>
+                </View>
+                {mensajePasswordDiferentes != "" && <Text style={styles.errors}>{mensajePasswordDiferentes}</Text>}
 
-            <Button
-                onPress={ ()=>{
-                    // Se vacian los campos de mensajes 
-                    setMensajeCamposVacios('')
-                    setMensajePasswordInvalida('')
-                    setMensajePasswordDiferentes('')
+                <Button
+                    onPress={() => {
+                        // Se vacian los campos de mensajes 
+                        setMensajeCamposVacios('')
+                        setMensajePasswordInvalida('')
+                        setMensajePasswordDiferentes('')
 
                         //Comprobaciones
                         if (user.trim() === '' || pwd.trim() === '' || password2.trim() === '') {
