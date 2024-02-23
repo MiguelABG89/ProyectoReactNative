@@ -7,7 +7,12 @@ function NewPassword({ navigation , route }) {
     const [code, setCode] = React.useState('');
     const [psw, setNewPassword] = React.useState('');
     const [confirmarPassword, setConfirmarPassword] = React.useState('');
+    const [showPwd1, setShowPwd1] = React.useState(true);
+    const [showPwd2, setShowPwd2] = React.useState(true);
 
+    // Función para cambiar la visibilidad de la contraseña
+    const toggleShowPassword1 = () => setShowPwd1(!showPwd1);
+    const toggleShowPassword2 = () => setShowPwd2(!showPwd2);
 
     // TODO MOSTRAR LOS MENSAJES DE ERROR
     const [mensajeCodeInvalido, setMensajeCodeInvalido] = useState("")
@@ -47,20 +52,26 @@ function NewPassword({ navigation , route }) {
                 placeholder="Código"
             />
 
-            <TextInput
-                style={styles.inputs}
-                onChangeText={setNewPassword}
-                value={psw}
-                placeholder="Nueva contraseña"
-                secureTextEntry={true}
-            />
+            <View>
+                <TextInput
+                    style={styles.inputs}
+                    onChangeText={setNewPassword}
+                    value={psw}
+                    placeholder="Nueva contraseña"
+                    secureTextEntry={showPwd1}
+
+                />
+                <TouchableOpacity onPress={toggleShowPassword1}>
+                    <Image source={showPwd1 ? require('../assets/ojoOff.png') : require('../assets/ojoOn.png')} style={{ width: 25, height: 25, alignSelf: 'center', marginLeft: 5 }} />
+                </TouchableOpacity>
+            </View>
 
             <TextInput
                 style={styles.inputs}
                 onChangeText={setConfirmarPassword}
                 value={confirmarPassword}
                 placeholder="Confirmar contraseña"
-                secureTextEntry={true}
+                secureTextEntry={showPwd2}
             />
 
             {/* Se muestran los mensajes de error si hace falta */}
