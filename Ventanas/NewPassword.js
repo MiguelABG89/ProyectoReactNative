@@ -15,7 +15,6 @@ function NewPassword({ navigation, route }) {
     const toggleShowPassword2 = () => setShowPwd2(!showPwd2);
 
     // TODO MOSTRAR LOS MENSAJES DE ERROR
-    const [mensajeCodeInvalido, setMensajeCodeInvalido] = useState("")
     const [mensajePasswordInvalido, setMensajePasswordInvalido] = useState("")
     const [mensajePasswordsDiferentes, setMensajePasswordsDiferentes] = useState("")
 
@@ -26,27 +25,13 @@ function NewPassword({ navigation, route }) {
 
         try {
             await confirmResetPassword({ username, confirmationCode, newPassword });
-            showAlert();
+            Alert.alert('Exito', 'Contraseña cambiada con exito');
             navigation.navigate("Inicio")
         } catch (error) {
-            console.log(error)
+            Alert.alert('Error', 'Error al cambiar la contraseña. Asegurese de que el codigo introducido es correcto')
+            console.log('error en el restablecimiento de contraseña')
         }
     }
-
-    const showAlert = () => {
-        Alert.alert(
-            'Título',
-            'mensaje de alerta',
-            [
-                {
-                    text: 'Aceptar',
-                    onPress: () => console.log('Aceptar presionado')
-                }
-            ],
-            { cancelable: false }
-        )
-    }
-
 
     return (
 
@@ -101,7 +86,6 @@ function NewPassword({ navigation, route }) {
             </View>
 
             {/* Se muestran los mensajes de error si hace falta */}
-            {mensajeCodeInvalido != "" && <Text style={styles.errors}>{mensajeCodeInvalido}</Text>}
             {mensajePasswordInvalido != "" && <Text style={styles.errors}>{mensajePasswordInvalido}</Text>}
             {mensajePasswordsDiferentes != "" && <Text style={styles.errors}>{mensajePasswordsDiferentes}</Text>}
 
@@ -110,7 +94,6 @@ function NewPassword({ navigation, route }) {
                 title="Recuperar contraseña"
                 onPress={() => {
                     // Se resetean los valores de los mensajes de error
-                    setMensajeCodeInvalido('')
                     setMensajePasswordInvalido('')
                     setMensajePasswordsDiferentes('')
 

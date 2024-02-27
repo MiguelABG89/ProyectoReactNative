@@ -68,11 +68,12 @@ function Register({ navigation }) {
                 }
             });
 
-          Alert.alert('Registro correcto', 'El registro de usuario se ha realizado correctamente')
-          console.log('Register succesfull');
-          navigation.navigate("Confirmar Correo")
+            Alert.alert('Registro correcto', 'El registro de usuario se ha realizado correctamente')
+            console.log('Register succesfull');
+            navigation.navigate("Confirmar Correo")
 
         } catch (error) {
+            Alert.alert('Registro fallido', 'Ya existe un usuario con este nombre de usuario')
             console.log('error signing up:', error);
         }
 
@@ -136,7 +137,7 @@ function Register({ navigation }) {
                             // Confirmar contraseña correcto
                             setMensajePasswordDiferentes('Las contraseñas no son iguales');
                         } else {
-                            
+
                             handleSignUp()
 
                         }
@@ -145,6 +146,9 @@ function Register({ navigation }) {
                     accessibilityLabel='Registrarse'
                     color={styles.buttons.color}
                 />
+
+                <Text style={styles.linkableText} onPress={() => navigation.navigate("Confirmar Correo")}>Confirmar correo</Text>
+
                 {mensajeCamposVacios != "" && <Text style={styles.errors}>{"\n" + mensajeCamposVacios}</Text>}
             </ScrollView>
         </KeyboardAvoidingView>

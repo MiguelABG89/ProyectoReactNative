@@ -10,11 +10,9 @@ function Login({ navigation }) {
     const [pwd, onChangePwd] = useState('');
 
     const [showPwd1, setShowPwd1] = React.useState(true);
-    const [showPwd2, setShowPwd2] = React.useState(true);
 
     // Función para cambiar la visibilidad de la contraseña
     const toggleShowPassword1 = () => setShowPwd1(!showPwd1);
-    const toggleShowPassword2 = () => setShowPwd2(!showPwd2);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('blur', () => {
@@ -37,22 +35,9 @@ function Login({ navigation }) {
             console.log('success')
             navigation.navigate("Home")
         } catch (e) {
+            Alert.alert('Inicio de sesion', 'Correo electrónico o contraseña incorrectos')
             console.log('error singing in')
         }
-    }
-
-    const showAlert = () => {
-        Alert.alert(
-            'Inicio de sesion',
-            'Correo electrónico o contraseña incorrectos',
-            [
-                {
-                    text: 'Aceptar',
-                    onPress: () => console.log('Aceptar presionado')
-                }
-            ],
-            { cancelable: false }
-        )
     }
 
     async function handleSignOut() {
