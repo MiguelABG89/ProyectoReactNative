@@ -140,7 +140,7 @@ function HomeScreen({ navigation }) {
         try {
             const restOperation = await get({
                 apiName: 'ProyectoReactNative',
-                path: '/hello'
+                path: '/centros'
             });
 
             const { body } = await restOperation.response;
