@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { SafeAreaView, Text, Button, TextInput, Alert, Image, KeyboardAvoidingView, ScrollView } from "react-native";
+import React, { useState, useEffect } from "react";
+import { SafeAreaView, TouchableOpacity, Text, Button, TextInput, Alert, Image, KeyboardAvoidingView, ScrollView, View } from "react-native";
 import styles from '../estilos/estilos';
 import { Auth } from 'aws-amplify';
 import { signIn, signOut } from 'aws-amplify/auth';
@@ -9,16 +9,34 @@ function Login({ navigation }) {
     const [Usu, onChangeUsu] = useState('');
     const [pwd, onChangePwd] = useState('');
 
-    async function handleSingIn(){
+    const [showPwd1, setShowPwd1] = React.useState(true);
+    const [showPwd2, setShowPwd2] = React.useState(true);
+
+    // Función para cambiar la visibilidad de la contraseña
+    const toggleShowPassword1 = () => setShowPwd1(!showPwd1);
+    const toggleShowPassword2 = () => setShowPwd2(!showPwd2);
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('blur', () => {
+            // Esta función se ejecuta cuando el componente deja de estar en pantalla
+            onChangeUsu('');
+            onChangePwd('');
+        });
+
+        return unsubscribe;
+    }, [navigation]);
+
+    async function handleSingIn() {
         const username = Usu;
         const password = pwd;
-        try{
-            const { isSignedIn, nextStep } = await signIn({ username , password ,
-            options:{authFlowType:"USER_PASSWORD_AUTH"}})
+        try {
+            const { isSignedIn, nextStep } = await signIn({
+                username, password,
+                options: { authFlowType: "USER_PASSWORD_AUTH" }
+            })
             console.log('success')
             navigation.navigate("Home")
-        }catch(e){
-            showAlert()
+        } catch (e) {
             console.log('error singing in')
         }
     }
@@ -39,9 +57,9 @@ function Login({ navigation }) {
 
     async function handleSignOut() {
         try {
-          await signOut();
+            await signOut();
         } catch (error) {
-          console.log('error signing out: ', error);
+            console.log('error signing out: ', error);
         }
     }
 
@@ -80,34 +98,48 @@ function Login({ navigation }) {
         <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
             <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <SafeAreaView style={styles.estructure}>
+
                     <ModalDropdown
                         options={languages}
                         defaultValue={selectedLanguage}
                         onSelect={handleLanguageSelect}
                     />
+
                     <Image
                         source={require('../assets/Logo-FDP.jpg')}
                         style={styles.image}
                     />
+
                     <TextInput
                         style={styles.inputs}
                         onChangeText={nextUsu => onChangeUsu(nextUsu)}
                         defaultValue={Usu}
                         placeholder="Correo electrónico"
                     />
-                    <TextInput
-                        style={styles.inputPwd}
-                        onChangeText={nextPwd => onChangePwd(nextPwd)}
-                        defaultValue={pwd}
-                        placeholder="Contraseña"
-                        secureTextEntry={true}
-                    />
+
+                    <View style={styles.viewOjo}>
+                        <TextInput
+                            style={styles.inputPwd}
+                            onChangeText={nextPwd => onChangePwd(nextPwd)}
+                            defaultValue={pwd}
+                            placeholder="Contraseña"
+                            secureTextEntry={showPwd1}
+                        />
+                        <TouchableOpacity onPress={toggleShowPassword1} style={styles.touchableOjo}>
+                            <Image
+                                source={showPwd1 ? require('../assets/ojoOff.png') : require('../assets/ojoOn.png')}
+                                style={styles.imageOjo}
+                            />
+                        </TouchableOpacity>
+                    </View>
+
                     <Text style={styles.text}>
                         He olvidado mi{" "}
                         <Text style={styles.linkableText} onPress={() => navigation.navigate('Recuperar Contrasena', { name: 'Recuperar Contrasena' })}>
                             contraseña
                         </Text>
                     </Text>
+
                     <Button
                         color={styles.buttons.color}
                         style={{ margin: styles.buttons.margin }}
@@ -118,8 +150,11 @@ function Login({ navigation }) {
                         style={{ margin: styles.buttons.margin }}
                         title="Cerrar sesión"
                         onPress={handleSignOut} />
+
                     <Text style={styles.text}>¿Necesitas una cuenta?</Text>
+
                     <Text style={styles.linkableText} onPress={() => navigation.navigate('Registrar', { name: 'Registrar' })}>Registrar</Text>
+
                 </SafeAreaView>
             </ScrollView>
         </KeyboardAvoidingView>
