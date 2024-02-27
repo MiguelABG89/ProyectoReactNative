@@ -18,9 +18,25 @@ function Login({ navigation }) {
             console.log('success')
             navigation.navigate("Home")
         }catch(e){
+            showAlert()
             console.log('error singing in')
         }
     }
+
+    const showAlert = () => {
+        Alert.alert(
+            'Inicio de sesion',
+            'Correo electrónico o contraseña incorrectos',
+            [
+                {
+                    text: 'Aceptar',
+                    onPress: () => console.log('Aceptar presionado')
+                }
+            ],
+            { cancelable: false }
+        )
+    }
+
     async function handleSignOut() {
         try {
           await signOut();

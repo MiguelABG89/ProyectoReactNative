@@ -25,13 +25,28 @@ function NewPassword({ navigation, route }) {
         const newPassword = psw;
 
         try {
-            console.log(username)
             await confirmResetPassword({ username, confirmationCode, newPassword });
+            showAlert();
             navigation.navigate("Inicio")
         } catch (error) {
             console.log(error)
         }
     }
+
+    const showAlert = () => {
+        Alert.alert(
+            'Título',
+            'mensaje de alerta',
+            [
+                {
+                    text: 'Aceptar',
+                    onPress: () => console.log('Aceptar presionado')
+                }
+            ],
+            { cancelable: false }
+        )
+    }
+
 
     return (
 
@@ -42,7 +57,7 @@ function NewPassword({ navigation, route }) {
             </Text>
 
             <Text style={styles.text}>
-                Por favor, introduzca el codigo recivido y su nueva contraseña
+                Por favor, introduzca el código recibido y su nueva contraseña
             </Text>
 
             <TextInput

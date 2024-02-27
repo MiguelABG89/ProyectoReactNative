@@ -61,7 +61,7 @@ function Register({ navigation }) {
             }
           });
 
-        
+          Alert.alert('Registro correcto', 'El registro de usuario se ha realizado correctamente')
           console.log('Register succesfull');
           navigation.navigate("Confirmar Correo")
 
@@ -113,7 +113,7 @@ function Register({ navigation }) {
                             // Confirmar contraseña correcto
                             setMensajePasswordDiferentes('Las contraseñas no son iguales');
                         } else {
-                            Alert.alert('Registro correcto', 'El registro de usuario se ha realizado correctamente')
+                            
                             handleSignUp()
 
                         }
