@@ -106,7 +106,7 @@ function Register({ navigation }) {
                         if (user.trim() === '' || pwd.trim() === '' || password2.trim() === '') {
                             // Ningun campo vacio
                             setMensajeCamposVacios('Uno o más campos están vacíos')
-                        } else if (pwd.length < 6) {
+                        } else if (pwd.length < 8) {
                             // Contraseña valida
                             setMensajePasswordInvalida('Longitud mínima de la contraseña: 6 caracteres')
                         } else if (pwd !== password2) {
