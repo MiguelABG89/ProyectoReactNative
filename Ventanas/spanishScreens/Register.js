@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import { Text, TextInput, View, Button, Alert, Image, KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
-import styles from '../estilos/estilos'
+import styles from '../../estilos/estilos'
 import { signUp } from 'aws-amplify/auth'
 
+// Componente para registrarse
 function Register({ navigation }) {
+    // Estados para el idioma, usuario, mail y contraseñas
     const [selectedLanguage, setSelectedLanguage] = useState("Selecciona un idioma");
+    const [user, setUser] = useState("");
+    const [mail, setMail] = useState("");
+    const [pwd, setPassword] = useState("");
+    const [password2, setPassword2] = useState("");
+
+    // Lista de idiomas disponibles
     const languages = [
         'Español',
         'English',
@@ -14,26 +22,22 @@ function Register({ navigation }) {
         '中国人'
     ];
 
-    const [user, setUser] = useState("");
-    const [mail, setMail] = useState("");
-    const [pwd, setPassword] = useState("");
-    const [password2, setPassword2] = useState("");
-
+    // Estados para los mensajes de error
     const [mensajeCamposVacios, setMensajeCamposVacios] = useState("");
     const [mensajePasswordInvalida, setMensajePasswordInvalida] = useState("");
     const [mensajePasswordDiferentes, setMensajePasswordDiferentes] = useState("");
 
+    // Estados y funciones para cambiar la visibilidad de la contraseña
     const [showPwd1, setShowPwd1] = React.useState(true);
     const [showPwd2, setShowPwd2] = React.useState(true);
-
-    // Función para cambiar la visibilidad de la contraseña
     const toggleShowPassword1 = () => setShowPwd1(!showPwd1);
     const toggleShowPassword2 = () => setShowPwd2(!showPwd2);
 
+    // Manejar la selección de idioma
     const handleLanguageSelect = (index, value) => {
         setSelectedLanguage("Español");
 
-        // Navegar al componente correspondiente al idioma seleccionado
+        // Navegar al componente del idioma seleccionado
         switch (value) {
             case 'Español':
                 navigation.navigate('Registrar', { name: 'Registrar' });
@@ -47,11 +51,10 @@ function Register({ navigation }) {
             case 'Deutsch':
                 navigation.navigate('Registrieren', { name: 'Registrieren' });
                 break;
-            default:
-                navigation.navigate('Registrar', { name: 'Registrar' }); // Por defecto, regresa a Español
         }
     }
 
+    // Función para manejar el registro de usuario
     async function handleSignUp() {
         const username = user;
         const password = pwd;
@@ -79,29 +82,34 @@ function Register({ navigation }) {
 
     }
 
-
+    // Renderización del componente
     return (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
             <ScrollView contentContainerStyle={styles.estructure}>
+
+                {/* Dropdown para seleccionar idioma */}
                 <ModalDropdown
                     options={languages}
                     defaultValue={selectedLanguage}
                     onSelect={handleLanguageSelect}
                 />
 
+                {/* Logo */}
                 <Image
-                    source={require('../assets/Logo-FDP.jpg')}
+                    source={require('../../assets/Logo-FDP.jpg')}
                     style={styles.image}
                 />
 
+                {/* Inputs para el usuario y mail */}
                 <TextInput style={styles.inputs} onChangeText={setUser} value={user} placeholder="Usuario" />
                 <TextInput style={styles.inputs} onChangeText={setMail} value={mail} placeholder="Correo" />
 
+                {/* Inputs para las contraseñas */}
                 <View style={styles.viewOjo}>
                     <TextInput style={styles.inputPwd} onChangeText={setPassword} value={pwd} secureTextEntry={showPwd1} placeholder="Contraseña" />
                     <TouchableOpacity onPress={toggleShowPassword1} style={styles.touchableOjo}>
                         <Image
-                            source={showPwd1 ? require('../assets/ojoOff.png') : require('../assets/ojoOn.png')}
+                            source={showPwd1 ? require('../../assets/ojoOff.png') : require('../../assets/ojoOn.png')}
                             style={styles.imageOjo}
                         />
                     </TouchableOpacity>
@@ -112,41 +120,38 @@ function Register({ navigation }) {
                     <TextInput style={styles.inputPwd} onChangeText={setPassword2} value={password2} secureTextEntry={showPwd2} placeholder="Confirmar contraseña" />
                     <TouchableOpacity onPress={toggleShowPassword2} style={styles.touchableOjo}>
                         <Image
-                            source={showPwd2 ? require('../assets/ojoOff.png') : require('../assets/ojoOn.png')}
+                            source={showPwd2 ? require('../../assets/ojoOff.png') : require('../../assets/ojoOn.png')}
                             style={styles.imageOjo}
                         />
                     </TouchableOpacity>
                 </View>
                 {mensajePasswordDiferentes != "" && <Text style={styles.errors}>{mensajePasswordDiferentes}</Text>}
 
+                {/* Botón para registrarse */}
                 <Button
+                    title='Registrarse'
+                    accessibilityLabel='Registrarse'
+                    color={styles.buttons.color}
                     onPress={() => {
-                        // Se vacian los campos de mensajes 
+                        // Resetear mensajes de error
                         setMensajeCamposVacios('')
                         setMensajePasswordInvalida('')
                         setMensajePasswordDiferentes('')
 
-                        //Comprobaciones
+                        // Validar campos de entrada
                         if (user.trim() === '' || pwd.trim() === '' || password2.trim() === '') {
-                            // Ningun campo vacio
                             setMensajeCamposVacios('Uno o más campos están vacíos')
                         } else if (pwd.length < 6) {
-                            // Contraseña valida
                             setMensajePasswordInvalida('Longitud mínima de la contraseña: 6 caracteres')
                         } else if (pwd !== password2) {
-                            // Confirmar contraseña correcto
                             setMensajePasswordDiferentes('Las contraseñas no son iguales');
                         } else {
-
                             handleSignUp()
-
                         }
                     }}
-                    title='Registrarse'
-                    accessibilityLabel='Registrarse'
-                    color={styles.buttons.color}
                 />
 
+                {/* Texto para confirmar correo */}
                 <Text style={styles.linkableText} onPress={() => navigation.navigate("Confirmar Correo")}>Confirmar correo</Text>
 
                 {mensajeCamposVacios != "" && <Text style={styles.errors}>{"\n" + mensajeCamposVacios}</Text>}

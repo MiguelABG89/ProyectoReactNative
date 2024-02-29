@@ -1,22 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { SafeAreaView, TouchableOpacity, Text, Button, TextInput, Alert, Image, KeyboardAvoidingView, ScrollView, View } from "react-native";
-import styles from '../estilos/estilos';
+import styles from '../../estilos/estilos';
 import { Auth } from 'aws-amplify';
 import { signIn, signOut } from 'aws-amplify/auth';
 import ModalDropdown from 'react-native-modal-dropdown';
 
+// Componente para iniciar sesión
 function Login({ navigation }) {
+    // Estados para el idioma, usuario y contraseña
+    const [selectedLanguage, setSelectedLanguage] = useState("Selecciona un idioma");
     const [Usu, onChangeUsu] = useState('');
     const [pwd, onChangePwd] = useState('');
 
-    const [showPwd1, setShowPwd1] = React.useState(true);
+    // Lista de idiomas disponibles
+    const languages = [
+        'Español',
+        'English',
+        'Français',
+        'Deutsch',
+        '中国人'
+    ];
 
-    // Función para cambiar la visibilidad de la contraseña
+    // Estado y función para cambiar la visibilidad de la contraseña
+    const [showPwd1, setShowPwd1] = React.useState(true);
     const toggleShowPassword1 = () => setShowPwd1(!showPwd1);
 
+    // Efecto para limpiar los campos de usuario y contraseña al cambiar de pantalla
     useEffect(() => {
         const unsubscribe = navigation.addListener('blur', () => {
-            // Esta función se ejecuta cuando el componente deja de estar en pantalla
             onChangeUsu('');
             onChangePwd('');
         });
@@ -24,9 +35,11 @@ function Login({ navigation }) {
         return unsubscribe;
     }, [navigation]);
 
+    // Función para manejar el inicio de sesión
     async function handleSingIn() {
         const username = Usu;
         const password = pwd;
+
         try {
             const { isSignedIn, nextStep } = await signIn({
                 username, password,
@@ -40,6 +53,7 @@ function Login({ navigation }) {
         }
     }
 
+    // Función para cerrar sesión
     async function handleSignOut() {
         try {
             await signOut();
@@ -48,19 +62,11 @@ function Login({ navigation }) {
         }
     }
 
-    const [selectedLanguage, setSelectedLanguage] = useState("Selecciona un idioma");
-    const languages = [
-        'Español',
-        'English',
-        'Français',
-        'Deutsch',
-        '中国人'
-    ];
-
+    // Maneja la selección de idioma
     const handleLanguageSelect = (index, value) => {
         setSelectedLanguage(value);
 
-        // Navegar al componente correspondiente al idioma seleccionado
+        // Navegar al componente del idioma seleccionado
         switch (value) {
             case 'Español':
                 navigation.navigate('Inicio', { name: 'Inicio' })
@@ -74,27 +80,29 @@ function Login({ navigation }) {
             case 'Deutsch':
                 navigation.navigate('Anmeldung', { name: 'Anmeldung' })
                 break;
-            default:
-                navigation.navigate('Inicio', { name: 'Inicio' })
         }
     };
 
+    // Renderización del componente
     return (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
             <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <SafeAreaView style={styles.estructure}>
 
+                    {/* Dropdown para seleccionar idioma */}
                     <ModalDropdown
                         options={languages}
                         defaultValue={selectedLanguage}
                         onSelect={handleLanguageSelect}
                     />
 
+                    {/* Logo */}
                     <Image
-                        source={require('../assets/Logo-FDP.jpg')}
+                        source={require('../../assets/Logo-FDP.jpg')}
                         style={styles.image}
                     />
 
+                    {/* Input para el correo electrónico */}
                     <TextInput
                         style={styles.inputs}
                         onChangeText={nextUsu => onChangeUsu(nextUsu)}
@@ -102,6 +110,7 @@ function Login({ navigation }) {
                         placeholder="Correo electrónico"
                     />
 
+                    {/* Input para la contraseña */}
                     <View style={styles.viewOjo}>
                         <TextInput
                             style={styles.inputPwd}
@@ -112,12 +121,13 @@ function Login({ navigation }) {
                         />
                         <TouchableOpacity onPress={toggleShowPassword1} style={styles.touchableOjo}>
                             <Image
-                                source={showPwd1 ? require('../assets/ojoOff.png') : require('../assets/ojoOn.png')}
+                                source={showPwd1 ? require('../../assets/ojoOff.png') : require('../../assets/ojoOn.png')}
                                 style={styles.imageOjo}
                             />
                         </TouchableOpacity>
                     </View>
 
+                    {/* Texto para recuperar contraseña */}
                     <Text style={styles.text}>
                         He olvidado mi{" "}
                         <Text style={styles.linkableText} onPress={() => navigation.navigate('Recuperar Contrasena', { name: 'Recuperar Contrasena' })}>
@@ -125,19 +135,22 @@ function Login({ navigation }) {
                         </Text>
                     </Text>
 
+                    {/* Botones para iniciar/cerrar sesión */}
                     <Button
                         color={styles.buttons.color}
                         style={{ margin: styles.buttons.margin }}
                         title="Iniciar sesión"
-                        onPress={handleSingIn} />
+                        onPress={handleSingIn}
+                    />
                     <Button
                         color={styles.buttons.color}
                         style={{ margin: styles.buttons.margin }}
                         title="Cerrar sesión"
-                        onPress={handleSignOut} />
+                        onPress={handleSignOut}
+                    />
 
+                    {/* Texto para registrarse */}
                     <Text style={styles.text}>¿Necesitas una cuenta?</Text>
-
                     <Text style={styles.linkableText} onPress={() => navigation.navigate('Registrar', { name: 'Registrar' })}>Registrar</Text>
 
                 </SafeAreaView>

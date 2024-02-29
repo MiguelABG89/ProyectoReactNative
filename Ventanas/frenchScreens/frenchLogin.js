@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SafeAreaView, Text, Button, TextInput, Alert, Image } from "react-native";
-import styles from '../../../estilos/estilos'
+import styles from '../../estilos/estilos'
 import ModalDropdown from 'react-native-modal-dropdown';
 import { signIn, signOut } from 'aws-amplify/auth';
 
@@ -74,7 +74,7 @@ function FrenchLogin({ navigation }) {
 
             {/* Imagen logo FP2 */}
             <Image
-                source={require('../../../assets/Logo-FDP.jpg')} // Ajusta la ruta según la ubicación de tu imagen
+                source={require('../../assets/Logo-FDP.jpg')} // Ajusta la ruta según la ubicación de tu imagen
                 style={styles.image}
             />
 
