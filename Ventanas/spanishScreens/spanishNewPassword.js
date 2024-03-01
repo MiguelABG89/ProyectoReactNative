@@ -5,7 +5,7 @@ import { confirmResetPassword } from "@aws-amplify/auth";
 
 // Componente para cambiar contraseña de la cuenta
 function NewPassword({ navigation, route }) {
-    // Estados para el idioma, usuario y contraseñas
+    // Estados para el usuario y contraseñas
     const [code, setCode] = React.useState('');
     const [psw, setNewPassword] = React.useState('');
     const [confirmarPassword, setConfirmarPassword] = React.useState('');

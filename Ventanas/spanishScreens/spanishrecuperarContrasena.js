@@ -5,7 +5,7 @@ import { resetPassword } from 'aws-amplify/auth';
 
 // Componente para cambiar contraseña de la cuenta
 function RecuperarContrasena({ navigation }) {
-    // Estados para el idioma y usuario
+    // Estado para el usuario
     const [username, onChangeUsername] = useState('');
 
     // Estado para los mensajes de error

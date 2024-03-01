@@ -5,7 +5,7 @@ import { confirmSignUp } from 'aws-amplify/auth'
 
 // Componente para confirmar el correo electrónico
 function ConfirmarCorreo({ navigation }) {
-    // Estados para el idioma, usuario y código de confirmación
+    // Estados para el usuario y código de confirmación
     const [user, setUser] = useState("")
     const [code, setCode] = useState("")
 
