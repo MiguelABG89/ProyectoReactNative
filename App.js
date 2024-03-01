@@ -4,24 +4,24 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Amplify } from 'aws-amplify';
 import amplifyconfig from './src/amplifyconfiguration.json';
 {/* SPANISH SCREENS */}
-import Login from "./Ventanas/Login";
-import Register from './Ventanas/Register';
-import RecuperarContrasena from "./Ventanas/recuperarContrasena";
-import ConfirmarCorreo from './Ventanas/ConfirmarCorreo';
-import HomeScreen from './Ventanas/HomeScreen';
-import NewPassword from './Ventanas/NewPassword';
+import Login from "./Ventanas/spanishScreens/Login";
+import Register from './Ventanas/spanishScreens/Register';
+import RecuperarContrasena from "./Ventanas/spanishScreens/recuperarContrasena";
+import ConfirmarCorreo from './Ventanas/spanishScreens/ConfirmarCorreo';
+import HomeScreen from './Ventanas/spanishScreens/HomeScreen';
+import NewPassword from './Ventanas/spanishScreens/NewPassword';
 {/* ENGLISH SCREENS */}
-import EnglishLogin from './Ventanas/LenguageScreens/englishScreens/englishLogin';
-import EnglishRegister from './Ventanas/LenguageScreens/englishScreens/englishRegister';
-import EnglishPassword from './Ventanas/LenguageScreens/englishScreens/englishPassword';
+import EnglishLogin from './Ventanas/englishScreens/englishLogin';
+import EnglishRegister from './Ventanas/englishScreens/englishRegister';
+import EnglishPassword from './Ventanas/englishScreens/englishPassword';
 {/* FRENCH SCREENS */}
-import FrenchRecuperarContrasena  from './Ventanas/LenguageScreens/frenchScreens/frenchPassword';
-import FrenchLogin from './Ventanas/LenguageScreens/frenchScreens/frenchLogin';
-import FrenchRegister from './Ventanas/LenguageScreens/frenchScreens/frenchRegister';
+import FrenchRecuperarContrasena  from './Ventanas/frenchScreens/frenchPassword';
+import FrenchLogin from './Ventanas/frenchScreens/frenchLogin';
+import FrenchRegister from './Ventanas/frenchScreens/frenchRegister';
 {/* DEUTSCH SCREENS */}
-import DeutschLogin from './Ventanas/LenguageScreens/deutschScreens/deutschLogin';
-import DeutschRegister from './Ventanas/LenguageScreens/deutschScreens/deutschRegister';
-import DeutschPassword from './Ventanas/LenguageScreens/deutschScreens/deutschPassword';
+import DeutschLogin from './Ventanas/deutschScreens/deutschLogin';
+import DeutschRegister from './Ventanas/deutschScreens/deutschRegister';
+import DeutschPassword from './Ventanas/deutschScreens/deutschPassword';
 
 Amplify.configure(amplifyconfig);
 

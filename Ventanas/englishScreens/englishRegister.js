@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, TextInput, View, Button, Alert, KeyboardAvoidingView, ScrollView, Image } from 'react-native';
-import styles from '../../../estilos/estilos';
+import styles from '../../estilos/estilos';
 import ModalDropdown from 'react-native-modal-dropdown';
 
 function EnglishRegister({ navigation }) {
@@ -54,7 +54,7 @@ function EnglishRegister({ navigation }) {
                 />
 
                 <Image
-                    source={require('../../../assets/Logo-FDP.jpg')}
+                    source={require('../../assets/Logo-FDP.jpg')}
                     style={styles.image}
                 />
 

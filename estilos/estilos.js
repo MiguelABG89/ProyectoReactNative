@@ -11,10 +11,34 @@ const styles = {
         borderColor: "#7b4731"
     },
 
+    viewOjo: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+
+    imageOjo: {
+        width: 25,
+        height: 25
+    },
+    
+    touchableOjo: {
+        marginLeft: 5
+    },
+
+    inputPwd: {
+        height: 40,
+        width: 290,
+        margin: 12,
+        borderWidth: 1,
+        padding: 10,
+        borderRadius: 20,
+        borderColor: "#7b4731"
+    },
+
     image: {
-        width: 200, 
+        width: 200,
         height: 200,
-        resizeMode: 'contain', 
+        resizeMode: 'contain',
         margin: 20,
         alignSelf: "center"
     },
@@ -54,7 +78,7 @@ const styles = {
         color: 'white',
         textAlign: "center",
         padding: 20,
-        margin: 20, 
+        margin: 20,
         backgroundColor: "red",
         borderRadius: 10,
         fontWeight: "bold"

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, View, TextInput, Image, Alert, Text, KeyboardAvoidingView, ScrollView } from "react-native";
-import styles from '../../../estilos/estilos'
+import styles from '../../estilos/estilos'
 import ModalDropdown from 'react-native-modal-dropdown';
 
 const DeutschPassword = ({navigation}) => {
@@ -48,7 +48,7 @@ const DeutschPassword = ({navigation}) => {
                         Setze dein Passwort zurück
                     </Text>
                     <Image
-                        source={require('../../../assets/candado.png')}
+                        source={require('../../assets/candado.png')}
                         style={styles.image}
                     />
                     <Text style={styles.text}>

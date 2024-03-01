@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { SafeAreaView, Text, Button, TextInput, Alert, Image, KeyboardAvoidingView, ScrollView } from "react-native";
-import styles from '../../../estilos/estilos';
-import ModalDropdown from 'react-native-modal-dropdown';
+import styles from '../../estilos/estilos';
+import { Auth } from 'aws-amplify';
 import { signIn, signOut } from 'aws-amplify/auth';
+import ModalDropdown from 'react-native-modal-dropdown';
 
-function EnglishLogin({ navigation }) {
-    const [Usu, onChangeUsu] = React.useState('');
-    const [pwd, onChangePwd] = React.useState('');
+function DeutschLogin({ navigation }) {
+    const [Usu, onChangeUsu] = useState('');
+    const [pwd, onChangePwd] = useState('');
 
+    // Estructura para el registro en Amplify
     async function handleSingIn() {
         const username = Usu;
         const password = pwd;
@@ -17,11 +19,11 @@ function EnglishLogin({ navigation }) {
                 options: { authFlowType: "USER_PASSWORD_AUTH" }
             })
             console.log('success')
-            navigation.navigate("Home")
         } catch (e) {
-            console.log('error singing in')
+            console.log('error singing in', e)
         }
     }
+
     async function handleSignOut() {
         try {
             await signOut();
@@ -30,8 +32,7 @@ function EnglishLogin({ navigation }) {
         }
     }
 
-
-    const [selectedLanguage, setSelectedLanguage] = useState("Select a language");
+    const [selectedLanguage, setSelectedLanguage] = useState("Wähle eine Sprache");
     const languages = [
         'Español',
         'English',
@@ -41,7 +42,7 @@ function EnglishLogin({ navigation }) {
     ];
 
     const handleLanguageSelect = (index, value) => {
-        setSelectedLanguage("English");
+        setSelectedLanguage("Deutsch");
 
         // Navegar al componente correspondiente al idioma seleccionado
         switch (value) {
@@ -58,7 +59,7 @@ function EnglishLogin({ navigation }) {
                 navigation.navigate('Anmeldung', { name: 'Anmeldung' });
                 break;
             default:
-                navigation.navigate('Login', { name: 'Login' });
+                navigation.navigate('Anmeldung', { name: 'Anmeldung' });
         }
     };
 
@@ -76,7 +77,7 @@ function EnglishLogin({ navigation }) {
 
                     {/* Imagen logo FP2 */}
                     <Image
-                        source={require('../../../assets/Logo-FDP.jpg')}
+                        source={require('../../assets/Logo-FDP.jpg')}
                         style={styles.image}
                     />
 
@@ -85,7 +86,7 @@ function EnglishLogin({ navigation }) {
                         style={styles.inputs}
                         onChangeText={nextUsu => onChangeUsu(nextUsu)}
                         defaultValue={Usu}
-                        placeholder="Username"
+                        placeholder="Benutzer"
                     />
 
                     {/* Campo CONTRASEÑA */}
@@ -93,15 +94,15 @@ function EnglishLogin({ navigation }) {
                         style={styles.inputs}
                         onChangeText={nextPwd => onChangePwd(nextPwd)}
                         defaultValue={pwd}
-                        placeholder="Password"
+                        placeholder="Passwort"
                         secureTextEntry={true}
                     />
 
                     {/* RECUPERAR CONTRASEÑA */}
                     <Text style={styles.text}>
-                        I forgot my{" "}
-                        <Text style={styles.linkableText} onPress={() => navigation.navigate('Recover password', { name: 'Recover Password' })}>
-                            password
+                        Ich habe mein {" "}
+                        <Text style={styles.linkableText} onPress={() => navigation.navigate('Passwort wiederherstellen', { name: 'Passwort wiederherstellen' })}>
+                            Passwort vergessen
                         </Text>
                     </Text>
 
@@ -109,24 +110,23 @@ function EnglishLogin({ navigation }) {
                     <Button
                         color={styles.buttons.color}
                         style={{ margin: styles.buttons.margin }}
-                        title="Log in"
+                        title="Anmeldung"
                         onPress={handleSingIn} />
 
                     {/* Botón para cerrar sesión */}
                     <Button
                         color={styles.buttons.color}
                         style={{ margin: styles.buttons.margin }}
-                        title="Log out"
+                        title="Abmelden"
                         onPress={handleSignOut} />
 
-                    {/* Crear nuevo usuario */}
-                    <Text style={styles.text}>Do you need an account?</Text>
-                    <Text style={styles.linkableText} onPress={() => navigation.navigate('Register', { name: 'Register' })}>Register</Text>
-
+                    {/* Crear nueva cuenta */}
+                    <Text style={styles.text}>Benötigen Sie ein Konto?</Text>
+                    <Text style={styles.linkableText} onPress={() => navigation.navigate('Registrieren', { name: 'Registrieren' })}>Registrieren</Text>
                 </SafeAreaView>
             </ScrollView>
         </KeyboardAvoidingView>
     );
 }
 
-export default EnglishLogin;
+export default DeutschLogin;

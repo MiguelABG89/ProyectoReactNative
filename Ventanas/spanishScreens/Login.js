@@ -1,37 +1,18 @@
-import React, { useState } from "react";
-import { SafeAreaView, Text, Button, TextInput, Alert, Image, KeyboardAvoidingView, ScrollView } from "react-native";
-import styles from '../estilos/estilos';
+import React, { useState, useEffect } from "react";
+import { SafeAreaView, TouchableOpacity, Text, Button, TextInput, Alert, Image, KeyboardAvoidingView, ScrollView, View } from "react-native";
+import styles from '../../estilos/estilos';
 import { Auth } from 'aws-amplify';
 import { signIn, signOut } from 'aws-amplify/auth';
 import ModalDropdown from 'react-native-modal-dropdown';
 
+// Componente para iniciar sesión
 function Login({ navigation }) {
+    // Estados para el idioma, usuario y contraseña
+    const [selectedLanguage, setSelectedLanguage] = useState("Selecciona un idioma");
     const [Usu, onChangeUsu] = useState('');
     const [pwd, onChangePwd] = useState('');
 
-    async function handleSingIn() {
-        const username = Usu;
-        const password = pwd;
-        try {
-            const { isSignedIn, nextStep } = await signIn({
-                username, password,
-                options: { authFlowType: "USER_PASSWORD_AUTH" }
-            })
-            console.log('success')
-            navigation.navigate("Home")
-        } catch (e) {
-            console.log('error singing in')
-        }
-    }
-    async function handleSignOut() {
-        try {
-            await signOut();
-        } catch (error) {
-            console.log('error signing out: ', error);
-        }
-    }
-
-    const [selectedLanguage, setSelectedLanguage] = useState("Selecciona un idioma");
+    // Lista de idiomas disponibles
     const languages = [
         'Español',
         'English',
@@ -40,10 +21,52 @@ function Login({ navigation }) {
         '中国人'
     ];
 
+    // Estado y función para cambiar la visibilidad de la contraseña
+    const [showPwd1, setShowPwd1] = React.useState(true);
+    const toggleShowPassword1 = () => setShowPwd1(!showPwd1);
+
+    // Efecto para limpiar los campos de usuario y contraseña al cambiar de pantalla
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('blur', () => {
+            onChangeUsu('');
+            onChangePwd('');
+        });
+
+        return unsubscribe;
+    }, [navigation]);
+
+    // Función para manejar el inicio de sesión
+    async function handleSingIn() {
+        const username = Usu;
+        const password = pwd;
+
+        try {
+            const { isSignedIn, nextStep } = await signIn({
+                username, password,
+                options: { authFlowType: "USER_PASSWORD_AUTH" }
+            })
+            console.log('success')
+            navigation.navigate("Home")
+        } catch (e) {
+            Alert.alert('Inicio de sesion', 'Correo electrónico o contraseña incorrectos')
+            console.log('error singing in')
+        }
+    }
+
+    // Función para cerrar sesión
+    async function handleSignOut() {
+        try {
+            await signOut();
+        } catch (error) {
+            console.log('error signing out: ', error);
+        }
+    }
+
+    // Maneja la selección de idioma
     const handleLanguageSelect = (index, value) => {
         setSelectedLanguage(value);
 
-        // Navegar al componente correspondiente al idioma seleccionado
+        // Navegar al componente del idioma seleccionado
         switch (value) {
             case 'Español':
                 navigation.navigate('Inicio', { name: 'Inicio' })
@@ -57,72 +80,79 @@ function Login({ navigation }) {
             case 'Deutsch':
                 navigation.navigate('Anmeldung', { name: 'Anmeldung' })
                 break;
-            default:
-                navigation.navigate('Inicio', { name: 'Inicio' })
         }
     };
 
+    // Renderización del componente
     return (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
             <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <SafeAreaView style={styles.estructure}>
 
-                    {/* Menú desplegable de idiomas */}
+                    {/* Dropdown para seleccionar idioma */}
                     <ModalDropdown
                         options={languages}
                         defaultValue={selectedLanguage}
                         onSelect={handleLanguageSelect}
                     />
 
-                    {/* Imagen logo FP2 */}
+                    {/* Logo */}
                     <Image
-                        source={require('../assets/Logo-FDP.jpg')}
+                        source={require('../../assets/Logo-FDP.jpg')}
                         style={styles.image}
                     />
 
-                    {/* Campo USUARIO */}
+                    {/* Input para el correo electrónico */}
                     <TextInput
                         style={styles.inputs}
                         onChangeText={nextUsu => onChangeUsu(nextUsu)}
                         defaultValue={Usu}
-                        placeholder="Usuario"
+                        placeholder="Correo electrónico"
                     />
 
-                    {/* Campo CONTRASEÑA */}
-                    <TextInput
-                        style={styles.inputs}
-                        onChangeText={nextPwd => onChangePwd(nextPwd)}
-                        defaultValue={pwd}
-                        placeholder="Contraseña"
-                        secureTextEntry={true}
-                    />
+                    {/* Input para la contraseña */}
+                    <View style={styles.viewOjo}>
+                        <TextInput
+                            style={styles.inputPwd}
+                            onChangeText={nextPwd => onChangePwd(nextPwd)}
+                            defaultValue={pwd}
+                            placeholder="Contraseña"
+                            secureTextEntry={showPwd1}
+                        />
+                        <TouchableOpacity onPress={toggleShowPassword1} style={styles.touchableOjo}>
+                            <Image
+                                source={showPwd1 ? require('../../assets/ojoOff.png') : require('../../assets/ojoOn.png')}
+                                style={styles.imageOjo}
+                            />
+                        </TouchableOpacity>
+                    </View>
 
-                    {/* RECUPERAR CONTRASEÑA */}
+                    {/* Texto para recuperar contraseña */}
                     <Text style={styles.text}>
                         He olvidado mi{" "}
-
                         <Text style={styles.linkableText} onPress={() => navigation.navigate('Recuperar Contrasena', { name: 'Recuperar Contrasena' })}>
                             contraseña
                         </Text>
                     </Text>
 
-                    {/* Botón para iniciar sesión */}
+                    {/* Botones para iniciar/cerrar sesión */}
                     <Button
                         color={styles.buttons.color}
                         style={{ margin: styles.buttons.margin }}
                         title="Iniciar sesión"
-                        onPress={handleSingIn} />
-
-                    {/* Botón para cerrar sesión */}
+                        onPress={handleSingIn}
+                    />
                     <Button
                         color={styles.buttons.color}
                         style={{ margin: styles.buttons.margin }}
                         title="Cerrar sesión"
-                        onPress={handleSignOut} />
+                        onPress={handleSignOut}
+                    />
 
-                    {/* Crear nueva cuenta */}
+                    {/* Texto para registrarse */}
                     <Text style={styles.text}>¿Necesitas una cuenta?</Text>
                     <Text style={styles.linkableText} onPress={() => navigation.navigate('Registrar', { name: 'Registrar' })}>Registrar</Text>
+
                 </SafeAreaView>
             </ScrollView>
         </KeyboardAvoidingView>

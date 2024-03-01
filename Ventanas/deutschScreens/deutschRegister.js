@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Text, TextInput, View, Button, Alert, Image, KeyboardAvoidingView, ScrollView } from 'react-native';
 import ModalDropdown from 'react-native-modal-dropdown';
-import styles from '../../../estilos/estilos';
+import styles from '../../estilos/estilos';
 
 function DeutschRegister({ navigation }) {
     const [selectedLanguage, setSelectedLanguage] = useState("Wähle eine Sprache");
@@ -52,7 +52,7 @@ function DeutschRegister({ navigation }) {
                     onSelect={handleLanguageSelect}
                 />
                 <Image
-                    source={require('../../../assets/Logo-FDP.jpg')}
+                    source={require('../../assets/Logo-FDP.jpg')}
                     style={styles.image}
                 />
                 <TextInput
