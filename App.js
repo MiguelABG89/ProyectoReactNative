@@ -3,6 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Amplify } from 'aws-amplify';
 import amplifyconfig from './src/amplifyconfiguration.json';
+{/* LANGUAJE SCREEN */}
+import SelectLanguajes from './Ventanas/SelectLanguajes';
 {/* SPANISH SCREENS */}
 import Login from "./Ventanas/spanishScreens/Login";
 import Register from './Ventanas/spanishScreens/Register';
@@ -32,6 +34,9 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+
+        {/* SELECT LANGUAJE */}
+        <Stack.Screen name ='Select languaje'component={SelectLanguajes}/>
         
         {/* SPANISH SCREENS */}
         <Stack.Screen name ='Inicio'component={Login}/>
