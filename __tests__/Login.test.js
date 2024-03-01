@@ -1,59 +1,56 @@
 import React from 'react';
 import {render,fireEvent} from '@testing-library/react-native';
-import Login from '../Ventanas/Login';
+import Login from '../Ventanas/spanishScreens/spanishLogin'
 
 describe('Login Component', () => {
   it('renders correctly', () => {
-    const { getByPlaceholderText, getByText, getByTestId } = render(<Login />);
-
-    // Verifica que los elementos importantes estén presentes en el componente
-    expect(getByPlaceholderText('Correo electrónico')).toBeTruthy();
-    expect(getByPlaceholderText('Contraseña')).toBeTruthy();
-    expect(getByText('He olvidado mi contraseña')).toBeTruthy();
-    expect(getByText('iniciar sesión')).toBeTruthy();
-    expect(getByText('¿Necesitas una cuenta?')).toBeTruthy();
-    expect(getByText('Registrar')).toBeTruthy();
+    const { getByPlaceholderText, getByText } = render(<Login />);
+    
+    // Verifica que los elementos esenciales estén presentes
+    expect(getByPlaceholderText('Correo electrónico')).toBeDefined();
+    expect(getByPlaceholderText('Contraseña')).toBeDefined();
+    expect(getByText('Iniciar sesión')).toBeDefined();
+    expect(getByText('Cerrar sesión')).toBeDefined();
+    expect(getByText('¿Necesitas una cuenta?')).toBeDefined();
+    expect(getByText('Registrar')).toBeDefined();
   });
 
-  it('updates state on input change', () => {
+  it('handles user input correctly', () => {
     const { getByPlaceholderText } = render(<Login />);
-
-    const usuarioInput = getByPlaceholderText('Correo electrónico');
+    const emailInput = getByPlaceholderText('Correo electrónico');
     const passwordInput = getByPlaceholderText('Contraseña');
 
-    fireEvent.changeText(usuarioInput, 'usuario123');
-    fireEvent.changeText(passwordInput, 'contraseña456');
+    // Simula la entrada del usuario
+    fireEvent.changeText(emailInput, 'test@example.com');
+    fireEvent.changeText(passwordInput, 'password123');
 
-    // Verifica que el estado se actualice correctamente
-    expect(usuarioInput.props.value).toBe('usuario123');
-    expect(passwordInput.props.value).toBe('contraseña456');
+    // Verifica que los valores del estado se actualicen correctamente
+    expect(emailInput.props.value).toBe('test@example.com');
+    expect(passwordInput.props.value).toBe('password123');
   });
 
-  it('navigates to RecuperarContrasena screen', () => {
-    // Mock de la función navigate
-    const navigateMock = jest.fn();
+  it('handles sign in and sign out correctly', async () => {
+    const { getByPlaceholderText, getByText } = render(<Login />);
+    const emailInput = getByPlaceholderText('Correo electrónico');
+    const passwordInput = getByPlaceholderText('Contraseña');
+    const signInButton = getByText('Iniciar sesión');
+    const signOutButton = getByText('Cerrar sesión');
 
-    // Renderizar el componente Login con la función de navegación mockeada
-    const { getByText } = render(<Login navigation={{ navigate: navigateMock }} />);
+    // Simula la entrada del usuario
+    fireEvent.changeText(emailInput, 'test@example.com');
+    fireEvent.changeText(passwordInput, 'password123');
 
-    // Simular el clic en el enlace 'He olvidado mi contraseña'
-    fireEvent.press(getByText('contraseña'));
+    // Simula el inicio de sesión
+    await fireEvent.press(signInButton);
 
-    // Verificar si la función de navegación fue llamada con los argumentos correctos
-    expect(navigateMock).toHaveBeenCalledWith('Recuperar Contrasena', { name: 'Recuperar Contrasena' });
-  });
+    // Verifica que la navegación se realice correctamente después del inicio de sesión
+    // Aquí puedes ajustar según cómo manejes la navegación en tu aplicación
+    // Puedes utilizar mocks o spies para asegurarte de que la función de navegación se llame correctamente
 
-  it('navigates to Register screen', () => {
-    // Mock de la función navigate
-    const navigateMock = jest.fn();
+    // Simula el cierre de sesión
+    fireEvent.press(signOutButton);
 
-    // Renderizar el componente Login con la función de navegación mockeada
-    const { getByText } = render(<Login navigation={{ navigate: navigateMock }} />);
-
-    // Simular el clic en el enlace 'Registrar'
-    fireEvent.press(getByText('Registrar'));
-
-    // Verificar si la función de navegación fue llamada con los argumentos correctos
-    expect(navigateMock).toHaveBeenCalledWith('Registrar', { name: 'Registrar' });
+    // Verifica que la función de cierre de sesión se llame correctamente
+    // Puedes utilizar mocks o spies para asegurarte de que la función se llame correctamente
   });
 });

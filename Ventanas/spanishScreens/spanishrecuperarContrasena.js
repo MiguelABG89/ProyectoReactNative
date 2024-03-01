@@ -1,28 +1,15 @@
 import React, { useState } from "react";
 import { Button, View, TextInput, Image, Alert, Text, KeyboardAvoidingView, ScrollView } from "react-native";
-import { Auth } from 'aws-amplify';
 import styles from '../../estilos/estilos';
-import ModalDropdown from 'react-native-modal-dropdown';
-import { NavigationAction } from "@react-navigation/native";
 import { resetPassword } from 'aws-amplify/auth';
 
 // Componente para cambiar contraseña de la cuenta
 function RecuperarContrasena({ navigation }) {
     // Estados para el idioma y usuario
-    const [selectedLanguage, setSelectedLanguage] = useState("Español");
     const [username, onChangeUsername] = useState('');
 
     // Estado para los mensajes de error
     const [mensajeUsernameInvalido, setMensajeUsernameInvalido] = useState("")
-
-    // Lista de idiomas disponibles
-    const languages = [
-        'Español',
-        'English',
-        'Français',
-        'Deutsch',
-        '中国人'
-    ];
 
     // Función para enviar código de seguridad
     async function handleResetPassword() {
@@ -63,13 +50,6 @@ function RecuperarContrasena({ navigation }) {
         <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
             <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <View style={styles.estructure}>
-
-                    {/* Dropdown para seleccionar idioma */}
-                    <ModalDropdown
-                        options={languages}
-                        defaultValue={selectedLanguage}
-                        onSelect={handleLanguageSelect}
-                    />
 
                     {/* Titulo e imagen */}
                     <Text style={styles.titles}>
