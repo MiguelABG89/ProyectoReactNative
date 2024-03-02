@@ -1,26 +1,15 @@
 import React, { useState } from 'react';
 import { Text, TextInput, View, Button, Alert, Image, KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native';
-import ModalDropdown from 'react-native-modal-dropdown';
 import styles from '../../estilos/estilos'
 import { signUp } from 'aws-amplify/auth'
 
 // Componente para registrarse
 function Register({ navigation }) {
-    // Estados para el idioma, usuario, mail y contraseñas
-    const [selectedLanguage, setSelectedLanguage] = useState("Selecciona un idioma");
+    // Estados para el usuario, mail y contraseñas
     const [user, setUser] = useState("");
     const [mail, setMail] = useState("");
     const [pwd, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
-
-    // Lista de idiomas disponibles
-    const languages = [
-        'Español',
-        'English',
-        'Français',
-        'Deutsch',
-        '中国人'
-    ];
 
     // Estados para los mensajes de error
     const [mensajeCamposVacios, setMensajeCamposVacios] = useState("");
@@ -32,27 +21,6 @@ function Register({ navigation }) {
     const [showPwd2, setShowPwd2] = React.useState(true);
     const toggleShowPassword1 = () => setShowPwd1(!showPwd1);
     const toggleShowPassword2 = () => setShowPwd2(!showPwd2);
-
-    // Manejar la selección de idioma
-    const handleLanguageSelect = (index, value) => {
-        setSelectedLanguage("Español");
-
-        // Navegar al componente del idioma seleccionado
-        switch (value) {
-            case 'Español':
-                navigation.navigate('Registrar', { name: 'Registrar' });
-                break;
-            case 'English':
-                navigation.navigate('Register', { name: 'Register' });
-                break;
-            case 'Français':
-                navigation.navigate('Registre', { name: 'Registre' });
-                break;
-            case 'Deutsch':
-                navigation.navigate('Registrieren', { name: 'Registrieren' });
-                break;
-        }
-    }
 
     // Función para manejar el registro de usuario
     async function handleSignUp() {
@@ -86,13 +54,6 @@ function Register({ navigation }) {
     return (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
             <ScrollView contentContainerStyle={styles.estructure}>
-
-                {/* Dropdown para seleccionar idioma */}
-                <ModalDropdown
-                    options={languages}
-                    defaultValue={selectedLanguage}
-                    onSelect={handleLanguageSelect}
-                />
 
                 {/* Logo */}
                 <Image

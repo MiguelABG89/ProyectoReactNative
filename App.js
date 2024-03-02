@@ -24,6 +24,9 @@ import FrenchRegister from './Ventanas/frenchScreens/frenchRegister';
 import DeutschLogin from './Ventanas/deutschScreens/deutschLogin';
 import DeutschRegister from './Ventanas/deutschScreens/deutschRegister';
 import DeutschPassword from './Ventanas/deutschScreens/deutschPassword';
+import DeutschConfirmMail from './Ventanas/deutschScreens/deustchConfirmMail';
+import DeutschHomeScreen from './Ventanas/deutschScreens/deustchHomeScreen';
+import DeutschNewPassword from './Ventanas/deutschScreens/deustchNewPassword';
 
 Amplify.configure(amplifyconfig);
 
@@ -44,7 +47,6 @@ function App() {
         <Stack.Screen name ='Confirmar Correo' component={ConfirmarCorreo} />
         <Stack.Screen name ='Recuperar Contrasena' component={RecuperarContrasena} />
         <Stack.Screen name ='Home' component={HomeScreen} />
-
         <Stack.Screen name ='New Password' component={NewPassword} />
       
         {/* ENGLISH SCREENS */}
@@ -61,7 +63,10 @@ function App() {
         {/* DEUTSCH SCREENS */}
         <Stack.Screen name ='Anmeldung'component={DeutschLogin}/>
         <Stack.Screen name ='Registrieren' component={DeutschRegister} />
+        <Stack.Screen name ='Bestätige Email' component={DeutschConfirmMail} />
         <Stack.Screen name ='Passwort wiederherstellen' component={DeutschPassword} />
+        <Stack.Screen name ='Heim' component={DeutschHomeScreen} />
+        <Stack.Screen name ='Neues Kennwort' component={DeutschNewPassword} />
 
       </Stack.Navigator>
     </NavigationContainer>

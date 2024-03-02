@@ -1,43 +1,11 @@
 import { useState } from 'react';
 import { Text, TextInput, View, Button, Alert, Image, navigation } from 'react-native';
-import ModalDropdown from 'react-native-modal-dropdown';
 import styles from '../../estilos/estilos'
 import { signOut } from 'aws-amplify/auth'
 import { get } from 'aws-amplify/api';
 
 // Componente para mostrar la pantalla principal
 function HomeScreen({ navigation }) {
-    // Estados para el idioma
-    const [selectedLanguage, setSelectedLanguage] = useState("Seleccione un idioma");
-
-    // Lista de idiomas disponibles
-    const languages = [
-        'Español',
-        'English',
-        'Français',
-        'deutsch',
-        '中国人'
-    ];
-
-    // Maneja la selección de idioma
-    const handleLanguageSelect = (index, value) => {
-        setSelectedLanguage(value);
-
-        // Navegar al componente del idioma seleccionado
-        switch (value) {
-            case 'Español':
-                navigation.navigate('Register');
-                break;
-            case 'English':
-                navigation.navigate('englishRegister');
-                break;
-            case 'Français':
-                navigation.navigate('frenchRegister')
-                break;
-        }
-    };
-
-
     // Función para obtener información de la API
     async function getTodo() {
         try {
@@ -72,13 +40,6 @@ function HomeScreen({ navigation }) {
     // Renderización del componente
     return (
         <View style={styles.estructure}>
-
-            {/* Dropdown para seleccionar el idioma */}
-            <ModalDropdown
-                options={languages}
-                defaultValue={selectedLanguage}
-                onSelect={handleLanguageSelect}
-            />
 
             {/* Logo */}
             <Image

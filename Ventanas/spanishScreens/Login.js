@@ -3,23 +3,12 @@ import { SafeAreaView, TouchableOpacity, Text, Button, TextInput, Alert, Image, 
 import styles from '../../estilos/estilos';
 import { Auth } from 'aws-amplify';
 import { signIn, signOut } from 'aws-amplify/auth';
-import ModalDropdown from 'react-native-modal-dropdown';
 
 // Componente para iniciar sesión
 function Login({ navigation }) {
-    // Estados para el idioma, usuario y contraseña
-    const [selectedLanguage, setSelectedLanguage] = useState("Selecciona un idioma");
+    // Estados para el usuario y contraseña
     const [Usu, onChangeUsu] = useState('');
     const [pwd, onChangePwd] = useState('');
-
-    // Lista de idiomas disponibles
-    const languages = [
-        'Español',
-        'English',
-        'Français',
-        'Deutsch',
-        '中国人'
-    ];
 
     // Estado y función para cambiar la visibilidad de la contraseña
     const [showPwd1, setShowPwd1] = React.useState(true);
@@ -62,39 +51,11 @@ function Login({ navigation }) {
         }
     }
 
-    // Maneja la selección de idioma
-    const handleLanguageSelect = (index, value) => {
-        setSelectedLanguage(value);
-
-        // Navegar al componente del idioma seleccionado
-        switch (value) {
-            case 'Español':
-                navigation.navigate('Inicio', { name: 'Inicio' })
-                break;
-            case 'English':
-                navigation.navigate('Login', { name: 'Login' })
-                break;
-            case 'Français':
-                navigation.navigate('Connecter', { name: 'Connecter' })
-                break;
-            case 'Deutsch':
-                navigation.navigate('Anmeldung', { name: 'Anmeldung' })
-                break;
-        }
-    };
-
     // Renderización del componente
     return (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
             <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <SafeAreaView style={styles.estructure}>
-
-                    {/* Dropdown para seleccionar idioma */}
-                    <ModalDropdown
-                        options={languages}
-                        defaultValue={selectedLanguage}
-                        onSelect={handleLanguageSelect}
-                    />
 
                     {/* Logo */}
                     <Image
