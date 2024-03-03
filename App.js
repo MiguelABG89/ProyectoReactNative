@@ -16,13 +16,16 @@ import NewPassword from './Ventanas/spanishScreens/NewPassword';
 import EnglishLogin from './Ventanas/englishScreens/englishLogin';
 import EnglishRegister from './Ventanas/englishScreens/englishRegister';
 import EnglishPassword from './Ventanas/englishScreens/englishPassword';
-import EnglishConfirmarCorreo from './Ventanas/englishScreens/englishConfirmMail';
+import EnglishConfirmMail from './Ventanas/englishScreens/englishConfirmMail';
 import EnglishHomeScreen from './Ventanas/englishScreens/englishHomeScreen';
 import EnglishNewPassword from './Ventanas/englishScreens/englishNewPassword';
 {/* FRENCH SCREENS */}
 import FrenchRecuperarContrasena  from './Ventanas/frenchScreens/frenchPassword';
 import FrenchLogin from './Ventanas/frenchScreens/frenchLogin';
 import FrenchRegister from './Ventanas/frenchScreens/frenchRegister';
+import FrenchConfirmMail from './Ventanas/frenchScreens/frenchConfirmMail';
+import FrenchHomeScreen from './Ventanas/frenchScreens/frenchHomeScreen';
+import FrenchNewPassword from './Ventanas/frenchScreens/frenchNewPassword';
 {/* DEUTSCH SCREENS */}
 import DeutschLogin from './Ventanas/deutschScreens/deutschLogin';
 import DeutschRegister from './Ventanas/deutschScreens/deutschRegister';
@@ -56,7 +59,7 @@ function App() {
         <Stack.Screen name ='Login'component={EnglishLogin}/>
         <Stack.Screen name ='Register' component={EnglishRegister} />
         <Stack.Screen name ='Recover password' component={EnglishPassword} />
-        <Stack.Screen name ='Confirm mail' component={EnglishConfirmarCorreo} />
+        <Stack.Screen name ='Confirm mail' component={EnglishConfirmMail} />
         <Stack.Screen name ='Home' component={EnglishHomeScreen} />
         <Stack.Screen name ='New Password' component={EnglishNewPassword} />
 
@@ -65,6 +68,9 @@ function App() {
         <Stack.Screen name ='Connecter'component={FrenchLogin}/>
         <Stack.Screen name ='Registre' component={FrenchRegister} />
         <Stack.Screen name ='Récupérer mot de passe' component={FrenchRecuperarContrasena} />
+        <Stack.Screen name ='Confirmer le courrier' component={FrenchConfirmMail} />
+        <Stack.Screen name ='Majeur' component={FrenchHomeScreen} />
+        <Stack.Screen name ='Nouveau mot de passe' component={FrenchNewPassword} />
         
         {/* DEUTSCH SCREENS */}
         <Stack.Screen name ='Anmeldung'component={DeutschLogin}/>
