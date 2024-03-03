@@ -30,12 +30,13 @@ function Login({ navigation }) {
         const password = pwd;
 
         try {
+            navigation.navigate("Principal")
             const { isSignedIn, nextStep } = await signIn({
                 username, password,
                 options: { authFlowType: "USER_PASSWORD_AUTH" }
             })
             console.log('success')
-            navigation.navigate("Home")
+            navigation.navigate("Inicio")
         } catch (e) {
             Alert.alert('Inicio de sesion', 'Correo electrónico o contraseña incorrectos')
             console.log('error singing in')

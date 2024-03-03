@@ -16,6 +16,9 @@ import NewPassword from './Ventanas/spanishScreens/NewPassword';
 import EnglishLogin from './Ventanas/englishScreens/englishLogin';
 import EnglishRegister from './Ventanas/englishScreens/englishRegister';
 import EnglishPassword from './Ventanas/englishScreens/englishPassword';
+import EnglishConfirmarCorreo from './Ventanas/englishScreens/englishConfirmMail';
+import EnglishHomeScreen from './Ventanas/englishScreens/englishHomeScreen';
+import EnglishNewPassword from './Ventanas/englishScreens/englishNewPassword';
 {/* FRENCH SCREENS */}
 import FrenchRecuperarContrasena  from './Ventanas/frenchScreens/frenchPassword';
 import FrenchLogin from './Ventanas/frenchScreens/frenchLogin';
@@ -46,13 +49,16 @@ function App() {
         <Stack.Screen name ='Registrar' component={Register} />
         <Stack.Screen name ='Confirmar Correo' component={ConfirmarCorreo} />
         <Stack.Screen name ='Recuperar Contrasena' component={RecuperarContrasena} />
-        <Stack.Screen name ='Home' component={HomeScreen} />
-        <Stack.Screen name ='New Password' component={NewPassword} />
+        <Stack.Screen name ='Principal' component={HomeScreen} />
+        <Stack.Screen name ='Nueva contraseña' component={NewPassword} />
       
         {/* ENGLISH SCREENS */}
         <Stack.Screen name ='Login'component={EnglishLogin}/>
         <Stack.Screen name ='Register' component={EnglishRegister} />
         <Stack.Screen name ='Recover password' component={EnglishPassword} />
+        <Stack.Screen name ='Confirm mail' component={EnglishConfirmarCorreo} />
+        <Stack.Screen name ='Home' component={EnglishHomeScreen} />
+        <Stack.Screen name ='New Password' component={EnglishNewPassword} />
 
 
         {/* FRENCH SCREENS */}
