@@ -3,13 +3,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Amplify } from 'aws-amplify';
 import amplifyconfig from './src/amplifyconfiguration.json';
+{/* LANGUAJE SCREEN */}
+import SelectLanguajes from './Ventanas/SelectLanguajes';
 {/* SPANISH SCREENS */}
-import Login from "./Ventanas/spanishScreens/Login";
-import Register from './Ventanas/spanishScreens/Register';
-import RecuperarContrasena from "./Ventanas/spanishScreens/recuperarContrasena";
-import ConfirmarCorreo from './Ventanas/spanishScreens/ConfirmarCorreo';
-import HomeScreen from './Ventanas/spanishScreens/HomeScreen';
-import NewPassword from './Ventanas/spanishScreens/NewPassword';
+import Login from "./Ventanas/spanishScreens/spanishLogin";
+import Register from './Ventanas/spanishScreens/spanishRegister';
+import RecuperarContrasena from "./Ventanas/spanishScreens/spanishrecuperarContrasena";
+import ConfirmarCorreo from './Ventanas/spanishScreens/spanishConfirmarCorreo';
+import HomeScreen from './Ventanas/spanishScreens/spanishHomeScreen';
+import NewPassword from './Ventanas/spanishScreens/spanishNewPassword';
 {/* ENGLISH SCREENS */}
 import EnglishLogin from './Ventanas/englishScreens/englishLogin';
 import EnglishRegister from './Ventanas/englishScreens/englishRegister';
@@ -32,6 +34,9 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+
+        {/* SELECT LANGUAJE */}
+        <Stack.Screen name ='Select languaje'component={SelectLanguajes}/>
         
         {/* SPANISH SCREENS */}
         <Stack.Screen name ='Inicio'component={Login}/>

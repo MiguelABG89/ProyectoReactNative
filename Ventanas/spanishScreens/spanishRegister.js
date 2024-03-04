@@ -5,7 +5,7 @@ import { signUp } from 'aws-amplify/auth'
 
 // Componente para registrarse
 function Register({ navigation }) {
-    // Estados para el idioma, usuario, mail y contraseñas
+    // Estados para el usuario, mail y contraseñas
     const [user, setUser] = useState("");
     const [mail, setMail] = useState("");
     const [pwd, setPassword] = useState("");

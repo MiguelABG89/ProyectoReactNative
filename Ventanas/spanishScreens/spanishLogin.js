@@ -6,7 +6,7 @@ import { signIn, signOut } from 'aws-amplify/auth';
 
 // Componente para iniciar sesión
 function Login({ navigation }) {
-    // Estados para el idioma, usuario y contraseña
+    // Estados para el usuario y contraseña
     const [Usu, onChangeUsu] = useState('');
     const [pwd, onChangePwd] = useState('');
 
