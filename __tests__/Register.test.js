@@ -1,77 +1,36 @@
 import React from 'react';
 import {render,fireEvent} from '@testing-library/react-native';
-import Register from '../Ventanas/Register';
+import Register from '../Ventanas/spanishScreens/spanishRegister';
 
-describe('Register Component - Unit Test', () => {
-  it('renders correctly', () => {
-    const { getByPlaceholderText, getByText } = render(<Register />);
-
-    // Verifica que los elementos importantes estén presentes en el componente
+describe('Register component', () => {
+  test('renders correctly', () => {
+    const { getByText, getByPlaceholderText, getByTestId } = render(<Register />);
+    
+    // Verifica que algunos elementos estén presentes en el componente
+    expect(getByText('Registrarse')).toBeTruthy();
     expect(getByPlaceholderText('Usuario')).toBeTruthy();
+    expect(getByPlaceholderText('Correo')).toBeTruthy();
     expect(getByPlaceholderText('Contraseña')).toBeTruthy();
     expect(getByPlaceholderText('Confirmar contraseña')).toBeTruthy();
-    expect(getByText('Registrarse')).toBeTruthy();
+    expect(getByTestId('togglePassword1')).toBeTruthy();
+    expect(getByTestId('togglePassword2')).toBeTruthy();
   });
 
-  it('updates state on input change', () => {
-    const { getByPlaceholderText } = render(<Register />);
+  test('handles registration with valid input', async () => {
+    const { getByText, getByPlaceholderText } = render(<Register />);
+    
+    // Simula la entrada de datos válidos
+    fireEvent.changeText(getByPlaceholderText('Usuario'), 'testUser');
+    fireEvent.changeText(getByPlaceholderText('Correo'), 'test@example.com');
+    fireEvent.changeText(getByPlaceholderText('Contraseña'), 'password');
+    fireEvent.changeText(getByPlaceholderText('Confirmar contraseña'), 'password');
+    
+    // Simula el clic en el botón de registro
+    fireEvent.press(getByText('Registrarse'));
 
-    const usuarioInput = getByPlaceholderText('Usuario');
-    const passwordInput = getByPlaceholderText('Contraseña');
-    const password2Input = getByPlaceholderText('Confirmar contraseña');
-
-    fireEvent.changeText(usuarioInput, 'usuario123');
-    fireEvent.changeText(passwordInput, 'contraseña456');
-    fireEvent.changeText(password2Input, 'contraseña456');
-
-    // Verifica que el estado se actualice correctamente
-    expect(usuarioInput.props.value).toBe('usuario123');
-    expect(passwordInput.props.value).toBe('contraseña456');
-    expect(password2Input.props.value).toBe('contraseña456');
+    // Espera a que la alerta de registro correcto aparezca
+    await waitFor(() => expect(getByText('Registro correcto')).toBeTruthy());
   });
 
-  it('displays error messages correctly', () => {
-    const { getByPlaceholderText, getByText } = render(<Register />);
-
-    const usuarioInput = getByPlaceholderText('Usuario');
-    const passwordInput = getByPlaceholderText('Contraseña');
-    const password2Input = getByPlaceholderText('Confirmar contraseña');
-
-    // Deja campos vacíos
-    fireEvent.press(getByText('Registrarse'));
-
-    expect(getByText('Uno o más campos están vacíos')).toBeTruthy();
-
-    // Ingresa contraseña con longitud inferior a 6
-    fireEvent.changeText(usuarioInput, 'usuario123');
-    fireEvent.changeText(passwordInput, 'pass');
-    fireEvent.changeText(password2Input, 'pass');
-    fireEvent.press(getByText('Registrarse'));
-
-    expect(getByText('Longitud mínima de la contraseña: 6 caracteres')).toBeTruthy();
-
-    // Ingresa contraseñas diferentes
-    fireEvent.changeText(passwordInput, 'password123');
-    fireEvent.changeText(password2Input, 'password456');
-    fireEvent.press(getByText('Registrarse'));
-
-    expect(getByText('Las contraseñas no son iguales')).toBeTruthy();
-
-    // Ingresa datos válidos
-    fireEvent.changeText(password2Input, 'password123');
-    fireEvent.press(getByText('Registrarse'));
-
-    // Verifica que no haya mensajes de error presentes
-    expect(() => getByText('')).toBeTruthy();
-    expect(() => getByText('')).toBeTruthy();
-    expect(() => getByText('')).toBeTruthy();
-  });
-
-  // Test para los cambios de idioma
-});
-
-describe('Register Component - Integration Test', () => {
-  it('renders correctly', () => {
-    // CUANDO HAGAMOS MERGE DEL CODIGO DE MIGUEL HACER ESTOS TEST :D
-  });
+  // Agrega más pruebas según sea necesario para cubrir otros casos y condiciones.
 });

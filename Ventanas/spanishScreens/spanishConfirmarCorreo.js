@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { TextInput, View, Button, Alert, Image } from 'react-native';
-import styles from '../../estilos/estilos'
-import { confirmSignUp } from 'aws-amplify/auth'
+import styles from '../../estilos/estilos';
+import { confirmSignUp } from 'aws-amplify/auth';
 
 // Componente para confirmar el correo electrónico
 function ConfirmarCorreo({ navigation }) {

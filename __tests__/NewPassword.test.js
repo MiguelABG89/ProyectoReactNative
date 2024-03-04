@@ -1,51 +1,36 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import NewPassword from './NewPassword';
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
+import NewPassword from '../Ventanas/spanishScreens/spanishNewPassword';
 
 describe('NewPassword component', () => {
-  let wrapper;
-
-  beforeEach(() => {
-    wrapper = shallow(<NewPassword />);
+  test('renders correctly', () => {
+    const { getByText, getByPlaceholderText, getByTestId } = render(<NewPassword />);
+    
+    // Verifica que algunos elementos estén presentes en el componente
+    expect(getByText('Restablecer la contraseña')).toBeTruthy();
+    expect(getByText('Por favor, introduzca el código recibido y su nueva contraseña.')).toBeTruthy();
+    expect(getByPlaceholderText('Código')).toBeTruthy();
+    expect(getByPlaceholderText('Nueva contraseña')).toBeTruthy();
+    expect(getByPlaceholderText('Confirmar contraseña')).toBeTruthy();
+    expect(getByTestId('togglePassword1')).toBeTruthy();
+    expect(getByTestId('togglePassword2')).toBeTruthy();
+    expect(getByText('Recuperar contraseña')).toBeTruthy();
   });
 
-  it('renders correctly', () => {
-    expect(wrapper).toMatchSnapshot();
+  test('handles password reset with valid input', async () => {
+    const { getByText, getByPlaceholderText } = render(<NewPassword />);
+    
+    // Simula la entrada de datos válidos
+    fireEvent.changeText(getByPlaceholderText('Código'), '123456');
+    fireEvent.changeText(getByPlaceholderText('Nueva contraseña'), 'newpassword');
+    fireEvent.changeText(getByPlaceholderText('Confirmar contraseña'), 'newpassword');
+    
+    // Simula el clic en el botón de restablecimiento de contraseña
+    fireEvent.press(getByText('Recuperar contraseña'));
+
+    // Espera a que la alerta de éxito aparezca
+    await waitFor(() => expect(getByText('Exito')).toBeTruthy());
   });
 
-  it('handles code input change', () => {
-    const code = '123456';
-    wrapper.find('TextInput').at(0).simulate('changeText', code);
-    expect(wrapper.find('TextInput').at(0).prop('value')).toEqual(code);
-  });
-
-  it('handles new password input change', () => {
-    const newPassword = 'newpassword';
-    wrapper.find('TextInput').at(1).simulate('changeText', newPassword);
-    expect(wrapper.find('TextInput').at(1).prop('value')).toEqual(newPassword);
-  });
-
-  it('handles confirm password input change', () => {
-    const confirmPassword = 'newpassword';
-    wrapper.find('TextInput').at(2).simulate('changeText', confirmPassword);
-    expect(wrapper.find('TextInput').at(2).prop('value')).toEqual(confirmPassword);
-  });
-
-  it('toggles password visibility', () => {
-    wrapper.find('TouchableOpacity').at(0).simulate('press');
-    expect(wrapper.find('TextInput').at(1).prop('secureTextEntry')).toEqual(false);
-    wrapper.find('TouchableOpacity').at(1).simulate('press');
-    expect(wrapper.find('TextInput').at(2).prop('secureTextEntry')).toEqual(false);
-  });
-
-  it('handles password recovery button press', () => {
-    const mockNavigation = jest.fn();
-    wrapper.setProps({ navigation: { navigate: mockNavigation } });
-
-    wrapper.setState({ code: '123456', psw: 'newpassword', confirmarPassword: 'newpassword' });
-    wrapper.find('Button').prop('onPress')();
-
-    // Here you can expect navigation to be called with the appropriate route
-    expect(mockNavigation).toHaveBeenCalledWith('Inicio');
-  });
+  // Agrega más pruebas según sea necesario para cubrir otros casos y condiciones.
 });

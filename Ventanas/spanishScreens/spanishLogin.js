@@ -3,6 +3,7 @@ import { SafeAreaView, TouchableOpacity, Text, Button, TextInput, Alert, Image, 
 import styles from '../../estilos/estilos';
 import { signIn, signOut } from 'aws-amplify/auth';
 
+
 // Componente para iniciar sesión
 function Login({ navigation }) {
     // Estados para el idioma, usuario y contraseña

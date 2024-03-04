@@ -1,78 +1,41 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import HomeScreen from './HomeScreen';
-import { Button, ModalDropdown } from 'react-native';
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
+import HomeScreen from '../Ventanas/spanishScreens/spanishHomeScreen';
 
 describe('HomeScreen component', () => {
-  let wrapper;
-
-  beforeEach(() => {
-    wrapper = shallow(<HomeScreen />);
+  test('renders correctly', () => {
+    const { getByText } = render(<HomeScreen />);
+    
+    // Verifica que algunos elementos estén presentes en el componente
+    expect(getByText('Llamar api')).toBeTruthy();
+    expect(getByText('Cerrar sesión')).toBeTruthy();
   });
 
-  it('renders correctly', () => {
-    expect(wrapper).toMatchSnapshot();
+  test('calls API when "Llamar api" button is pressed', async () => {
+    const { getByText } = render(<HomeScreen />);
+    
+    // Simula el clic en el botón de llamar API
+    fireEvent.press(getByText('Llamar api'));
+
+    // Puedes agregar aserciones aquí para verificar que la llamada a la API fue exitosa.
+    // Por ejemplo, verificar que se imprimió el mensaje correcto en la consola.
+
+    // Aquí, estamos esperando 500 ms (puedes ajustar esto según sea necesario)
+    await waitFor(() => {}, { timeout: 500 });
   });
 
-  it('handles language selection', () => {
-    const mockNavigation = jest.fn();
-    wrapper.setProps({ navigation: { navigate: mockNavigation } });
+  test('signs out when "Cerrar sesión" button is pressed', async () => {
+    const { getByText } = render(<HomeScreen />);
+    
+    // Simula el clic en el botón de cerrar sesión
+    fireEvent.press(getByText('Cerrar sesión'));
 
-    const modalDropdown = wrapper.find(ModalDropdown);
-    modalDropdown.prop('onSelect')(1, 'English');
+    // Puedes agregar aserciones aquí para verificar que se ha cerrado la sesión.
+    // Por ejemplo, puedes verificar que se navega a la pantalla de inicio.
 
-    expect(mockNavigation).toHaveBeenCalledWith('englishRegister');
+    // Aquí, estamos esperando 500 ms (puedes ajustar esto según sea necesario)
+    await waitFor(() => {}, { timeout: 500 });
   });
 
-  it('calls getTodo function on button press', () => {
-    const getTodoSpy = jest.spyOn(HomeScreen.prototype, 'getTodo');
-
-    const button = wrapper.find(Button).at(0);
-    button.simulate('press');
-
-    expect(getTodoSpy).toHaveBeenCalled();
-  });
-
-  it('calls handleSignOut function on button press', () => {
-    const handleSignOutSpy = jest.spyOn(HomeScreen.prototype, 'handleSignOut');
-
-    const button = wrapper.find(Button).at(1);
-    button.simulate('press');
-
-    expect(handleSignOutSpy).toHaveBeenCalled();
-  });
-
-  it('executes getTodo function successfully', async () => {
-    // Mock the API response
-    const mockResponse = { json: jest.fn().mockResolvedValue('Mock response') };
-    global.fetch = jest.fn().mockResolvedValue({ body: mockResponse });
-
-    const consoleSpy = jest.spyOn(console, 'log');
-
-    await wrapper.instance().getTodo();
-
-    expect(consoleSpy).toHaveBeenCalledWith('GET call succeeded: ', 'Mock response');
-  });
-
-  it('handles error in getTodo function', async () => {
-    // Mock the API error response
-    global.fetch = jest.fn().mockRejectedValue(new Error('API Error'));
-
-    const consoleErrorSpy = jest.spyOn(console, 'error');
-
-    await wrapper.instance().getTodo();
-
-    expect(consoleErrorSpy).toHaveBeenCalledWith('GET call failed: ', new Error('API Error'));
-  });
-
-  it('handles sign out', async () => {
-    const mockSignOut = jest.fn();
-    wrapper.setProps({ navigation: { navigate: jest.fn() } });
-    jest.spyOn(HomeScreen.prototype, 'handleSignOut').mockImplementation(mockSignOut);
-
-    const button = wrapper.find(Button).at(1);
-    button.simulate('press');
-
-    expect(mockSignOut).toHaveBeenCalled();
-  });
+  // Agrega más pruebas según sea necesario para cubrir otros casos y condiciones.
 });

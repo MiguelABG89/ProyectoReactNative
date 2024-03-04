@@ -1,6 +1,6 @@
 import React from 'react';
 import {render,fireEvent} from '@testing-library/react-native';
-import Login from '../Ventanas/spanishScreens/spanishLogin'
+import Login from '../Ventanas/spanishScreens/spanishLogin.js';
 
 describe('Login Component', () => {
   it('renders correctly', () => {
