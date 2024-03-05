@@ -1,49 +1,37 @@
 import React, { useState } from "react";
 import { Button, View, TextInput, Image, Alert, Text, KeyboardAvoidingView, ScrollView } from "react-native";
-import styles from '../../estilos/estilos'
-import ModalDropdown from 'react-native-modal-dropdown';
+import { Auth } from 'aws-amplify';
+import styles from '../../estilos/estilos';
+import { NavigationAction } from "@react-navigation/native";
+import { resetPassword } from 'aws-amplify/auth';
 
 const DeutschPassword = ({navigation}) => {
-    const [text, onChangeText] = React.useState('');
-    const [selectedLanguage, setSelectedLanguage] = useState("Wähle eine Sprache");
-    const languages = [
-        'Español',
-        'English',
-        'Français',
-        'Deutsch',
-        '中国人'
-    ];
+    // Estados para el usuario
+    const [username, onChangeUsername] = useState('');
 
-    const handleLanguageSelect = (index, value) => {
-        setSelectedLanguage("Deutsch");
-        // Navegar al componente correspondiente al idioma seleccionado
-        switch (value) {
-            case 'Español':
-                navigation.navigate('Recuperar Contrasena', { name: 'Recuperar contrasena' })
-                break;
-            case 'English':
-                navigation.navigate('Recover password', { name: 'Login' })
-                break;
-            case 'Français':
-                navigation.navigate('Récupérer mot de passe', { name: 'Récupérer mot de passe' })
-                break;
-            case 'Deutsch':
-                navigation.navigate('Passwort wiederherstellen', { name: 'Passwort wiederherstellen' })
-                break;
-            default:
-                navigation.navigate('Passwort wiederherstellen', { name: 'Passwort wiederherstellen' })
+    // Estado para los mensajes de error
+    const [mensajeUsernameInvalido, setMensajeUsernameInvalido] = useState("")
+
+    // Función para enviar código de seguridad
+    async function handleResetPassword() {
+        try {
+            console.log(username);
+            await resetPassword({ username });
+            console.log('Correo de restablecimiento de contraseña enviado con éxito.');
+            navigation.navigate('Neues Kennwort', { name: [username] });
+        } catch (err) {
+            console.log(err);
+            Alert.alert('Benutzer-Anmeldung', 'Der eingegebene Benutzer ist nicht in der Datenbank vorhanden');
         }
-    };
+    }
 
+    // Renderización del componente
     return (
-        <KeyboardAvoidingView style={styles.container} behavior="padding">
-            <ScrollView>
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+            <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <View style={styles.estructure}>
-                    <ModalDropdown
-                        options={languages}
-                        defaultValue={selectedLanguage}
-                        onSelect={handleLanguageSelect}
-                    />
+
+                    {/* Titulo e imagen */}
                     <Text style={styles.titles}>
                         Setze dein Passwort zurück
                     </Text>
@@ -51,20 +39,35 @@ const DeutschPassword = ({navigation}) => {
                         source={require('../../assets/candado.png')}
                         style={styles.image}
                     />
+
+                    {/* Input de correo electrónico */}
                     <Text style={styles.text}>
-                        Bitte geben Sie ihre benutzer ein. Wir senden Ihnen Anweisungen zum Zurücksetzen Ihres Passworts.
+                        Bitte geben Sie ihre E-Mail-Adresse ein. Wir senden Ihnen Anweisungen zum Zurücksetzen Ihres Passworts
                     </Text>
                     <TextInput
                         style={styles.inputs}
-                        onChangeText={onChangeText}
-                        value={text}
+                        onChangeText={onChangeUsername}
+                        value={username}
                         placeholder="Benutzer"
                     />
+
+                    {/* Mostrar mensaje de error si existe */}
+                    {mensajeUsernameInvalido !== "" && <Text style={styles.errors}>{mensajeUsernameInvalido}</Text>}
+
+                    {/* Botón para recuperar contraseña */}
                     <Button
                         color={styles.buttons.color}
                         title="Passwort wiederherstellen"
                         onPress={() => {
-                            Alert.alert('Eine E-Mail wurde an folgende Adresse gesendet:', `${text}`);
+                            // Resetear mensajes de error
+                            setMensajeUsernameInvalido("");
+
+                            // Validar campos de entrada
+                            if (username.length === 0) {
+                                setMensajeUsernameInvalido("Das Feld darf nicht leer sein.");
+                            } else {
+                                handleResetPassword(username);
+                            }
                         }}
                     />
                 </View>

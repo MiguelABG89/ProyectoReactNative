@@ -34,9 +34,9 @@ function DeutschLogin({ navigation }) {
                 options: { authFlowType: "USER_PASSWORD_AUTH" }
             })
             console.log('success')
-            navigation.navigate("Home")
+            navigation.navigate("Heim")
         } catch (e) {
-            Alert.alert('Inicio de sesion', 'Correo electrónico o contraseña incorrectos')
+            Alert.alert('Anmeldung', 'Falsche Email oder Passwort')
             console.log('error singing in')
         }
     }
@@ -89,11 +89,11 @@ function DeutschLogin({ navigation }) {
 
                     {/* Texto para recuperar contraseña */}
                     <Text style={styles.text}>
-                    Ich habe mein{" "}
-                        <Text style={styles.linkableText} onPress={() => navigation.navigate('Recuperar Contrasena', { name: 'Recuperar Contrasena' })}>
-                        Passwort 
+                        Ich habe mein {" "}
+                        <Text style={styles.linkableText} onPress={() => navigation.navigate('Passwort wiederherstellen', { name: 'Passwort wiederherstellen' })}>
+                            Passwort vergessen
                         </Text>
-                    {" "}vergessen
+                        {" "}vergessen
                     </Text>
 
                     {/* Botones para iniciar/cerrar sesión */}
@@ -111,8 +111,8 @@ function DeutschLogin({ navigation }) {
                     />
 
                     {/* Texto para registrarse */}
-                    <Text style={styles.text}>¿Necesitas una cuenta?</Text>
-                    <Text style={styles.linkableText} onPress={() => navigation.navigate('Registrar', { name: 'Registrar' })}>registrieren</Text>
+                    <Text style={styles.text}>Benötigen Sie ein Konto?</Text>
+                    <Text style={styles.linkableText} onPress={() => navigation.navigate('Registrieren', { name: 'Registrieren' })}>Registrieren</Text>
 
                 </SafeAreaView>
             </ScrollView>

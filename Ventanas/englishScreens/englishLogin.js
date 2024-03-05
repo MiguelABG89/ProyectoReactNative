@@ -1,16 +1,33 @@
-import React, { useState } from "react";
-import { SafeAreaView, Text, Button, TextInput, Alert, Image, KeyboardAvoidingView, ScrollView } from "react-native";
+import React, { useState, useEffect } from "react";
+import { SafeAreaView, TouchableOpacity, Text, Button, TextInput, Alert, Image, KeyboardAvoidingView, ScrollView, View } from "react-native";
 import styles from '../../estilos/estilos';
-import ModalDropdown from 'react-native-modal-dropdown';
+import { Auth } from 'aws-amplify';
 import { signIn, signOut } from 'aws-amplify/auth';
 
 function EnglishLogin({ navigation }) {
-    const [Usu, onChangeUsu] = React.useState('');
-    const [pwd, onChangePwd] = React.useState('');
+    // Estados para el usuario y contraseña
+    const [Usu, onChangeUsu] = useState('');
+    const [pwd, onChangePwd] = useState('');
 
+    // Estado y función para cambiar la visibilidad de la contraseña
+    const [showPwd1, setShowPwd1] = React.useState(true);
+    const toggleShowPassword1 = () => setShowPwd1(!showPwd1);
+
+    // Efecto para limpiar los campos de usuario y contraseña al cambiar de pantalla
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('blur', () => {
+            onChangeUsu('');
+            onChangePwd('');
+        });
+
+        return unsubscribe;
+    }, [navigation]);
+
+    // Función para manejar el inicio de sesión
     async function handleSingIn() {
         const username = Usu;
         const password = pwd;
+
         try {
             const { isSignedIn, nextStep } = await signIn({
                 username, password,
@@ -19,9 +36,12 @@ function EnglishLogin({ navigation }) {
             console.log('success')
             navigation.navigate("Home")
         } catch (e) {
+            Alert.alert('Log in', 'Incorrect email or password')
             console.log('error singing in')
         }
     }
+
+    // Función para cerrar sesión
     async function handleSignOut() {
         try {
             await signOut();
@@ -31,98 +51,68 @@ function EnglishLogin({ navigation }) {
         }
     }
 
-
-    const [selectedLanguage, setSelectedLanguage] = useState("Select a language");
-    const languages = [
-        'Español',
-        'English',
-        'Français',
-        'Deutsch',
-        '中国人'
-    ];
-
-    const handleLanguageSelect = (index, value) => {
-        setSelectedLanguage("English");
-
-        // Navegar al componente correspondiente al idioma seleccionado
-        switch (value) {
-            case 'Español':
-                navigation.navigate('Inicio', { name: 'Inicio' });
-                break;
-            case 'English':
-                navigation.navigate('Login', { name: 'Login' });
-                break;
-            case 'Français':
-                navigation.navigate('Connecter', { name: 'Connecter' });
-                break;
-            case 'Deutsch':
-                navigation.navigate('Anmeldung', { name: 'Anmeldung' });
-                break;
-            default:
-                navigation.navigate('Login', { name: 'Login' });
-        }
-    };
-
+    // Renderización del componente
     return (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
             <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 <SafeAreaView style={styles.estructure}>
 
-                    {/* Menú desplegable de idiomas */}
-                    <ModalDropdown
-                        options={languages}
-                        defaultValue={selectedLanguage}
-                        onSelect={handleLanguageSelect}
-                    />
-
-                    {/* Imagen logo FP2 */}
+                    {/* Logo */}
                     <Image
                         source={require('../../assets/Logo-FDP.jpg')}
                         style={styles.image}
                     />
 
-                    {/* Campo USUARIO */}
+                    {/* Input para el correo electrónico */}
                     <TextInput
                         style={styles.inputs}
                         onChangeText={nextUsu => onChangeUsu(nextUsu)}
                         defaultValue={Usu}
-                        placeholder="Username"
+                        placeholder="Email"
                     />
 
-                    {/* Campo CONTRASEÑA */}
-                    <TextInput
-                        style={styles.inputs}
-                        onChangeText={nextPwd => onChangePwd(nextPwd)}
-                        defaultValue={pwd}
-                        placeholder="Password"
-                        secureTextEntry={true}
-                    />
+                    {/* Input para la contraseña */}
+                    <View style={styles.viewOjo}>
+                        <TextInput
+                            style={styles.inputPwd}
+                            onChangeText={nextPwd => onChangePwd(nextPwd)}
+                            defaultValue={pwd}
+                            placeholder="Password"
+                            secureTextEntry={showPwd1}
+                        />
+                        <TouchableOpacity onPress={toggleShowPassword1} style={styles.touchableOjo}>
+                            <Image
+                                source={showPwd1 ? require('../../assets/ojoOff.png') : require('../../assets/ojoOn.png')}
+                                style={styles.imageOjo}
+                            />
+                        </TouchableOpacity>
+                    </View>
 
-                    {/* RECUPERAR CONTRASEÑA */}
+                    {/* Texto para recuperar contraseña */}
                     <Text style={styles.text}>
                         I forgot my{" "}
-                        <Text style={styles.linkableText} onPress={() => navigation.navigate('Recover password', { name: 'Recover Password' })}>
+                        <Text style={styles.linkableText} onPress={() => navigation.navigate('Recover password', { name: 'Recover password' })}>
                             password
                         </Text>
                     </Text>
 
-                    {/* Botón para iniciar sesión */}
+                    {/* Botones para iniciar/cerrar sesión */}
                     <Button
                         color={styles.buttons.color}
                         style={{ margin: styles.buttons.margin }}
                         title="Log in"
-                        onPress={handleSingIn} />
-
-                    {/* Botón para cerrar sesión */}
+                        onPress={handleSingIn}
+                    />
                     <Button
                         color={styles.buttons.color}
                         style={{ margin: styles.buttons.margin }}
                         title="Log out"
-                        onPress={handleSignOut} />
+                        onPress={handleSignOut}
+                    />
 
-                    {/* Crear nuevo usuario */}
-                    <Text style={styles.text}>Do you need an account?</Text>
-                    <Text style={styles.linkableText} onPress={() => navigation.navigate('Register', { name: 'Register' })}>Register</Text>
+                    {/* Texto para registrarse */}
+                    <Text style={styles.text}>Don´t have an account?</Text>
+                    <Text style={styles.linkableText} onPress={() => navigation.navigate('Register', { name: 'Register' })}>Sign up</Text>
 
                 </SafeAreaView>
             </ScrollView>

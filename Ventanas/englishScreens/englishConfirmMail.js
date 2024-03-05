@@ -4,7 +4,7 @@ import styles from '../../estilos/estilos'
 import { confirmSignUp } from 'aws-amplify/auth'
 
 // Componente para confirmar el correo electrónico
-function DeutschConfirmMail({ navigation }) {
+function EnglishConfirmMail({ navigation }) {
     // Estados para el usuario y código de confirmación
     const [user, setUser] = useState("")
     const [code, setCode] = useState("")
@@ -18,7 +18,7 @@ function DeutschConfirmMail({ navigation }) {
                 username: username,
                 confirmationCode: codeConfirm
             });
-            navigation.navigate("Anmeldung")
+            navigation.navigate("Login")
         } catch (error) {
             console.log('error confirming sign up', error);
         }
@@ -35,18 +35,18 @@ function DeutschConfirmMail({ navigation }) {
             />
 
             {/* Inputs para el usuario y el código */}
-            <TextInput style={styles.inputs} onChangeText={setUser} value={user} placeholder="Benutzer" />
+            <TextInput style={styles.inputs} onChangeText={setUser} value={user} placeholder="User" />
             <TextInput style={styles.inputs} onChangeText={setCode} value={code} placeholder="Code" />
 
             {/* Botón para confirmar */}
             <Button
                 onPress={handleSignUpConfirmation}
-                title='Bestätigen'
-                accessibilityLabel='Bestätigen'
+                title='Confirm'
+                accessibilityLabel='Confirm'
                 color={styles.buttons.color}
             />
         </View>
     );
 }
 
-export default DeutschConfirmMail
+export default EnglishConfirmMail

@@ -4,7 +4,7 @@ import styles from '../../estilos/estilos'
 import { confirmResetPassword } from "@aws-amplify/auth";
 
 // Componente para cambiar contraseña de la cuenta
-function DeutschNewPassword({ navigation, route }) {
+function EnglishNewPassword({ navigation, route }) {
     // Estados para el codigo y contraseñas
     const [code, setCode] = React.useState('');
     const [psw, setNewPassword] = React.useState('');
@@ -28,10 +28,10 @@ function DeutschNewPassword({ navigation, route }) {
 
         try {
             await confirmResetPassword({ username, confirmationCode, newPassword });
-            Alert.alert('Erfolg', 'Das Passwort wurde erfolgreich geändert');
-            navigation.navigate("Anmeldung")
+            Alert.alert('Success', 'Password changed successfully');
+            navigation.navigate("Login")
         } catch (error) {
-            Alert.alert('Fehler', 'Fehler beim Ändern des Passworts. Stellen Sie sicher, dass der eingegebene Code korrekt ist')
+            Alert.alert('Error', 'Error changing password. Make sure the code entered is correct')
             console.log('error en el restablecimiento de contraseña')
         }
     }
@@ -42,11 +42,11 @@ function DeutschNewPassword({ navigation, route }) {
 
             {/* Título y descripción */}
             <Text style={styles.titles}>
-                Setze dein Passwort zurück
+                Reset your password
             </Text>
 
             <Text style={styles.text}>
-                Bitte geben Sie den erhaltenen Code und Ihr neues Passwort ein.
+                Please enter the code received and your new password.
             </Text>
 
             {/* Input para el código de confirmación */}
@@ -63,7 +63,7 @@ function DeutschNewPassword({ navigation, route }) {
                     style={styles.inputPwd}
                     onChangeText={setNewPassword}
                     value={psw}
-                    placeholder="Neues Kennwort"
+                    placeholder="New Password"
                     secureTextEntry={showPwd1}
                 />
                 <TouchableOpacity onPress={toggleShowPassword1} style={styles.touchableOjo}>
@@ -78,7 +78,7 @@ function DeutschNewPassword({ navigation, route }) {
                     style={styles.inputPwd}
                     onChangeText={setConfirmarPassword}
                     value={confirmarPassword}
-                    placeholder="Bestätige das Passwort"
+                    placeholder="Confirm Password"
                     secureTextEntry={showPwd2}
                 />
 
@@ -97,7 +97,7 @@ function DeutschNewPassword({ navigation, route }) {
             {/* Botón para confirmar restablecimiento de contraseña */}
             <Button
                 color={styles.buttons.color}
-                title="Passwort wiederherstellen"
+                title="Recover password"
                 onPress={() => {
                     // Resetear mensajes de error
                     setMensajePasswordInvalido('')
@@ -105,9 +105,9 @@ function DeutschNewPassword({ navigation, route }) {
 
                     // Validar campos de entrada
                     if (psw.length < 6) {
-                        setMensajePasswordInvalido('Mindestlänge des Passworts: 6 Zeichen')
+                        setMensajePasswordInvalido('Minimum password length: 6 characters')
                     } else if (psw !== confirmarPassword) {
-                        setMensajePasswordsDiferentes('Passwörter sind nicht gleich')
+                        setMensajePasswordsDiferentes('Passwords are not the same')
                     } else {
                         handleConfirmResetPassword(code, psw)
                     }
@@ -117,4 +117,4 @@ function DeutschNewPassword({ navigation, route }) {
     );
 };
 
-export default DeutschNewPassword;
+export default EnglishNewPassword;

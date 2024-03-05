@@ -5,7 +5,7 @@ import { signOut } from 'aws-amplify/auth'
 import { get } from 'aws-amplify/api';
 
 // Componente para mostrar la pantalla principal
-function DeutschHomeScreen({ navigation }) {
+function EnglishHomeScreen({ navigation }) {
     // Función para obtener información de la API
     async function getTodo() {
         try {
@@ -31,7 +31,7 @@ function DeutschHomeScreen({ navigation }) {
     async function handleSignOut() {
         try {
             await signOut();
-            navigation.navigate("Anmeldung")
+            navigation.navigate("Login")
         } catch (error) {
             console.log('error signing out: ', error);
         }
@@ -50,16 +50,16 @@ function DeutschHomeScreen({ navigation }) {
             {/* Botones para llamar a la API y cerrar sesión */}
             <Button
                 color={styles.buttons.color}
-                title="Rufen Sie die API auf"
+                title="Call api"
                 onPress={getTodo}
             />
             <Button
                 color={styles.buttons.color}
-                title="Abmelden"
+                title="Log out"
                 onPress={handleSignOut}
             />
         </View>
     );
 }
 
-export default DeutschHomeScreen
+export default EnglishHomeScreen
