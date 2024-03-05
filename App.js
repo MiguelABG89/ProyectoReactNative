@@ -45,7 +45,7 @@ function App() {
       <Stack.Navigator>
 
         {/* SELECT LANGUAJE */}
-        <Stack.Screen name ='Select languaje'component={SelectLanguajes}/>
+        <Stack.Screen name ='Select language'component={SelectLanguajes}/>
         
         {/* SPANISH SCREENS */}
         <Stack.Screen name ='Inicio'component={Login}/>

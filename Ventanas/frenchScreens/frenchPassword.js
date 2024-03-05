@@ -42,7 +42,7 @@ const FrenchRecuperarContrasena = ({navigation}) => {
 
                     {/* Input de correo electrónico */}
                     <Text style={styles.text}>
-                        Veuillez entrer votre e-mail. Nous vous enverrons des instructions pour réinitialiser votre mot de passe.
+                        Veuillez entrer votre utilisateur. Nous vous enverrons des instructions pour réinitialiser votre mot de passe.
                     </Text>
                     <TextInput
                         style={styles.inputs}

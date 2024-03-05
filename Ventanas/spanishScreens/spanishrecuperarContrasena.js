@@ -17,7 +17,7 @@ function RecuperarContrasena({ navigation }) {
             console.log(username);
             await resetPassword({ username });
             console.log('Correo de restablecimiento de contraseña enviado con éxito.');
-            navigation.navigate('New Password', { name: [username] });
+            navigation.navigate('Nueva contraseña', { name: [username] });
         } catch (err) {
             console.log(err);
             Alert.alert('Ingreso de usuario', 'El usuario introducido no existe en la base de datos');
@@ -62,7 +62,7 @@ function RecuperarContrasena({ navigation }) {
 
                     {/* Input de correo electrónico */}
                     <Text style={styles.text}>
-                        Por favor, introduzca su dirección de correo. Le enviaremos las instrucciones para restablecer su contraseña.
+                        Por favor, introduzca su usuario. Le enviaremos las instrucciones para restablecer su contraseña.
                     </Text>
                     <TextInput
                         style={styles.inputs}

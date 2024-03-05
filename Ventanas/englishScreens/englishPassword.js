@@ -42,7 +42,7 @@ const EnglishPassword = ({ navigation }) => {
 
                     {/* Input de correo electrónico */}
                     <Text style={styles.text}>
-                        Please enter your e-mail. We will send you instructions to reset your password.
+                        Please enter your user. We will send you instructions to reset your password.
                     </Text>
                     <TextInput
                         style={styles.inputs}

@@ -47,7 +47,7 @@ function SelectLanguajes({ navigation }) {
             />
 
             {/* Texto para seleccionar idioma */}
-            <Text style={styles.text}>Select a languaje</Text>
+            <Text style={styles.text}>Select a language</Text>
 
             {/* Lista de botones de idiomas */}
             {languages.map((language, index) => (

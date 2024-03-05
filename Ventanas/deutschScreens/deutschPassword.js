@@ -42,7 +42,7 @@ const DeutschPassword = ({navigation}) => {
 
                     {/* Input de correo electrónico */}
                     <Text style={styles.text}>
-                        Bitte geben Sie ihre E-Mail-Adresse ein. Wir senden Ihnen Anweisungen zum Zurücksetzen Ihres Passworts
+                        Bitte geben Sie ihre benutzer ein. Wir senden Ihnen Anweisungen zum Zurücksetzen Ihres Passworts
                     </Text>
                     <TextInput
                         style={styles.inputs}
