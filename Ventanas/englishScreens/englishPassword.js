@@ -5,7 +5,7 @@ import styles from '../../estilos/estilos';
 import { NavigationAction } from "@react-navigation/native";
 import { resetPassword } from 'aws-amplify/auth';
 
-const EnglishPassword = () => {
+const EnglishPassword = ({ navigation }) => {
     // Estados para el usuario
     const [username, onChangeUsername] = useState('');
 

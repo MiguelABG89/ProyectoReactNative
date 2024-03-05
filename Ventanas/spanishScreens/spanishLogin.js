@@ -35,7 +35,7 @@ function Login({ navigation }) {
                 options: { authFlowType: "USER_PASSWORD_AUTH" }
             })
             console.log('success')
-            navigation.navigate("Home")
+            navigation.navigate("Principal")
         } catch (e) {
             Alert.alert('Inicio de sesion', 'Correo electrónico o contraseña incorrectos')
             console.log('error singing in')
