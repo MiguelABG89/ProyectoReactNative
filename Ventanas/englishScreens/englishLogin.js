@@ -25,6 +25,7 @@ function EnglishLogin({ navigation }) {
     async function handleSignOut() {
         try {
             await signOut();
+            console.log('cierre')
         } catch (error) {
             console.log('error signing out: ', error);
         }
