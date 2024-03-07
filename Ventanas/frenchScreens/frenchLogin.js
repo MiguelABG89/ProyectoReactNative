@@ -112,7 +112,7 @@ function FrenchLogin({ navigation }) {
 
                     {/* Texto para registrarse */}
                     <Text style={styles.text}>Avez-vous besoin d'un compte ?</Text>
-                    <Text style={styles.linkableText} onPress={() => navigation.navigate('Registrar', { name: 'Registrar' })}>Enregistrer</Text>
+                    <Text style={styles.linkableText} onPress={() => navigation.navigate('Registre', { name: 'Registre' })}>Enregistrer</Text>
 
                 </SafeAreaView>
             </ScrollView>

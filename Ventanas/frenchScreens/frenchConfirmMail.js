@@ -33,7 +33,9 @@ function FrenchConfirmMail({ navigation }) {
                 source={require('../../assets/Logo-FDP.jpg')}
                 style={styles.image}
             />
-
+            <Text style={styles.text}>
+            Veuillez entrer votre nom d'utilisateur et le code reçu dans votre courrier électronique.
+            </Text>
             {/* Inputs para el usuario y el código */}
             <TextInput style={styles.inputs} onChangeText={setUser} value={user} placeholder="Utilisateur" />
             <TextInput style={styles.inputs} onChangeText={setCode} value={code} placeholder="Code" />
