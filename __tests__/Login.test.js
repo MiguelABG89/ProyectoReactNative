@@ -1,6 +1,6 @@
 import React from 'react';
 import {render,fireEvent} from '@testing-library/react-native';
-import Login from '../Ventanas/spanishScreens/spanishLogin.js';
+import Login from '../Ventanas/spanishScreens/spanishLogin';
 
 describe('Login Component', () => {
   it('renders correctly', () => {
@@ -51,6 +51,5 @@ describe('Login Component', () => {
     fireEvent.press(signOutButton);
 
     // Verifica que la función de cierre de sesión se llame correctamente
-    // Puedes utilizar mocks o spies para asegurarte de que la función se llame correctamente
   });
 });
