@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TextInput, View, Button, Alert, Image } from 'react-native';
+import { Text,TextInput, View, Button, Alert, Image } from 'react-native';
 import styles from '../../estilos/estilos';
 import { confirmSignUp } from 'aws-amplify/auth';
 
@@ -33,10 +33,12 @@ function ConfirmarCorreo({ navigation }) {
                 source={require('../../assets/Logo-FDP.jpg')}
                 style={styles.image}
             />
-
+            <Text style={styles.text}>
+                   Por favor, introduzca su usuario y el código recibido en su correo electrónico.
+            </Text>
             {/* Inputs para el usuario y el código */}
             <TextInput style={styles.inputs} onChangeText={setUser} value={user} placeholder="Usuario" />
-            <TextInput style={styles.inputs} onChangeText={setCode} value={code} placeholder="Codigo" />
+            <TextInput style={styles.inputs} onChangeText={setCode} value={code} placeholder="Código" />
 
             {/* Botón para confirmar */}
             <Button
