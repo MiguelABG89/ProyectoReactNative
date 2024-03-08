@@ -68,7 +68,7 @@ function Login({ navigation }) {
                         style={styles.inputs}
                         onChangeText={nextUsu => onChangeUsu(nextUsu)}
                         defaultValue={Usu}
-                        placeholder="Correo electrónico"
+                        placeholder="Usuario"
                     />
 
                     {/* Input para la contraseña */}
