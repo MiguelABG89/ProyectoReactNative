@@ -1,12 +1,8 @@
-import { useState } from 'react';
-import { TouchableOpacity, Text, View, Button, Image, navigation, Pressable } from 'react-native';
+import { Text, View, Button, Image } from 'react-native';
 import styles from '../estilos/estilos'
 
 // Componente para confirmar el correo electrónico
 function SelectLanguajes({ navigation }) {
-    // Estados para el idioma, usuario y código de confirmación
-    const [selectedLanguage, setSelectedLanguage] = useState("Seleccione un idioma");
-
     // Lista de idiomas disponibles
     const languages = [
         { name: 'Español', flag: require('../assets/espanol_flag.png') },
@@ -17,7 +13,6 @@ function SelectLanguajes({ navigation }) {
 
     // Función para manejar el cambio de idioma
     const handleLanguageChange = (value) => {
-        setSelectedLanguage(value);
 
         // Navegar al componente del idioma seleccionado
         switch (value) {
